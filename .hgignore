@@ -1,0 +1,10 @@
+syntax: glob
+Debug/
+Release/
+*.user
+*.suo
+*.sdf
+bin/
+obj/
+*.opensdf
+packages/
