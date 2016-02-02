@@ -13,8 +13,8 @@ namespace eth.Telegram.BotApi
         Task<Message> SendMessageAsync(int chatId, string text);
         Task<Message> SendMessageAsync(string channelusername, string text);
 
-        Task<Message> SendSticker(int chatId, string sticker);
-        Task<Message> SendSticker(string channelusername, string sticker);
+        Task<Message> SendStickerAsync(int chatId, string sticker);
+        Task<Message> SendStickerAsync(string channelusername, string sticker);
 
         //        Use this method to send.webp stickers. On success, the sent Message is returned.
         //Parameters Type    Required Description

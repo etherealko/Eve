@@ -84,7 +84,7 @@ namespace eth.TestApp
 
                     if (string.IsNullOrEmpty(msg))
                     {
-                        var retS = api.SendSticker(-49047577, "BQADAgADpwADzHD_Ap3b881dw9ADAg");
+                        var retS = api.SendStickerAsync(-49047577, "BQADAgADpwADzHD_Ap3b881dw9ADAg");
                         continue;
                     }
 

@@ -64,7 +64,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendSticker(int chatId, string sticker)
+        public async Task<Message> SendStickerAsync(int chatId, string sticker)
         {
             var args = new
             {
@@ -76,7 +76,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public Task<Message> SendSticker(string channelusername, string sticker)
+        public Task<Message> SendStickerAsync(string channelusername, string sticker)
         {
             throw new NotImplementedException();
         }
