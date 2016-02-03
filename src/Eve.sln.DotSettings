@@ -1,0 +1,87 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=apiMethodName/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=apiMethodName/Order/@EntryValue">11</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=apiParam2Name/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=apiParam2Name/Order/@EntryValue">9</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=apiParam3Name/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=apiParam3Name/Order/@EntryValue">10</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=apiParamName/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=apiParamName/Order/@EntryValue">8</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=name/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=name/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=param2Name/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=param2Name/Order/@EntryValue">5</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=param2Type/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=param2Type/Order/@EntryValue">4</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=param3Name/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=param3Name/Order/@EntryValue">7</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=param3Type/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=param3Type/Order/@EntryValue">6</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=paramName/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=paramName/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=paramType/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=paramType/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=returnType/@KeyIndexDefined">True</s:Boolean>
+	
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Field/=returnType/Order/@EntryValue">1</s:Int64>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Shortcut/@EntryValue">BotApiMethodWith3Params</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Description/@EntryValue">Telegram bot API Method</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Text/@EntryValue">public async Task&lt;$returnType$&gt; $name$ ($paramType$ $paramName$, $param2Type$ $param2Name$, $param3Type$ $param3Name$)&#xD;
+        {&#xD;
+            var args = new&#xD;
+            {&#xD;
+                $apiParamName$ = $paramName$,&#xD;
+                $apiParam2Name$ = $param2Name$,&#xD;
+                $apiParam3Name$ = $param3Name$&#xD;
+            };&#xD;
+&#xD;
+            return await _api.CallAsync&lt;$returnType$&gt;(ApiMethodPaths.$apiMethodName$, args)&#xD;
+                .ConfigureAwait(false);			&#xD;
+        }&#xD;
+		 $END$</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=17AB309F8E414A4CA3BDA23B5F9C2740/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Description/@EntryValue">Telegram Bot Api Method</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Field/=apiMethodName/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Field/=apiMethodName/Order/@EntryValue">8</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Field/=apiParam2Name/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Field/=apiParam2Name/Order/@EntryValue">7</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Field/=apiParamName/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Field/=apiParamName/Order/@EntryValue">6</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Field/=name/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Field/=name/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Field/=param2Name/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Field/=param2Name/Order/@EntryValue">5</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Field/=param2Type/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Field/=param2Type/Order/@EntryValue">4</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Field/=paramName/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Field/=paramName/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Field/=paramType/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Field/=paramType/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Field/=returnType/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Field/=returnType/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Shortcut/@EntryValue">BotApiMethodWith2Params</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ECFC1F081B3B1B41B541459AEBCEFF42/Text/@EntryValue">public async Task&lt;$returnType$&gt; $name$ ($paramType$ $paramName$, $param2Type$ $param2Name$)&#xD;
+        {&#xD;
+            var args = new&#xD;
+            {&#xD;
+                $apiParamName$ = $paramName$,&#xD;
+                $apiParam2Name$ = $param2Name$&#xD;
+            };&#xD;
+&#xD;
+            return await _api.CallAsync&lt;$returnType$&gt;(ApiMethodPaths.$apiMethodName$, args)&#xD;
+                .ConfigureAwait(false);			&#xD;
+        }&#xD;
+		 $END$</s:String></wpf:ResourceDictionary>
