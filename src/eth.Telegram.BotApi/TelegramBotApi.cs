@@ -1,15 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using eth.Common;
 using eth.Common.JetBrains.Annotations;
 using eth.Telegram.BotApi.Internal;
 using eth.Telegram.BotApi.Objects;
 
 namespace eth.Telegram.BotApi
 {
-    public class TelegramBotApi : ITelegramBotApi
+    public class TelegramBotApi : ITelegramBotApi, IHttpClientTimeout, IDisposable
     {
         private readonly HttpApiClient _api;
+
+        public TimeSpan HttpClientTimeout
+        {
+            get { return _api.Timeout; }
+            set { _api.Timeout = value; }
+        }
 
         public TelegramBotApi([NotNull] string token, string apiBase = "https://api.telegram.org/")
         {
@@ -21,13 +28,13 @@ namespace eth.Telegram.BotApi
             _api = new HttpApiClient(new Uri(apiBase), token);
         }
 
-        public async Task<List<Update>> GetUpdatesAsync(int offset, int limit, int timeout)
+        public async Task<List<Update>> GetUpdatesAsync(int offset, int limit, int timeoutSeconds)
         {
             var args = new
             {
                 offset = offset,
                 limit = limit,
-                timeout = timeout
+                timeout = timeoutSeconds
             };
 
             return await _api.CallAsync<List<Update>>(ApiMethodPaths.GetUpdates, args)
@@ -79,6 +86,11 @@ namespace eth.Telegram.BotApi
         public Task<Message> SendStickerAsync(string channelusername, string sticker)
         {
             throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            _api.Dispose();
         }
     }
 }

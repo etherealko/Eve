@@ -9,10 +9,12 @@ using Newtonsoft.Json;
 
 namespace eth.Telegram.BotApi.Internal
 {
-    internal class HttpApiClient
+    internal class HttpApiClient : IDisposable
     {
         private readonly string _token;
         private readonly HttpClient _client;
+
+        public TimeSpan Timeout { get { return _client.Timeout; } set { _client.Timeout = value; } }
 
         public HttpApiClient([NotNull] Uri baseUri, [NotNull] string token)
         {
@@ -57,6 +59,11 @@ namespace eth.Telegram.BotApi.Internal
                 };
             
             return responseDeserialized.Result;
+        }
+
+        public void Dispose()
+        {
+            _client.Dispose();
         }
     }
 }

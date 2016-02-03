@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7E355AB8-4756-45F1-9CEF-56B91F03E666}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{76557207-8F96-4750-A90C-93D7DE086392}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>eth.TestApp</RootNamespace>
-    <AssemblyName>eth.TestApp</AssemblyName>
+    <RootNamespace>eth.Eve</RootNamespace>
+    <AssemblyName>eth.Eve</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,16 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="EveBot.cs" />
+    <Compile Include="Internal\BotUpdatePoller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\eth.Eve\eth.Eve.csproj">
-      <Project>{76557207-8f96-4750-a90c-93d7de086392}</Project>
-      <Name>eth.Eve</Name>
+    <ProjectReference Include="..\eth.Common\eth.Common.csproj">
+      <Project>{370d9116-f209-4465-811b-60d68e9675d2}</Project>
+      <Name>eth.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\eth.Telegram.BotApi.Objects\eth.Telegram.BotApi.Objects.csproj">
       <Project>{058856d0-b5b7-4068-870c-b44f7b8d47a1}</Project>

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eth.TestApp", "eth.TestApp\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Telegram", "Telegram", "{A9E6D184-FB18-4CDC-A01A-2307C2D2EDC2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eth.Eve", "eth.Eve\eth.Eve.csproj", "{76557207-8F96-4750-A90C-93D7DE086392}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{7E355AB8-4756-45F1-9CEF-56B91F03E666}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E355AB8-4756-45F1-9CEF-56B91F03E666}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E355AB8-4756-45F1-9CEF-56B91F03E666}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76557207-8F96-4750-A90C-93D7DE086392}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76557207-8F96-4750-A90C-93D7DE086392}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76557207-8F96-4750-A90C-93D7DE086392}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76557207-8F96-4750-A90C-93D7DE086392}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

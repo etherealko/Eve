@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using eth.Telegram.BotApi.Objects;
 
 namespace eth.Telegram.BotApi
 {
-    interface ITelegramBotApi
+    public interface ITelegramBotApi
     {
-        Task<List<Update>> GetUpdatesAsync(int offset, int limit, int timeout);
+        Task<List<Update>> GetUpdatesAsync(int offset, int limit, int timeoutSeconds);
 
         Task<User> GetMeAsync();
 
