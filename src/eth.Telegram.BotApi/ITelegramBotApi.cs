@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using eth.Telegram.BotApi.Internal;
 using eth.Telegram.BotApi.Objects;
 
 namespace eth.Telegram.BotApi

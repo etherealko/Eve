@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using eth.Common.JetBrains.Annotations;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace eth.Telegram.BotApi.Internal
 {
@@ -33,11 +34,11 @@ namespace eth.Telegram.BotApi.Internal
             _client.DefaultRequestHeaders.Connection.Add("Keep-Alive");
         }
 
-        public async Task<T> CallAsync<T>([NotNull] string method, [CanBeNull] object args = null)
+        public async Task<T> GetAsync<T>([NotNull] string method, [CanBeNull] object args = null)
         {
             Debug.Assert(!string.IsNullOrEmpty(method));
             
-            var content = new StringContent(JsonConvert.SerializeObject(args), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonConvert.SerializeObject(args, new StringEnumConverter { AllowIntegerValues = false }), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync($"/bot{_token}/{method}", content).ConfigureAwait(false);
 
@@ -49,7 +50,7 @@ namespace eth.Telegram.BotApi.Internal
                 };
 
             var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            var responseDeserialized = JsonConvert.DeserializeObject<ApiResponse<T>>(responseString);
+            var responseDeserialized = JsonConvert.DeserializeObject<ApiResponse<T>>(responseString, new StringEnumConverter { AllowIntegerValues = false });
 
             if (!responseDeserialized.IsOk)
                 throw new TelegramBotApiException
@@ -60,6 +61,8 @@ namespace eth.Telegram.BotApi.Internal
             
             return responseDeserialized.Result;
         }
+
+        //todo: postAsync
 
         public void Dispose()
         {
