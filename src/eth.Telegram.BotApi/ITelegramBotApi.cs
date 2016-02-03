@@ -11,16 +11,36 @@ namespace eth.Telegram.BotApi
         Task<User> GetMeAsync();
 
         Task<Message> SendMessageAsync(int chatId, string text);
-        Task<Message> SendMessageAsync(string channelusername, string text);
+        Task<Message> SendMessageAsync(string channelUserName, string text);
 
         Task<Message> SendStickerAsync(int chatId, string sticker);
-        Task<Message> SendStickerAsync(string channelusername, string sticker);
+        Task<Message> SendStickerAsync(string channelUserName, string sticker);
 
-        //        Use this method to send.webp stickers. On success, the sent Message is returned.
-        //Parameters Type    Required Description
-        //chat_id Integer or String   Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-        //sticker InputFile or String Yes Sticker to send. You can either pass a file_id as String to resend a sticker that is already on the Telegram servers, or upload a new sticker using multipart/form-data.
-        //reply_to_message_id Integer     Optional If the message is a reply, ID of the original message
-        //reply_markup ReplyKeyboardMarkup or ReplyKeyboardHide or ForceReply  Optional Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
+        Task<Message> ForwardMessage(int chatId, int fromChatId, int messageId);
+        Task<Message> ForwardMessage(string channelUserName, string fromChannelUserName, int messageId);
+
+        Task<Message> SendPhoto(int chatId, File photo);
+        Task<Message> SendPhoto(string channelUserName, string fileIdToResend);
+
+        Task<Message> SendAudio(int chatId, Audio audio);
+        Task<Message> SendAudio(string channelUserName, string fileIdToResend);
+
+        Task<Message> SendDocument(int chatId, Document document);
+        Task<Message> SendDocument(string channelUserName, string fileIdToResend);
+
+        Task<Message> SendVideo(int chatId, Video video);
+        Task<Message> SendVideo(string channelUserName, string fileIdToResend);
+
+        Task<Message> SendVoice(int chatId, Voice voice);
+        Task<Message> SendVoice(string channelUserName, string fileIdToResend);
+
+        Task<Message> SendLocation(int chatId, float latitude, float longitude);
+        Task<Message> SendLocation(string channelUserName, float latitude, float longitude);
+
+        Task<bool> SendChatAction(int chatId, ChatAction action);
+        Task<bool> SendChatAction(string channelUserName, ChatAction action);
+
+        Task<UserProfilePhotos> GetUserProfilePhoto(int userId);
+        Task<UserProfilePhotos> GetFile(string fileId);
     }
 }

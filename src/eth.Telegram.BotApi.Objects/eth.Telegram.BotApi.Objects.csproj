@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Audio.cs" />
     <Compile Include="Chat.cs" />
+    <Compile Include="ChatAction.cs" />
     <Compile Include="ChatType.cs" />
     <Compile Include="ChosenInlineResult.cs" />
     <Compile Include="Contact.cs" />

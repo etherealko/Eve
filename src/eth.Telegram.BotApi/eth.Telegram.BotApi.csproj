@@ -44,7 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Internal\ApiMethodPaths.cs" />
+    <Compile Include="Internal\ApiConstants.cs" />
+    <Compile Include="Internal\ApiExtensions.cs" />
     <Compile Include="Internal\ApiResponse.cs" />
     <Compile Include="TelegramBotApiException.cs" />
     <Compile Include="ITelegramBotApi.cs" />
