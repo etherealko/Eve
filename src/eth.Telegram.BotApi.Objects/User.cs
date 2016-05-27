@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace eth.Telegram.BotApi.Objects
 {
     /// <summary>
     /// This object represents a Telegram user or bot.
     /// </summary>
+    [DebuggerDisplay("{FirstName} {LastName}")]
     public class User
     {
         /// <summary>

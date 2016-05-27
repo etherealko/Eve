@@ -37,13 +37,13 @@ namespace eth.Telegram.BotApi
                 timeout = timeoutSeconds
             };
 
-            return await _api.GetAsync<List<Update>>(ApiMethodPaths.GetUpdates, args)
+            return await _api.GetAsync<List<Update>>(ApiMethod.GetUpdates, args)
                 .ConfigureAwait(false);
         }
 
         public async Task<User> GetMeAsync()
         {
-            return await _api.GetAsync<User>(ApiMethodPaths.GetMe)
+            return await _api.GetAsync<User>(ApiMethod.GetMe)
                 .ConfigureAwait(false);
         }
 
@@ -55,7 +55,7 @@ namespace eth.Telegram.BotApi
                 text = text
             };
 
-            return await _api.GetAsync<Message>(ApiMethodPaths.SendMessage, args)
+            return await _api.GetAsync<Message>(ApiMethod.SendMessage, args)
                 .ConfigureAwait(false);
         }
 
@@ -67,7 +67,7 @@ namespace eth.Telegram.BotApi
                 text = text
             };
 
-            return await _api.GetAsync<Message>(ApiMethodPaths.SendMessage, args)
+            return await _api.GetAsync<Message>(ApiMethod.SendMessage, args)
                 .ConfigureAwait(false);
         }
 
@@ -79,7 +79,7 @@ namespace eth.Telegram.BotApi
                 sticker = sticker
             };
 
-            return await _api.GetAsync<Message>(ApiMethodPaths.SendSticker, args)
+            return await _api.GetAsync<Message>(ApiMethod.SendSticker, args)
                 .ConfigureAwait(false);
         }
 
@@ -91,7 +91,7 @@ namespace eth.Telegram.BotApi
                 sticker = sticker
             };
 
-            return await _api.GetAsync<Message>(ApiMethodPaths.SendSticker, args)
+            return await _api.GetAsync<Message>(ApiMethod.SendSticker, args)
                 .ConfigureAwait(false);
         }
 
@@ -104,7 +104,7 @@ namespace eth.Telegram.BotApi
                 message_id = messageId
             };
 
-            return await _api.GetAsync<Message>(ApiMethodPaths.ForwardMessage, args)
+            return await _api.GetAsync<Message>(ApiMethod.ForwardMessage, args)
                 .ConfigureAwait(false);
         }
 
@@ -117,7 +117,7 @@ namespace eth.Telegram.BotApi
                 message_id = messageId
             };
 
-            return await _api.GetAsync<Message>(ApiMethodPaths.ForwardMessage, args)
+            return await _api.GetAsync<Message>(ApiMethod.ForwardMessage, args)
                 .ConfigureAwait(false);
         }
         
@@ -129,7 +129,7 @@ namespace eth.Telegram.BotApi
                 photo = photo
             };
 
-            return await _api.GetAsync<Message>(ApiMethodPaths.SendPhoto, args)
+            return await _api.GetAsync<Message>(ApiMethod.SendPhoto, args)
                 .ConfigureAwait(false);
         }
 
@@ -141,7 +141,7 @@ namespace eth.Telegram.BotApi
                 photo = fileIdToResend
             };
 
-            return await _api.GetAsync<Message>(ApiMethodPaths.SendPhoto, args)
+            return await _api.GetAsync<Message>(ApiMethod.SendPhoto, args)
                 .ConfigureAwait(false);           
         }
 
@@ -153,7 +153,7 @@ namespace eth.Telegram.BotApi
                 audio = audio
             };
 
-            return await _api.GetAsync<Message>(ApiMethodPaths.SendAudio, args)
+            return await _api.GetAsync<Message>(ApiMethod.SendAudio, args)
                 .ConfigureAwait(false);
         }
 
@@ -165,7 +165,7 @@ namespace eth.Telegram.BotApi
                 audio = fileIdToResend
             };
 
-            return await _api.GetAsync<Message>(ApiMethodPaths.SendAudio, args)
+            return await _api.GetAsync<Message>(ApiMethod.SendAudio, args)
                 .ConfigureAwait(false);
         }
 
@@ -177,7 +177,7 @@ namespace eth.Telegram.BotApi
                 document = document
             };
 
-            return await _api.GetAsync<Message>(ApiMethodPaths.SendDocument, args)
+            return await _api.GetAsync<Message>(ApiMethod.SendDocument, args)
                 .ConfigureAwait(false);
         }
 
@@ -189,7 +189,7 @@ namespace eth.Telegram.BotApi
                 document = fileIdToResend
             };
 
-            return await _api.GetAsync<Message>(ApiMethodPaths.SendDocument, args)
+            return await _api.GetAsync<Message>(ApiMethod.SendDocument, args)
                 .ConfigureAwait(false);
         }
 
@@ -201,7 +201,7 @@ namespace eth.Telegram.BotApi
                 video = video
             };
 
-            return await _api.GetAsync<Message>(ApiMethodPaths.SendVideo, args)
+            return await _api.GetAsync<Message>(ApiMethod.SendVideo, args)
                 .ConfigureAwait(false);
         }
 
@@ -213,7 +213,7 @@ namespace eth.Telegram.BotApi
                 video = fileIdToResend
             };
 
-            return await _api.GetAsync<Message>(ApiMethodPaths.SendVideo, args)
+            return await _api.GetAsync<Message>(ApiMethod.SendVideo, args)
                 .ConfigureAwait(false);
         }
 
@@ -225,7 +225,7 @@ namespace eth.Telegram.BotApi
                 voice = voice
             };
 
-            return await _api.GetAsync<Message>(ApiMethodPaths.SendVoice, args)
+            return await _api.GetAsync<Message>(ApiMethod.SendVoice, args)
                 .ConfigureAwait(false);
         }
 
@@ -237,7 +237,7 @@ namespace eth.Telegram.BotApi
                 voice = fileIdToResend
             };
 
-            return await _api.GetAsync<Message>(ApiMethodPaths.SendVoice, args)
+            return await _api.GetAsync<Message>(ApiMethod.SendVoice, args)
                 .ConfigureAwait(false);
         }
 
@@ -250,7 +250,7 @@ namespace eth.Telegram.BotApi
                 longitude = longitude
             };
 
-            return await _api.GetAsync<Message>(ApiMethodPaths.SendLocation, args)
+            return await _api.GetAsync<Message>(ApiMethod.SendLocation, args)
                 .ConfigureAwait(false);
         }
 
@@ -263,7 +263,7 @@ namespace eth.Telegram.BotApi
                 longitude = longitude
             };
 
-            return await _api.GetAsync<Message>(ApiMethodPaths.SendLocation, args)
+            return await _api.GetAsync<Message>(ApiMethod.SendLocation, args)
                 .ConfigureAwait(false);
         }
 
@@ -275,7 +275,7 @@ namespace eth.Telegram.BotApi
                 action = action
             };
 
-            return await _api.GetAsync<bool>(ApiMethodPaths.SendChatAction, args)
+            return await _api.GetAsync<bool>(ApiMethod.SendChatAction, args)
                 .ConfigureAwait(false);
         }
 
@@ -287,7 +287,7 @@ namespace eth.Telegram.BotApi
                 action = action
             };
 
-            return await _api.GetAsync<bool>(ApiMethodPaths.SendChatAction, args)
+            return await _api.GetAsync<bool>(ApiMethod.SendChatAction, args)
                 .ConfigureAwait(false);
         }
 
@@ -298,7 +298,7 @@ namespace eth.Telegram.BotApi
                 user_id = userId             
             };
 
-            return await _api.GetAsync<UserProfilePhotos>(ApiMethodPaths.GetUserProfilePhotos, args)
+            return await _api.GetAsync<UserProfilePhotos>(ApiMethod.GetUserProfilePhotos, args)
                 .ConfigureAwait(false);
         }
 
@@ -309,7 +309,7 @@ namespace eth.Telegram.BotApi
                 file_id = fileId
             };
 
-            return await _api.GetAsync<UserProfilePhotos>(ApiMethodPaths.GetFile, args)
+            return await _api.GetAsync<UserProfilePhotos>(ApiMethod.GetFile, args)
                 .ConfigureAwait(false);
         }
 

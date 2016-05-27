@@ -34,10 +34,8 @@ namespace eth.Telegram.BotApi.Internal
             _client.DefaultRequestHeaders.Connection.Add("Keep-Alive");
         }
 
-        public async Task<T> GetAsync<T>([NotNull] string method, [CanBeNull] object args = null)
+        public async Task<T> GetAsync<T>(ApiMethod method, [CanBeNull] object args = null)
         {
-            Debug.Assert(!string.IsNullOrEmpty(method));
-            
             var content = new StringContent(JsonConvert.SerializeObject(args, new StringEnumConverter { AllowIntegerValues = false }), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync($"/bot{_token}/{method}", content).ConfigureAwait(false);

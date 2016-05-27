@@ -50,6 +50,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\eth.Common\eth.Common.csproj">
+      <Project>{370d9116-f209-4465-811b-60d68e9675d2}</Project>
+      <Name>eth.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\eth.Eve\eth.Eve.csproj">
       <Project>{76557207-8f96-4750-a90c-93d7de086392}</Project>
       <Name>eth.Eve</Name>
