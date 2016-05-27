@@ -95,7 +95,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> ForwardMessage(int chatId, int fromChatId, int messageId)
+        public async Task<Message> ForwardMessageAsync(int chatId, int fromChatId, int messageId)
         {
             var args = new
             {
@@ -108,7 +108,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> ForwardMessage(string channelUserName, string fromChannelUserName, int messageId)
+        public async Task<Message> ForwardMessageAsync(string channelUserName, string fromChannelUserName, int messageId)
         {
             var args = new
             {
@@ -121,7 +121,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
         
-        public async Task<Message> SendPhoto(int chatId, File photo)
+        public async Task<Message> SendPhotoAsync(int chatId, File photo)
         {
             var args = new
             {
@@ -133,7 +133,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendPhoto(string channelUserName, string fileIdToResend)
+        public async Task<Message> SendPhotoAsync(string channelUserName, string fileIdToResend)
         {
             var args = new
             {
@@ -145,7 +145,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);           
         }
 
-        public async Task<Message> SendAudio(int chatId, Audio audio)
+        public async Task<Message> SendAudioAsync(int chatId, Audio audio)
         {
             var args = new
             {
@@ -157,7 +157,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendAudio(string channelUserName, string fileIdToResend)
+        public async Task<Message> SendAudioAsync(string channelUserName, string fileIdToResend)
         {
             var args = new
             {
@@ -169,7 +169,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendDocument(int chatId, Document document)
+        public async Task<Message> SendDocumentAsync(int chatId, Document document)
         {
             var args = new
             {
@@ -181,7 +181,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendDocument(string channelUserName, string fileIdToResend)
+        public async Task<Message> SendDocumentAsync(string channelUserName, string fileIdToResend)
         {
             var args = new
             {
@@ -193,7 +193,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendVideo(int chatId, Video video)
+        public async Task<Message> SendVideoAsync(int chatId, Video video)
         {
             var args = new
             {
@@ -205,7 +205,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendVideo(string channelUserName, string fileIdToResend)
+        public async Task<Message> SendVideoAsync(string channelUserName, string fileIdToResend)
         {
             var args = new
             {
@@ -217,7 +217,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendVoice(int chatId, Voice voice)
+        public async Task<Message> SendVoiceAsync(int chatId, Voice voice)
         {
             var args = new
             {
@@ -229,7 +229,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendVoice(string channelUserName, string fileIdToResend)
+        public async Task<Message> SendVoiceAsync(string channelUserName, string fileIdToResend)
         {
             var args = new
             {
@@ -241,7 +241,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendLocation(int chatId, float latitude, float longitude)
+        public async Task<Message> SendLocationAsync(int chatId, float latitude, float longitude)
         {
             var args = new
             {
@@ -254,7 +254,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendLocation(string channelUserName, float latitude, float longitude)
+        public async Task<Message> SendLocationAsync(string channelUserName, float latitude, float longitude)
         {
             var args = new
             {
@@ -267,7 +267,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<bool> SendChatAction(int chatId, ChatAction action)
+        public async Task<bool> SendChatActionAsync(int chatId, ChatAction action)
         {
             var args = new
             {
@@ -279,7 +279,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<bool> SendChatAction(string channelUserName, ChatAction action)
+        public async Task<bool> SendChatActionAsync(string channelUserName, ChatAction action)
         {
             var args = new
             {
@@ -291,7 +291,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<UserProfilePhotos> GetUserProfilePhoto(int userId)
+        public async Task<UserProfilePhotos> GetUserProfilePhotoAsync(int userId)
         {
             var args = new
             {
@@ -302,7 +302,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<UserProfilePhotos> GetFile(string fileId)
+        public async Task<UserProfilePhotos> GetFileAsync(string fileId)
         {
             var args = new
             {
