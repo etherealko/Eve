@@ -4,6 +4,8 @@ namespace eth.Eve.Storage.Model
 {
     public class PluginStoreBinary
     {
+        public long SpaceId { get; set; }
+
         public Guid PluginGuid { get; set; }
         public string PluginVersion { get; set; }
 

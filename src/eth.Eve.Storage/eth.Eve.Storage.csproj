@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EveDb.cs" />
+    <Compile Include="Model\EveSpace.cs" />
     <Compile Include="Model\PluginStoreBinary.cs" />
     <Compile Include="Model\PluginStoreString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
