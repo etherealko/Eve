@@ -7,16 +7,18 @@ namespace eth.Eve.Storage
     {
         static EveDb()
         {
-            //Database.SetInitializer(new CreateDatabaseIfNotExists<EveDb>());
-            Database.SetInitializer(new DropCreateDatabaseAlways<EveDb>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<EveDb>());
+            //Database.SetInitializer(new DropCreateDatabaseAlways<EveDb>());
         }
 
         public virtual DbSet<EveSpace> EveSpaces { get; set; }
 
         public virtual DbSet<PluginStoreString> PluginStoreStrings { get; set; }
         public virtual DbSet<PluginStoreBinary> PluginStoreBinaries { get; set; }
-        
-        public EveDb(string nameOrConnectionString = "name=EveDb") : base(nameOrConnectionString) { }
+
+        public EveDb() : this("name=EveDb") { }
+
+        public EveDb(string nameOrConnectionString) : base(nameOrConnectionString) { }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
