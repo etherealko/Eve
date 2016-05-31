@@ -33,7 +33,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,11 +57,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\eth.Common\eth.Common.csproj">
       <Project>{370d9116-f209-4465-811b-60d68e9675d2}</Project>
       <Name>eth.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eth.Eve.Storage\eth.Eve.Storage.csproj">
+      <Project>{9D11D33B-C7FE-4835-8576-643F55CCB206}</Project>
+      <Name>eth.Eve.Storage</Name>
     </ProjectReference>
     <ProjectReference Include="..\eth.Eve\eth.Eve.csproj">
       <Project>{76557207-8f96-4750-a90c-93d7de086392}</Project>

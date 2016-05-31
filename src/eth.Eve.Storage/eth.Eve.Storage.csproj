@@ -58,6 +58,10 @@
     <Compile Include="Migrations\201605311637572_EveSpace_IsActive.Designer.cs">
       <DependentUpon>201605311637572_EveSpace_IsActive.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605312049249_EveSpace_TokenLength.cs" />
+    <Compile Include="Migrations\201605312049249_EveSpace_TokenLength.Designer.cs">
+      <DependentUpon>201605312049249_EveSpace_TokenLength.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\EveSpace.cs" />
     <Compile Include="Model\PluginStoreBinary.cs" />
@@ -74,6 +78,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605311637572_EveSpace_IsActive.resx">
       <DependentUpon>201605311637572_EveSpace_IsActive.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605312049249_EveSpace_TokenLength.resx">
+      <DependentUpon>201605312049249_EveSpace_TokenLength.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

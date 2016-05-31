@@ -47,6 +47,16 @@
     <Compile Include="PluginInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\eth.Telegram.BotApi.Objects\eth.Telegram.BotApi.Objects.csproj">
+      <Project>{058856d0-b5b7-4068-870c-b44f7b8d47a1}</Project>
+      <Name>eth.Telegram.BotApi.Objects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eth.Telegram.BotApi\eth.Telegram.BotApi.csproj">
+      <Project>{fe38a951-9aaa-4f64-8557-9d9e0e8cbbd0}</Project>
+      <Name>eth.Telegram.BotApi</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -37,6 +37,8 @@ namespace eth.Eve.Storage
                 .HasForeignKey(e => e.SpaceId);
 
             modelBuilder.Entity<PluginStoreBinary>().Property(e => e.Value).IsRequired();
+
+            modelBuilder.Entity<EveSpace>().Property(e => e.BotApiAccessToken).HasMaxLength(50);
         }
     }
 }
