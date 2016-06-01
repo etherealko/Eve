@@ -44,10 +44,17 @@
     <Compile Include="IPlugin.cs" />
     <Compile Include="IMessageContext.cs" />
     <Compile Include="IPluginContext.cs" />
+    <Compile Include="Storage\IPluginLocalStorage.cs" />
     <Compile Include="PluginInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Storage\PluginStoreBinary.cs" />
+    <Compile Include="Storage\PluginStoreString.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\eth.Common\eth.Common.csproj">
+      <Project>{370D9116-F209-4465-811B-60D68E9675D2}</Project>
+      <Name>eth.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\eth.Telegram.BotApi.Objects\eth.Telegram.BotApi.Objects.csproj">
       <Project>{058856d0-b5b7-4068-870c-b44f7b8d47a1}</Project>
       <Name>eth.Telegram.BotApi.Objects</Name>

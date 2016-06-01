@@ -30,7 +30,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,12 +51,22 @@
   <ItemGroup>
     <Compile Include="EveBot.cs" />
     <Compile Include="Internal\BotUpdatePoller.cs" />
+    <Compile Include="Internal\PluginContext.cs" />
+    <Compile Include="Internal\PluginLocalStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\eth.Common\eth.Common.csproj">
       <Project>{370d9116-f209-4465-811b-60d68e9675d2}</Project>
       <Name>eth.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eth.Eve.PluginSystem\eth.Eve.PluginSystem.csproj">
+      <Project>{ad7a62e3-d448-4a7f-94be-1496f8a93487}</Project>
+      <Name>eth.Eve.PluginSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eth.Eve.Storage\eth.Eve.Storage.csproj">
+      <Project>{9d11d33b-c7fe-4835-8576-643f55ccb206}</Project>
+      <Name>eth.Eve.Storage</Name>
     </ProjectReference>
     <ProjectReference Include="..\eth.Telegram.BotApi.Objects\eth.Telegram.BotApi.Objects.csproj">
       <Project>{058856d0-b5b7-4068-870c-b44f7b8d47a1}</Project>
@@ -57,6 +76,10 @@
       <Project>{fe38a951-9aaa-4f64-8557-9d9e0e8cbbd0}</Project>
       <Name>eth.Telegram.BotApi</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

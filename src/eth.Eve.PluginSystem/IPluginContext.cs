@@ -1,9 +1,11 @@
-﻿namespace eth.Eve.PluginSystem
+﻿using eth.Eve.PluginSystem.Storage;
+
+namespace eth.Eve.PluginSystem
 {
     public interface IPluginContext
     {
-        // kvp string store
-        // kvp binary store
+        IPluginLocalStorage GetStorage();
+
         // pipeline
         // bot info, host info
         // 
