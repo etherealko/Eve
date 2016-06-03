@@ -37,6 +37,12 @@ namespace eth.Telegram.BotApi.Internal
         [EnumMember(Value = "sendLocation")]
         SendLocation,
 
+        [EnumMember(Value = "sendVenue")]
+        SendVenue,
+
+        [EnumMember(Value = "sendContact")]
+        SendContact,
+
         [EnumMember(Value = "sendChatAction")]
         SendChatAction,
 
@@ -48,5 +54,26 @@ namespace eth.Telegram.BotApi.Internal
 
         [EnumMember(Value = "getFile")]
         GetFile,
+
+        [EnumMember(Value = "kickChatMember")]
+        KickChatMember,
+
+        [EnumMember(Value = "leaveChat")]
+        LeaveChat,
+
+        [EnumMember(Value = "unbanChatMember")]
+        UnbanChatMember,
+
+        [EnumMember(Value = "getChat")]
+        GetChat,
+
+        [EnumMember(Value = "getChatAdministrators")]
+        GetChatAdmins,
+
+        [EnumMember(Value = "getChatMembersCount")]
+        GetChatMembersCount,
+
+        [EnumMember(Value = "getChatMember")]
+        GetChatMember
     }
 }

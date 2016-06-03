@@ -37,10 +37,37 @@ namespace eth.Telegram.BotApi
         Task<Message> SendLocationAsync(int chatId, float latitude, float longitude);
         Task<Message> SendLocationAsync(string channelUserName, float latitude, float longitude);
 
+        Task<Message> SendVenueAsync(int chatId, float latitude, float longitude, string title, string address);
+        Task<Message> SendVenueAsync(string channelUserName, float latitude, float longitude, string title, string address);
+
+        Task<Message> SendContactAsync(int chatId, string phoneNumber, string firstName, string lastName);
+        Task<Message> SendContactAsync(string channelUserName, string phoneNumber, string firstName, string lastName);
+
         Task<bool> SendChatActionAsync(int chatId, ChatAction action);
         Task<bool> SendChatActionAsync(string channelUserName, ChatAction action);
 
         Task<UserProfilePhotos> GetUserProfilePhotoAsync(int userId);
         Task<UserProfilePhotos> GetFileAsync(string fileId);
+
+        Task<bool> KickChatMemberAsync(int chatId, int userId);
+        Task<bool> KickChatMemberAsync(string channelUserName, int userId);
+
+        Task<bool> LeaveChatAsync(int chatId);
+        Task<bool> LeaveChatAsync(string channelUserName);
+
+        Task<bool> UnbanChatMemberAsync(int chatId, int userId);
+        Task<bool> UnbanChatMemberAsync(string channelUserName, int userId);
+
+        Task<Chat> GetChatAsync(int chatId);
+        Task<Chat> GetChatAsync(string channelUserName);
+
+        Task<List<ChatMember>> GetChatAdminsAsync(int chatId);
+        Task<List<ChatMember>> GetChatAdminsAsync(string channelUserName);
+
+        Task<int> GetChatMembersCountAsync(int chatId);
+        Task<int> GetChatMembersCountAsync(string channelUserName);
+
+        Task<ChatMember> GetChatMemberAsync(int chatId, int userId);
+        Task<ChatMember> GetChatMemberAsync(string channelUserName, int userId);
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Telegram Bot API v2.1
+//for details: https://core.telegram.org/bots/api
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using eth.Common;
@@ -267,6 +269,64 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
+        public async Task<Message> SendVenueAsync(int chatId, float latitude, float longitude, string title, string address)
+        {
+            var args = new
+            {
+                chat_id = chatId,
+                latitude = latitude,
+                longitude = longitude,
+                title = title,
+                address = address
+            };
+
+            return await _api.GetAsync<Message>(ApiMethod.SendVenue, args)
+               .ConfigureAwait(false);
+        }
+
+        public async Task<Message> SendVenueAsync(string channelUserName, float latitude, float longitude, string title, string address)
+        {
+            var args = new
+            {
+                chat_id = channelUserName,
+                latitude = latitude,
+                longitude = longitude,
+                title = title,
+                address = address
+            };
+
+            return await _api.GetAsync<Message>(ApiMethod.SendVenue, args)
+              .ConfigureAwait(false);
+        }
+
+        public async Task<Message> SendContactAsync(int chatId, string phoneNumber, string firstName, string lastName)
+        {
+            var args = new
+            {
+                chat_id = chatId,
+                phone_number = phoneNumber,
+                first_name = firstName,
+                last_name = lastName
+            };
+
+            return await _api.GetAsync<Message>(ApiMethod.SendContact, args)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<Message> SendContactAsync(string channelUserName, string phoneNumber, string firstName, string lastName)
+        {
+            var args = new
+            {
+                chat_id = channelUserName,
+                phone_number = phoneNumber,
+                first_name = firstName,
+                last_name = lastName
+            };
+
+            return await _api.GetAsync<Message>(ApiMethod.SendContact, args)
+                .ConfigureAwait(false);
+        }
+
         public async Task<bool> SendChatActionAsync(int chatId, ChatAction action)
         {
             var args = new
@@ -291,11 +351,167 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
+        public async Task<bool> KickChatMemberAsync(int chatId, int userId)
+        {
+            var args = new
+            {
+                chat_id = chatId,
+                user_id = userId
+            };
+
+            return await _api.GetAsync<bool>(ApiMethod.KickChatMember, args)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<bool> KickChatMemberAsync(string channelUserName, int userId)
+        {
+            var args = new
+            {
+                chat_id = channelUserName,
+                user_id = userId
+            };
+
+            return await _api.GetAsync<bool>(ApiMethod.KickChatMember, args)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<bool> LeaveChatAsync(int chatId)
+        {
+            var args = new
+            {
+                chat_id = chatId
+            };
+
+            return await _api.GetAsync<bool>(ApiMethod.LeaveChat, args)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<bool> LeaveChatAsync(string channelUserName)
+        {
+            var args = new
+            {
+                chat_id = channelUserName
+            };
+
+            return await _api.GetAsync<bool>(ApiMethod.LeaveChat, args)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<bool> UnbanChatMemberAsync(int chatId, int userId)
+        {
+            var args = new
+            {
+                chat_id = chatId,
+                user_id = userId
+            };
+
+            return await _api.GetAsync<bool>(ApiMethod.UnbanChatMember, args)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<bool> UnbanChatMemberAsync(string channelUserName, int userId)
+        {
+            var args = new
+            {
+                chat_id = channelUserName,
+                user_id = userId
+            };
+
+            return await _api.GetAsync<bool>(ApiMethod.UnbanChatMember, args)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<Chat> GetChatAsync(int chatId)
+        {
+            var args = new
+            {
+                chat_id = chatId
+            };
+
+            return await _api.GetAsync<Chat>(ApiMethod.GetChat, args)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<Chat> GetChatAsync(string channelUserName)
+        {
+            var args = new
+            {
+                chat_id = channelUserName
+            };
+
+            return await _api.GetAsync<Chat>(ApiMethod.GetChat, args)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<List<ChatMember>> GetChatAdminsAsync(int chatId)
+        {
+            var args = new
+            {
+                chat_id = chatId
+            };
+
+            return await _api.GetAsync<List<ChatMember>>(ApiMethod.GetChatAdmins, args)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<List<ChatMember>> GetChatAdminsAsync(string channelUserName)
+        {
+            var args = new
+            {
+                chat_id = channelUserName
+            };
+
+            return await _api.GetAsync<List<ChatMember>>(ApiMethod.GetChatAdmins, args)
+                 .ConfigureAwait(false);
+        }
+
+        public async Task<int> GetChatMembersCountAsync(int chatId)
+        {
+            var args = new
+            {
+                chat_id = chatId
+            };
+
+            return await _api.GetAsync<int>(ApiMethod.GetChatMembersCount, args).ConfigureAwait(false);
+        }
+
+        public async Task<int> GetChatMembersCountAsync(string channelUserName)
+        {
+            var args = new
+            {
+                chat_id = channelUserName
+            };
+
+            return await _api.GetAsync<int>(ApiMethod.GetChatMembersCount, args).ConfigureAwait(false);
+        }
+
+        public async Task<ChatMember> GetChatMemberAsync(int chatId, int userId)
+        {
+            var args = new
+            {
+                chat_id = chatId,
+                user_id = userId
+            };
+
+            return await _api.GetAsync<ChatMember>(ApiMethod.GetChatMember, args).ConfigureAwait(false);
+        }
+
+        public async Task<ChatMember> GetChatMemberAsync(string channelUserName, int userId)
+        {
+            var args = new
+            {
+                chat_id = channelUserName,
+                user_id = userId
+            };
+
+            return await _api.GetAsync<ChatMember>(ApiMethod.GetChatMember, args).ConfigureAwait(false);
+        }
+
         public async Task<UserProfilePhotos> GetUserProfilePhotoAsync(int userId)
         {
             var args = new
             {
-                user_id = userId             
+                user_id = userId
             };
 
             return await _api.GetAsync<UserProfilePhotos>(ApiMethod.GetUserProfilePhotos, args)
