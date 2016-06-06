@@ -49,7 +49,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendMessageAsync(int chatId, string text)
+        public async Task<Message> SendMessageAsync(long chatId, string text)
         {
             var args = new
             {
@@ -73,7 +73,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendStickerAsync(int chatId, string sticker)
+        public async Task<Message> SendStickerAsync(long chatId, string sticker)
         {
             var args = new
             {
@@ -97,7 +97,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> ForwardMessageAsync(int chatId, int fromChatId, int messageId)
+        public async Task<Message> ForwardMessageAsync(long chatId, int fromChatId, int messageId)
         {
             var args = new
             {
@@ -123,7 +123,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
         
-        public async Task<Message> SendPhotoAsync(int chatId, File photo)
+        public async Task<Message> SendPhotoAsync(long chatId, File photo)
         {
             var args = new
             {
@@ -147,7 +147,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);           
         }
 
-        public async Task<Message> SendAudioAsync(int chatId, Audio audio)
+        public async Task<Message> SendAudioAsync(long chatId, Audio audio)
         {
             var args = new
             {
@@ -171,7 +171,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendDocumentAsync(int chatId, Document document)
+        public async Task<Message> SendDocumentAsync(long chatId, Document document)
         {
             var args = new
             {
@@ -195,7 +195,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendVideoAsync(int chatId, Video video)
+        public async Task<Message> SendVideoAsync(long chatId, Video video)
         {
             var args = new
             {
@@ -219,7 +219,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendVoiceAsync(int chatId, Voice voice)
+        public async Task<Message> SendVoiceAsync(long chatId, Voice voice)
         {
             var args = new
             {
@@ -243,7 +243,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendLocationAsync(int chatId, float latitude, float longitude)
+        public async Task<Message> SendLocationAsync(long chatId, float latitude, float longitude)
         {
             var args = new
             {
@@ -269,7 +269,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendVenueAsync(int chatId, float latitude, float longitude, string title, string address)
+        public async Task<Message> SendVenueAsync(long chatId, float latitude, float longitude, string title, string address)
         {
             var args = new
             {
@@ -299,7 +299,7 @@ namespace eth.Telegram.BotApi
               .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendContactAsync(int chatId, string phoneNumber, string firstName, string lastName)
+        public async Task<Message> SendContactAsync(long chatId, string phoneNumber, string firstName, string lastName)
         {
             var args = new
             {
@@ -327,7 +327,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<bool> SendChatActionAsync(int chatId, ChatAction action)
+        public async Task<bool> SendChatActionAsync(long chatId, ChatAction action)
         {
             var args = new
             {
@@ -351,7 +351,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<bool> KickChatMemberAsync(int chatId, int userId)
+        public async Task<bool> KickChatMemberAsync(long chatId, int userId)
         {
             var args = new
             {
@@ -375,7 +375,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<bool> LeaveChatAsync(int chatId)
+        public async Task<bool> LeaveChatAsync(long chatId)
         {
             var args = new
             {
@@ -397,7 +397,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<bool> UnbanChatMemberAsync(int chatId, int userId)
+        public async Task<bool> UnbanChatMemberAsync(long chatId, int userId)
         {
             var args = new
             {
@@ -421,7 +421,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Chat> GetChatAsync(int chatId)
+        public async Task<Chat> GetChatAsync(long chatId)
         {
             var args = new
             {
@@ -443,7 +443,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<List<ChatMember>> GetChatAdminsAsync(int chatId)
+        public async Task<List<ChatMember>> GetChatAdminsAsync(long chatId)
         {
             var args = new
             {
@@ -465,7 +465,7 @@ namespace eth.Telegram.BotApi
                  .ConfigureAwait(false);
         }
 
-        public async Task<int> GetChatMembersCountAsync(int chatId)
+        public async Task<int> GetChatMembersCountAsync(long chatId)
         {
             var args = new
             {
@@ -485,7 +485,7 @@ namespace eth.Telegram.BotApi
             return await _api.GetAsync<int>(ApiMethod.GetChatMembersCount, args).ConfigureAwait(false);
         }
 
-        public async Task<ChatMember> GetChatMemberAsync(int chatId, int userId)
+        public async Task<ChatMember> GetChatMemberAsync(long chatId, int userId)
         {
             var args = new
             {

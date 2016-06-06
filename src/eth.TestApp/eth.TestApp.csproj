@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PluginOne.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,6 +64,10 @@
     <ProjectReference Include="..\eth.Common\eth.Common.csproj">
       <Project>{370d9116-f209-4465-811b-60d68e9675d2}</Project>
       <Name>eth.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eth.Eve.PluginSystem\eth.Eve.PluginSystem.csproj">
+      <Project>{AD7A62E3-D448-4A7F-94BE-1496F8A93487}</Project>
+      <Name>eth.Eve.PluginSystem</Name>
     </ProjectReference>
     <ProjectReference Include="..\eth.Eve.Storage\eth.Eve.Storage.csproj">
       <Project>{9D11D33B-C7FE-4835-8576-643F55CCB206}</Project>

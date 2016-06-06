@@ -51,8 +51,10 @@
   <ItemGroup>
     <Compile Include="EveBot.cs" />
     <Compile Include="Internal\BotUpdatePoller.cs" />
+    <Compile Include="Internal\MessageContext.cs" />
     <Compile Include="Internal\PluginContext.cs" />
     <Compile Include="Internal\PluginLocalStorage.cs" />
+    <Compile Include="TempForTesting\PluginOne.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

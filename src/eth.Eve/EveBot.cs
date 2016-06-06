@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using eth.Eve.Internal;
+using eth.Eve.Storage;
+using eth.Eve.Storage.Model;
+using eth.Eve.TempForTesting;
 using eth.Telegram.BotApi;
 using eth.Telegram.BotApi.Objects;
 
@@ -21,10 +24,19 @@ namespace eth.Eve
 
         private volatile bool _shutdown;
 
-        public EveBot(string token)
+        private readonly EveSpace _currentSpace;
+
+        //temp
+        private readonly PluginOne _pluginOne = new PluginOne();
+
+        public EveBot()
         {
-            _updater = new BotUpdatePoller(token);
-            _outgoingApi = new TelegramBotApi(token);
+            var db = new EveDb();
+
+            _currentSpace = db.EveSpaces.Single(s => s.IsActive); //only single space is supported now
+
+            _updater = new BotUpdatePoller(_currentSpace.BotApiAccessToken);
+            _outgoingApi = new TelegramBotApi(_currentSpace.BotApiAccessToken);
 
             _mainThread = new Thread(UpdateProc);
         }
@@ -35,10 +47,14 @@ namespace eth.Eve
                 throw new InvalidOperationException("_shutdown == true");
 
             _mainThread.Start();
+
+            _pluginOne.Initialize(new PluginContext(_pluginOne.Info, _outgoingApi));
         }
 
         public void Stop()
         {
+            _pluginOne.Teardown();
+
             Dispose();
         }
 
@@ -60,7 +76,7 @@ namespace eth.Eve
                 }
                 catch (Exception ex)
                 {
-                    
+                    //todo: add logging
                 }
             }
 
@@ -75,33 +91,18 @@ namespace eth.Eve
                 return;
 
             Console.WriteLine($" >{update.Message?.From.FirstName ?? "<no fname>"}: {update.Message.Text}");
-
-            if (update.Message.Chat.Id == -49047577)
-            {
-                var eva = new Regex(@"\b[eе]+[vв]+[aа]+\b", RegexOptions.IgnoreCase);
-
-                if (eva.IsMatch(update.Message.Text ?? ""))
-                {
-                    _outgoingApi.SendMessageAsync(-49047577, "чо");
-                    return;
-                }
-
-                if (update.Message.From.Id == 146268050)
-                {
-                    var roll = new Random().Next(10);
-                    if (roll == 7)
-                        _outgoingApi.SendMessageAsync(-49047577, "юль, ну впиши по-братски");
-                    return;
-                }
-            }
+            
+            _pluginOne.Handle(new MessageContext { Update = update });
         }
 
         private void HandleOld(List<Update> updates)
         {
             Debug.Assert(updates != null);
-
-            //_outgoingApi.SendMessageAsync(-49047577, $"Юля сгорела {updates.Count} раз.");
+            
             Console.WriteLine($"{updates.Count} message(s)");
+
+            foreach (var update in updates)
+                _pluginOne.Handle(new MessageContext { IsInitiallyPolled = true, Update = update });
         }
 
         public void Dispose()
@@ -110,6 +111,7 @@ namespace eth.Eve
 
             _updater.Dispose();
             _outgoingApi.Dispose();
+            _pluginOne.Dispose();
         }
     }
 }
