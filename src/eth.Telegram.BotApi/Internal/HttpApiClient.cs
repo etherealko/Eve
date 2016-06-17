@@ -34,7 +34,7 @@ namespace eth.Telegram.BotApi.Internal
             _client.DefaultRequestHeaders.Connection.Add("Keep-Alive");
         }
 
-        public async Task<T> GetAsync<T>(ApiMethod method, [CanBeNull] object args = null)
+        public async Task<T> CallAsync<T>(ApiMethod method, [CanBeNull] object args = null)
         {
             var content = new StringContent(JsonConvert.SerializeObject(args, new StringEnumConverter { AllowIntegerValues = false }), Encoding.UTF8, "application/json");
 
@@ -60,7 +60,7 @@ namespace eth.Telegram.BotApi.Internal
             return responseDeserialized.Result;
         }
 
-        //todo: postAsync
+        //todo: call with multipartformdata file attached
 
         public void Dispose()
         {
