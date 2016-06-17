@@ -4,6 +4,8 @@ using eth.Telegram.BotApi.Objects;
 
 namespace eth.Telegram.BotApi
 {
+    //Telegram Bot API v2.1
+    //for details: https://core.telegram.org/bots/api
     public interface ITelegramBotApi
     {
         Task<List<Update>> GetUpdatesAsync(int offset, int limit, int timeoutSeconds);
