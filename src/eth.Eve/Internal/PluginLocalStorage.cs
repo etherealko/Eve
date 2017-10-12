@@ -9,11 +9,13 @@ namespace eth.Eve.Internal
     internal sealed class PluginLocalStorage : IPluginLocalStorage
     {
         private readonly PluginInfo _pluginInfo;
+        private readonly long _spaceId;
         private readonly EveDb _dbContext;
 
-        public PluginLocalStorage(PluginInfo pluginInfo)
+        public PluginLocalStorage(PluginInfo pluginInfo, long spaceId)
         {
             _pluginInfo = pluginInfo;
+            _spaceId = spaceId;
             _dbContext = new EveDb();
         }
 

@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using eth.Eve.PluginSystem;
 
 namespace eth.TestApp
 {
-    public class PluginOne : IPlugin
+    internal class PluginOne : IPlugin
     {
         private IPluginContext _ctx;
 
-        public PluginInfo Info { get; } = new PluginInfo(new Guid(""), 
+        public PluginInfo Info { get; } = new PluginInfo(new Guid("51b9ab14-7eab-4107-83bf-c9e50a2824f4"), 
                                                          "PluginOne", 
                                                          "Brand new Eve plugin", 
                                                          "0.0.0.1");
@@ -24,7 +25,31 @@ namespace eth.TestApp
 
         public HandleResult Handle(IMessageContext msg)
         {
-            throw new NotImplementedException();
+            if (msg.IsInitiallyPolled)
+                return HandleResult.Ignored;
+
+            var update = msg.Update;
+
+            if (update.Message.Chat.Id == -1001013065325)
+            {
+                var eva = new Regex(@"\bmiu\b", RegexOptions.IgnoreCase);
+
+                if (eva.IsMatch(update.Message.Text ?? ""))
+                {
+                    _ctx.BotApi.SendMessageAsync(-1001013065325, "i'm here");
+                    return HandleResult.HandledCompletely;
+                }
+
+                if (update.Message.From.Id == 146268050)
+                {
+                    var roll = new Random().Next(10);
+                    if (roll == 7)
+                        _ctx.BotApi.SendMessageAsync(-1001013065325, "юль, ну впиши по-братски");
+                    return HandleResult.HandledCompletely;
+                }
+            }
+
+            return HandleResult.Ignored;
         }
 
         public void Dispose() { }

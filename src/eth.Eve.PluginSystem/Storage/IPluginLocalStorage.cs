@@ -13,5 +13,7 @@ namespace eth.Eve.PluginSystem.Storage
 
         void SetString(string key, string value);
         void SetBinary(string key, [NotNull] byte[] value, string metaData = null);
+
+        //todo: introduce 'saveChanges' method
     }
 }

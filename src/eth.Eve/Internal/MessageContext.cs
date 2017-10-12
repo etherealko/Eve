@@ -3,7 +3,7 @@ using eth.Telegram.BotApi.Objects;
 
 namespace eth.Eve.Internal
 {
-    public class MessageContext : IMessageContext
+    internal class MessageContext : IMessageContext
     {
         public Update Update { get; set; }
         public bool IsInitiallyPolled { get; set; }

@@ -1,117 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using eth.Eve.Internal;
 using eth.Eve.Storage;
-using eth.Eve.Storage.Model;
-using eth.Eve.TempForTesting;
-using eth.Telegram.BotApi;
-using eth.Telegram.BotApi.Objects;
-
-#pragma warning disable 4014
+using System.Collections.ObjectModel;
 
 namespace eth.Eve
 {
-    public class EveBot : IDisposable
+    public sealed class EveBot : IDisposable
     {
-        private readonly BotUpdatePoller _updater;
-        private readonly TelegramBotApi _outgoingApi;
-
-        private readonly Thread _mainThread;
-
         private volatile bool _shutdown;
+        private volatile bool _started;
 
-        private readonly EveSpace _currentSpace;
-
-        //temp
-        private readonly PluginOne _pluginOne = new PluginOne();
-
+        private List<EveSpaceInitializer> _spaceInitializers;
+        private List<EveBotSpace> _spaces;
+        
         public EveBot()
         {
             var db = new EveDb();
 
-            _currentSpace = db.EveSpaces.Single(s => s.IsActive); //only single space is supported now
+            var spaces = db.EveSpaces.ToList();
 
-            _updater = new BotUpdatePoller(_currentSpace.BotApiAccessToken);
-            _outgoingApi = new TelegramBotApi(_currentSpace.BotApiAccessToken);
+            if (spaces.Count == 0)
+                throw new InvalidOperationException("there are no spaces, check your db");
 
-            _mainThread = new Thread(UpdateProc);
+            _spaceInitializers = spaces.Select(s => new EveSpaceInitializer(s)).ToList();
+        }
+
+        public ReadOnlyDictionary<long, IEveSpaceInitializer> GetSpaceInitializers()
+        {
+            if (_started || _shutdown)
+                throw new InvalidOperationException("it's too late to initialize: either it's already running or already stopped");
+            
+            return new ReadOnlyDictionary<long, IEveSpaceInitializer>(_spaceInitializers.ToDictionary(i => i.SpaceId, i => (IEveSpaceInitializer)i));
         }
 
         public void Start()
         {
             if (_shutdown)
                 throw new InvalidOperationException("_shutdown == true");
+            if (_started)
+                throw new InvalidOperationException("_started == true");
 
-            _mainThread.Start();
+            try
+            {
+                _spaces = _spaceInitializers.Select(i => new EveBotSpace(i.EveSpace, i.Plugins.ToList())).ToList();
 
-            _pluginOne.Initialize(new PluginContext(_pluginOne.Info, _outgoingApi));
+                _spaceInitializers = null;
+
+                foreach (var space in _spaces)
+                    space.Start();
+
+                _started = true;
+            }
+            catch (Exception)
+            {
+                Dispose();
+
+                throw;
+            }
         }
 
         public void Stop()
         {
-            _pluginOne.Teardown();
-
             Dispose();
-        }
-
-        private async void UpdateProc()
-        {
-            var updates = await _updater.PollInitialUpdates();
-            HandleOld(updates);
-
-            while (!_shutdown)
-            {
-                try
-                {
-                    updates = await _updater.PollUpdates();
-                    foreach (var update in updates)
-                        HandleNew(update);
-                }
-                catch (TaskCanceledException)
-                {
-                }
-                catch (Exception ex)
-                {
-                    //todo: add logging
-                }
-            }
-
-            Debug.WriteLine("Update thread finished");
-        }
-
-        private void HandleNew(Update update)
-        {
-            Debug.Assert(update != null);
-
-            if (update.Message == null)
-                return;
-
-            Console.WriteLine($" >{update.Message?.From.FirstName ?? "<no fname>"}: {update.Message.Text}");
-            
-            _pluginOne.Handle(new MessageContext { Update = update });
-        }
-
-        private void HandleOld(List<Update> updates)
-        {
-            Debug.Assert(updates != null);
-            
-            Console.WriteLine($"{updates.Count} message(s)");
-
-            foreach (var update in updates)
-                _pluginOne.Handle(new MessageContext { IsInitiallyPolled = true, Update = update });
         }
 
         public void Dispose()
         {
             _shutdown = true;
 
-            _updater.Dispose();
-            _outgoingApi.Dispose();
-            _pluginOne.Dispose();
+            foreach (var space in _spaces)
+                space.Dispose();
+
+            _spaces.Clear();
         }
     }
 }
