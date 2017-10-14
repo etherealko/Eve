@@ -17,6 +17,7 @@ namespace eth.TestApp
             {
                 space.Value.Plugins.Enqueue(new SimpleConsoleLogger());
                 space.Value.Plugins.Enqueue(new PluginOne());
+                space.Value.Plugins.Enqueue(new LehaTrollerPlugin());
                 space.Value.Plugins.Enqueue(messageSender);
             }
             

@@ -34,7 +34,7 @@ namespace eth.TestApp
                 }
             };
 
-            _ctx.BotApi.SendMessageAsync(chatId: -1001013065325, text: "обратите внимание", replyMarkup: ke);
+            //_ctx.BotApi.SendMessageAsync(chatId: -1001013065325, text: "обратите внимание", replyMarkup: ke);
         }
 
         public void Teardown()
@@ -48,6 +48,9 @@ namespace eth.TestApp
                 return HandleResult.Ignored;
 
             var update = msg.Update;
+
+            if (update.Message == null)
+                return HandleResult.Ignored;
 
             if (update.Message.Chat.Id == -1001013065325)
             {
