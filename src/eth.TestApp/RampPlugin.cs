@@ -26,7 +26,7 @@ namespace eth.TestApp
             Dispose();
         }
 
-        public HandleResult Handle(IMessageContext msg)
+        public HandleResult Handle(IUpdateContext msg)
         {
             throw new NotImplementedException();
         }

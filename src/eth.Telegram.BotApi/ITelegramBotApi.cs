@@ -1,75 +1,62 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using eth.Telegram.BotApi.Objects;
+using eth.Telegram.BotApi.Objects.Enums;
 
 namespace eth.Telegram.BotApi
 {
     //Telegram Bot API v2.1
     //for details: https://core.telegram.org/bots/api
+    //UPD: the api is currently somewhere between 2.1 and 3.4, keep it in mind and check online if in doubt
     public interface ITelegramBotApi
     {
         Task<List<Update>> GetUpdatesAsync(int offset, int limit, int timeoutSeconds);
 
         Task<User> GetMeAsync();
 
-        Task<Message> SendMessageAsync(long chatId, string text);
-        Task<Message> SendMessageAsync(string channelUserName, string text);
+        Task<Message> SendMessageAsync(ChatIdOrUsername chatId, string text, 
+            ParseMode parseMode = ParseMode.None, 
+            bool? disableWebPagePreview = null, 
+            bool? disableNotification = null, 
+            long? replyToMessageId = null, 
+            object replyMarkup = null);
 
-        Task<Message> SendStickerAsync(long chatId, string sticker);
-        Task<Message> SendStickerAsync(string channelUserName, string sticker);
+        Task<Message> SendStickerAsync(ChatIdOrUsername chatId, string sticker);
 
-        Task<Message> ForwardMessageAsync(long chatId, int fromChatId, int messageId);
-        Task<Message> ForwardMessageAsync(string channelUserName, string fromChannelUserName, int messageId);
+        Task<Message> ForwardMessageAsync(ChatIdOrUsername chatId, ChatIdOrUsername fromChatId, int messageId);
 
-        Task<Message> SendPhotoAsync(long chatId, File photo);
-        Task<Message> SendPhotoAsync(string channelUserName, string fileIdToResend);
+        Task<Message> SendPhotoAsync(ChatIdOrUsername chatId, File photo);
 
-        Task<Message> SendAudioAsync(long chatId, Audio audio);
-        Task<Message> SendAudioAsync(string channelUserName, string fileIdToResend);
+        Task<Message> SendAudioAsync(ChatIdOrUsername chatId, Audio audio);
 
-        Task<Message> SendDocumentAsync(long chatId, Document document);
-        Task<Message> SendDocumentAsync(string channelUserName, string fileIdToResend);
+        Task<Message> SendDocumentAsync(ChatIdOrUsername chatId, Document document);
 
-        Task<Message> SendVideoAsync(long chatId, Video video);
-        Task<Message> SendVideoAsync(string channelUserName, string fileIdToResend);
+        Task<Message> SendVideoAsync(ChatIdOrUsername chatId, Video video);
 
-        Task<Message> SendVoiceAsync(long chatId, Voice voice);
-        Task<Message> SendVoiceAsync(string channelUserName, string fileIdToResend);
+        Task<Message> SendVoiceAsync(ChatIdOrUsername chatId, Voice voice);
 
-        Task<Message> SendLocationAsync(long chatId, float latitude, float longitude);
-        Task<Message> SendLocationAsync(string channelUserName, float latitude, float longitude);
+        Task<Message> SendLocationAsync(ChatIdOrUsername chatId, float latitude, float longitude);
 
-        Task<Message> SendVenueAsync(long chatId, float latitude, float longitude, string title, string address);
-        Task<Message> SendVenueAsync(string channelUserName, float latitude, float longitude, string title, string address);
+        Task<Message> SendVenueAsync(ChatIdOrUsername chatId, float latitude, float longitude, string title, string address);
 
-        Task<Message> SendContactAsync(long chatId, string phoneNumber, string firstName, string lastName);
-        Task<Message> SendContactAsync(string channelUserName, string phoneNumber, string firstName, string lastName);
+        Task<Message> SendContactAsync(ChatIdOrUsername chatId, string phoneNumber, string firstName, string lastName);
 
-        Task<bool> SendChatActionAsync(long chatId, ChatAction action);
-        Task<bool> SendChatActionAsync(string channelUserName, ChatAction action);
+        Task<bool> SendChatActionAsync(ChatIdOrUsername chatId, ChatAction action);
 
-        Task<UserProfilePhotos> GetUserProfilePhotoAsync(int userId);
-        Task<UserProfilePhotos> GetFileAsync(string fileId);
+        Task<UserProfilePhotos> GetUserProfilePhotoAsync(ChatIdOrUsername userId);
 
-        Task<bool> KickChatMemberAsync(long chatId, int userId);
-        Task<bool> KickChatMemberAsync(string channelUserName, int userId);
+        Task<bool> KickChatMemberAsync(ChatIdOrUsername chatId, ChatIdOrUsername userId);
 
-        Task<bool> LeaveChatAsync(long chatId);
-        Task<bool> LeaveChatAsync(string channelUserName);
+        Task<bool> LeaveChatAsync(ChatIdOrUsername chatId);
 
-        Task<bool> UnbanChatMemberAsync(long chatId, int userId);
-        Task<bool> UnbanChatMemberAsync(string channelUserName, int userId);
+        Task<bool> UnbanChatMemberAsync(ChatIdOrUsername chatId, ChatIdOrUsername userId);
 
-        Task<Chat> GetChatAsync(long chatId);
-        Task<Chat> GetChatAsync(string channelUserName);
+        Task<Chat> GetChatAsync(ChatIdOrUsername chatId);
 
-        Task<List<ChatMember>> GetChatAdminsAsync(long chatId);
-        Task<List<ChatMember>> GetChatAdminsAsync(string channelUserName);
+        Task<List<ChatMember>> GetChatAdminsAsync(ChatIdOrUsername chatId);
 
-        Task<int> GetChatMembersCountAsync(long chatId);
-        Task<int> GetChatMembersCountAsync(string channelUserName);
+        Task<int> GetChatMembersCountAsync(ChatIdOrUsername chatId);
 
-        Task<ChatMember> GetChatMemberAsync(long chatId, int userId);
-        Task<ChatMember> GetChatMemberAsync(string channelUserName, int userId);
+        Task<ChatMember> GetChatMemberAsync(ChatIdOrUsername chatId, ChatIdOrUsername userId);
     }
 }

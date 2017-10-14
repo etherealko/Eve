@@ -2,13 +2,13 @@
 
 namespace eth.Eve.PluginSystem
 {
-    public interface IPlugin : IDisposable
+    public interface IPlugin
     {
         PluginInfo Info { get; }
 
         void Initialize(IPluginContext ctx);
         void Teardown();
 
-        HandleResult Handle(IMessageContext msg);
+        HandleResult Handle(IUpdateContext msg);
     }
 }

@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>eth.TestApp</RootNamespace>
     <AssemblyName>eth.TestApp</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -65,6 +66,10 @@
     <ProjectReference Include="..\eth.Common\eth.Common.csproj">
       <Project>{370d9116-f209-4465-811b-60d68e9675d2}</Project>
       <Name>eth.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eth.Eve.PluginSystem.BasePlugins\eth.Eve.PluginSystem.BasePlugins.csproj">
+      <Project>{bfd70ad6-88ed-4f08-835a-f2b99d3a7d7b}</Project>
+      <Name>eth.Eve.PluginSystem.BasePlugins</Name>
     </ProjectReference>
     <ProjectReference Include="..\eth.Eve.PluginSystem\eth.Eve.PluginSystem.csproj">
       <Project>{AD7A62E3-D448-4A7F-94BE-1496F8A93487}</Project>

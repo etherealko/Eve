@@ -45,9 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChatIdOrUsername.cs" />
     <Compile Include="Internal\ApiMethod.cs" />
     <Compile Include="Internal\ApiResponse.cs" />
-    <Compile Include="ChatAction.cs" />
+    <Compile Include="Internal\Serialization\ApiArgs.cs" />
+    <Compile Include="Internal\Serialization\IgnoreOptionalParametersContractResolver.cs" />
+    <Compile Include="Internal\Serialization\ChatIdOrUsernameConverter.cs" />
+    <Compile Include="Internal\Serialization\IgnoreDefaultValueStringEnumConverter.cs" />
     <Compile Include="TelegramBotApiException.cs" />
     <Compile Include="ITelegramBotApi.cs" />
     <Compile Include="TelegramBotApi.cs" />

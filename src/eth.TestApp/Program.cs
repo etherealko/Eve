@@ -1,5 +1,6 @@
 ﻿using System;
 using eth.Eve;
+using eth.Eve.PluginSystem.BasePlugins;
 
 namespace eth.TestApp
 {
@@ -7,16 +8,32 @@ namespace eth.TestApp
     {
         private static void Main(string[] args)
         {
+            var messageSender = new SimpleMessageSender();
             var bot = new EveBot();
 
             var spaces = bot.GetSpaceInitializers();
 
             foreach (var space in spaces)
+            {
+                space.Value.Plugins.Enqueue(new SimpleConsoleLogger());
                 space.Value.Plugins.Enqueue(new PluginOne());
-
-            bot.Start();
-            Console.ReadKey(true);
-            bot.Stop();
+                space.Value.Plugins.Enqueue(messageSender);
+            }
+            
+            try
+            {
+                bot.Start();
+                
+                while (true)
+                {
+                    var txt = Console.ReadLine();
+                    var msg = messageSender.SendTextMessage(108762758, txt).Result;
+                }
+            }
+            finally
+            {
+                bot.Stop();
+            }
         }
     }
 }

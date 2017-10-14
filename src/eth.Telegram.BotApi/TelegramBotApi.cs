@@ -5,6 +5,9 @@ using eth.Common;
 using eth.Common.JetBrains.Annotations;
 using eth.Telegram.BotApi.Internal;
 using eth.Telegram.BotApi.Objects;
+using eth.Telegram.BotApi.Objects.Enums;
+using Newtonsoft.Json.Linq;
+using eth.Telegram.BotApi.Internal.Serialization;
 
 namespace eth.Telegram.BotApi
 {
@@ -49,31 +52,29 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> SendMessageAsync(long chatId, string text)
+        public async Task<Message> SendMessageAsync(ChatIdOrUsername chatId, string text,
+            ParseMode parseMode = ParseMode.None,
+            bool? disableWebPagePreview = null,
+            bool? disableNotification = null,
+            long? replyToMessageId = null,
+            object replyMarkup = null)
         {
-            var args = new
+            var args = new ApiArgs
             {
-                chat_id = chatId,
-                text = text
+                { "chat_id", chatId },
+                { "text", text },
+                { "parse_mode", parseMode, true },
+                { "disable_web_page_preview", disableWebPagePreview, true },
+                { "disable_notification", disableNotification, true },
+                { "reply_to_message_id", replyToMessageId, true },
+                { "reply_markup", replyMarkup, true }
             };
-
+            
             return await _api.CallAsync<Message>(ApiMethod.SendMessage, args)
                 .ConfigureAwait(false);
         }
-
-        public async Task<Message> SendMessageAsync(string channelUserName, string text)
-        {
-            var args = new
-            {
-                chat_id = channelUserName,
-                text = text
-            };
-
-            return await _api.CallAsync<Message>(ApiMethod.SendMessage, args)
-                .ConfigureAwait(false);
-        }
-
-        public async Task<Message> SendStickerAsync(long chatId, string sticker)
+        
+        public async Task<Message> SendStickerAsync(ChatIdOrUsername chatId, string sticker)
         {
             var args = new
             {
@@ -84,20 +85,8 @@ namespace eth.Telegram.BotApi
             return await _api.CallAsync<Message>(ApiMethod.SendSticker, args)
                 .ConfigureAwait(false);
         }
-
-        public async Task<Message> SendStickerAsync(string channelUserName, string sticker)
-        {
-            var args = new
-            {
-                chat_id = channelUserName,
-                sticker = sticker
-            };
-
-            return await _api.CallAsync<Message>(ApiMethod.SendSticker, args)
-                .ConfigureAwait(false);
-        }
-
-        public async Task<Message> ForwardMessageAsync(long chatId, int fromChatId, int messageId)
+        
+        public async Task<Message> ForwardMessageAsync(ChatIdOrUsername chatId, ChatIdOrUsername fromChatId, int messageId)
         {
             var args = new
             {
@@ -109,21 +98,8 @@ namespace eth.Telegram.BotApi
             return await _api.CallAsync<Message>(ApiMethod.ForwardMessage, args)
                 .ConfigureAwait(false);
         }
-
-        public async Task<Message> ForwardMessageAsync(string channelUserName, string fromChannelUserName, int messageId)
-        {
-            var args = new
-            {
-                chat_id = channelUserName,
-                from_chat_id = fromChannelUserName,
-                message_id = messageId
-            };
-
-            return await _api.CallAsync<Message>(ApiMethod.ForwardMessage, args)
-                .ConfigureAwait(false);
-        }
         
-        public async Task<Message> SendPhotoAsync(long chatId, File photo)
+        public async Task<Message> SendPhotoAsync(ChatIdOrUsername chatId, File photo)
         {
             var args = new
             {
@@ -134,20 +110,8 @@ namespace eth.Telegram.BotApi
             return await _api.CallAsync<Message>(ApiMethod.SendPhoto, args)
                 .ConfigureAwait(false);
         }
-
-        public async Task<Message> SendPhotoAsync(string channelUserName, string fileIdToResend)
-        {
-            var args = new
-            {
-                chat_id = channelUserName,
-                photo = fileIdToResend
-            };
-
-            return await _api.CallAsync<Message>(ApiMethod.SendPhoto, args)
-                .ConfigureAwait(false);           
-        }
-
-        public async Task<Message> SendAudioAsync(long chatId, Audio audio)
+        
+        public async Task<Message> SendAudioAsync(ChatIdOrUsername chatId, Audio audio)
         {
             var args = new
             {
@@ -158,20 +122,8 @@ namespace eth.Telegram.BotApi
             return await _api.CallAsync<Message>(ApiMethod.SendAudio, args)
                 .ConfigureAwait(false);
         }
-
-        public async Task<Message> SendAudioAsync(string channelUserName, string fileIdToResend)
-        {
-            var args = new
-            {
-                chat_id = channelUserName,
-                audio = fileIdToResend
-            };
-
-            return await _api.CallAsync<Message>(ApiMethod.SendAudio, args)
-                .ConfigureAwait(false);
-        }
-
-        public async Task<Message> SendDocumentAsync(long chatId, Document document)
+        
+        public async Task<Message> SendDocumentAsync(ChatIdOrUsername chatId, Document document)
         {
             var args = new
             {
@@ -182,20 +134,8 @@ namespace eth.Telegram.BotApi
             return await _api.CallAsync<Message>(ApiMethod.SendDocument, args)
                 .ConfigureAwait(false);
         }
-
-        public async Task<Message> SendDocumentAsync(string channelUserName, string fileIdToResend)
-        {
-            var args = new
-            {
-                chat_id = channelUserName,
-                document = fileIdToResend
-            };
-
-            return await _api.CallAsync<Message>(ApiMethod.SendDocument, args)
-                .ConfigureAwait(false);
-        }
-
-        public async Task<Message> SendVideoAsync(long chatId, Video video)
+        
+        public async Task<Message> SendVideoAsync(ChatIdOrUsername chatId, Video video)
         {
             var args = new
             {
@@ -206,20 +146,8 @@ namespace eth.Telegram.BotApi
             return await _api.CallAsync<Message>(ApiMethod.SendVideo, args)
                 .ConfigureAwait(false);
         }
-
-        public async Task<Message> SendVideoAsync(string channelUserName, string fileIdToResend)
-        {
-            var args = new
-            {
-                chat_id = channelUserName,
-                video = fileIdToResend
-            };
-
-            return await _api.CallAsync<Message>(ApiMethod.SendVideo, args)
-                .ConfigureAwait(false);
-        }
-
-        public async Task<Message> SendVoiceAsync(long chatId, Voice voice)
+        
+        public async Task<Message> SendVoiceAsync(ChatIdOrUsername chatId, Voice voice)
         {
             var args = new
             {
@@ -230,20 +158,8 @@ namespace eth.Telegram.BotApi
             return await _api.CallAsync<Message>(ApiMethod.SendVoice, args)
                 .ConfigureAwait(false);
         }
-
-        public async Task<Message> SendVoiceAsync(string channelUserName, string fileIdToResend)
-        {
-            var args = new
-            {
-                chat_id = channelUserName,
-                voice = fileIdToResend
-            };
-
-            return await _api.CallAsync<Message>(ApiMethod.SendVoice, args)
-                .ConfigureAwait(false);
-        }
-
-        public async Task<Message> SendLocationAsync(long chatId, float latitude, float longitude)
+        
+        public async Task<Message> SendLocationAsync(ChatIdOrUsername chatId, float latitude, float longitude)
         {
             var args = new
             {
@@ -255,21 +171,8 @@ namespace eth.Telegram.BotApi
             return await _api.CallAsync<Message>(ApiMethod.SendLocation, args)
                 .ConfigureAwait(false);
         }
-
-        public async Task<Message> SendLocationAsync(string channelUserName, float latitude, float longitude)
-        {
-            var args = new
-            {
-                chat_id = channelUserName,
-                latitude = latitude,
-                longitude = longitude
-            };
-
-            return await _api.CallAsync<Message>(ApiMethod.SendLocation, args)
-                .ConfigureAwait(false);
-        }
-
-        public async Task<Message> SendVenueAsync(long chatId, float latitude, float longitude, string title, string address)
+        
+        public async Task<Message> SendVenueAsync(ChatIdOrUsername chatId, float latitude, float longitude, string title, string address)
         {
             var args = new
             {
@@ -283,23 +186,8 @@ namespace eth.Telegram.BotApi
             return await _api.CallAsync<Message>(ApiMethod.SendVenue, args)
                .ConfigureAwait(false);
         }
-
-        public async Task<Message> SendVenueAsync(string channelUserName, float latitude, float longitude, string title, string address)
-        {
-            var args = new
-            {
-                chat_id = channelUserName,
-                latitude = latitude,
-                longitude = longitude,
-                title = title,
-                address = address
-            };
-
-            return await _api.CallAsync<Message>(ApiMethod.SendVenue, args)
-              .ConfigureAwait(false);
-        }
-
-        public async Task<Message> SendContactAsync(long chatId, string phoneNumber, string firstName, string lastName)
+        
+        public async Task<Message> SendContactAsync(ChatIdOrUsername chatId, string phoneNumber, string firstName, string lastName)
         {
             var args = new
             {
@@ -312,22 +200,8 @@ namespace eth.Telegram.BotApi
             return await _api.CallAsync<Message>(ApiMethod.SendContact, args)
                 .ConfigureAwait(false);
         }
-
-        public async Task<Message> SendContactAsync(string channelUserName, string phoneNumber, string firstName, string lastName)
-        {
-            var args = new
-            {
-                chat_id = channelUserName,
-                phone_number = phoneNumber,
-                first_name = firstName,
-                last_name = lastName
-            };
-
-            return await _api.CallAsync<Message>(ApiMethod.SendContact, args)
-                .ConfigureAwait(false);
-        }
-
-        public async Task<bool> SendChatActionAsync(long chatId, ChatAction action)
+        
+        public async Task<bool> SendChatActionAsync(ChatIdOrUsername chatId, ChatAction action)
         {
             var args = new
             {
@@ -338,20 +212,8 @@ namespace eth.Telegram.BotApi
             return await _api.CallAsync<bool>(ApiMethod.SendChatAction, args)
                 .ConfigureAwait(false);
         }
-
-        public async Task<bool> SendChatActionAsync(string channelUserName, ChatAction action)
-        {
-            var args = new
-            {
-                chat_id = channelUserName,
-                action = action
-            };
-
-            return await _api.CallAsync<bool>(ApiMethod.SendChatAction, args)
-                .ConfigureAwait(false);
-        }
-
-        public async Task<bool> KickChatMemberAsync(long chatId, int userId)
+        
+        public async Task<bool> KickChatMemberAsync(ChatIdOrUsername chatId, ChatIdOrUsername userId)
         {
             var args = new
             {
@@ -362,20 +224,8 @@ namespace eth.Telegram.BotApi
             return await _api.CallAsync<bool>(ApiMethod.KickChatMember, args)
                 .ConfigureAwait(false);
         }
-
-        public async Task<bool> KickChatMemberAsync(string channelUserName, int userId)
-        {
-            var args = new
-            {
-                chat_id = channelUserName,
-                user_id = userId
-            };
-
-            return await _api.CallAsync<bool>(ApiMethod.KickChatMember, args)
-                .ConfigureAwait(false);
-        }
-
-        public async Task<bool> LeaveChatAsync(long chatId)
+        
+        public async Task<bool> LeaveChatAsync(ChatIdOrUsername chatId)
         {
             var args = new
             {
@@ -385,19 +235,8 @@ namespace eth.Telegram.BotApi
             return await _api.CallAsync<bool>(ApiMethod.LeaveChat, args)
                 .ConfigureAwait(false);
         }
-
-        public async Task<bool> LeaveChatAsync(string channelUserName)
-        {
-            var args = new
-            {
-                chat_id = channelUserName
-            };
-
-            return await _api.CallAsync<bool>(ApiMethod.LeaveChat, args)
-                .ConfigureAwait(false);
-        }
-
-        public async Task<bool> UnbanChatMemberAsync(long chatId, int userId)
+        
+        public async Task<bool> UnbanChatMemberAsync(ChatIdOrUsername chatId, ChatIdOrUsername userId)
         {
             var args = new
             {
@@ -408,20 +247,8 @@ namespace eth.Telegram.BotApi
             return await _api.CallAsync<bool>(ApiMethod.UnbanChatMember, args)
                 .ConfigureAwait(false);
         }
-
-        public async Task<bool> UnbanChatMemberAsync(string channelUserName, int userId)
-        {
-            var args = new
-            {
-                chat_id = channelUserName,
-                user_id = userId
-            };
-
-            return await _api.CallAsync<bool>(ApiMethod.UnbanChatMember, args)
-                .ConfigureAwait(false);
-        }
-
-        public async Task<Chat> GetChatAsync(long chatId)
+        
+        public async Task<Chat> GetChatAsync(ChatIdOrUsername chatId)
         {
             var args = new
             {
@@ -431,19 +258,8 @@ namespace eth.Telegram.BotApi
             return await _api.CallAsync<Chat>(ApiMethod.GetChat, args)
                 .ConfigureAwait(false);
         }
-
-        public async Task<Chat> GetChatAsync(string channelUserName)
-        {
-            var args = new
-            {
-                chat_id = channelUserName
-            };
-
-            return await _api.CallAsync<Chat>(ApiMethod.GetChat, args)
-                .ConfigureAwait(false);
-        }
-
-        public async Task<List<ChatMember>> GetChatAdminsAsync(long chatId)
+        
+        public async Task<List<ChatMember>> GetChatAdminsAsync(ChatIdOrUsername chatId)
         {
             var args = new
             {
@@ -453,19 +269,8 @@ namespace eth.Telegram.BotApi
             return await _api.CallAsync<List<ChatMember>>(ApiMethod.GetChatAdmins, args)
                 .ConfigureAwait(false);
         }
-
-        public async Task<List<ChatMember>> GetChatAdminsAsync(string channelUserName)
-        {
-            var args = new
-            {
-                chat_id = channelUserName
-            };
-
-            return await _api.CallAsync<List<ChatMember>>(ApiMethod.GetChatAdmins, args)
-                 .ConfigureAwait(false);
-        }
-
-        public async Task<int> GetChatMembersCountAsync(long chatId)
+        
+        public async Task<int> GetChatMembersCountAsync(ChatIdOrUsername chatId)
         {
             var args = new
             {
@@ -474,18 +279,8 @@ namespace eth.Telegram.BotApi
 
             return await _api.CallAsync<int>(ApiMethod.GetChatMembersCount, args).ConfigureAwait(false);
         }
-
-        public async Task<int> GetChatMembersCountAsync(string channelUserName)
-        {
-            var args = new
-            {
-                chat_id = channelUserName
-            };
-
-            return await _api.CallAsync<int>(ApiMethod.GetChatMembersCount, args).ConfigureAwait(false);
-        }
-
-        public async Task<ChatMember> GetChatMemberAsync(long chatId, int userId)
+        
+        public async Task<ChatMember> GetChatMemberAsync(ChatIdOrUsername chatId, ChatIdOrUsername userId)
         {
             var args = new
             {
@@ -495,19 +290,8 @@ namespace eth.Telegram.BotApi
 
             return await _api.CallAsync<ChatMember>(ApiMethod.GetChatMember, args).ConfigureAwait(false);
         }
-
-        public async Task<ChatMember> GetChatMemberAsync(string channelUserName, int userId)
-        {
-            var args = new
-            {
-                chat_id = channelUserName,
-                user_id = userId
-            };
-
-            return await _api.CallAsync<ChatMember>(ApiMethod.GetChatMember, args).ConfigureAwait(false);
-        }
-
-        public async Task<UserProfilePhotos> GetUserProfilePhotoAsync(int userId)
+        
+        public async Task<UserProfilePhotos> GetUserProfilePhotoAsync(ChatIdOrUsername userId)
         {
             var args = new
             {

@@ -82,11 +82,11 @@ namespace eth.Eve.Internal
         {
             Debug.Assert(updates != null);
 
-            Console.WriteLine($"{updates.Count} message(s)");
+            Debug.WriteLine($"{_spaceId}: {updates.Count} message(s)");
 
             foreach (var update in updates)
             {
-                var message = new MessageContext { IsInitiallyPolled = true, Update = update };
+                var message = new UpdateContext { IsInitiallyPolled = true, Update = update };
 
                 foreach (var plugin in _plugins)
                     plugin.Handle(message);
@@ -96,13 +96,8 @@ namespace eth.Eve.Internal
         private void HandleNew(Update update)
         {
             Debug.Assert(update != null);
-
-            if (update.Message == null)
-                return;
-
-            Console.WriteLine($" >{update.Message?.From.FirstName ?? "<no fname>"}: {update.Message.Text}");
-
-            var message = new MessageContext { Update = update };
+            
+            var message = new UpdateContext { Update = update };
 
             foreach (var plugin in _plugins)
                 plugin.Handle(message);

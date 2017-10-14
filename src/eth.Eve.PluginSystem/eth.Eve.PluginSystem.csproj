@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="HandleResult.cs" />
     <Compile Include="IPlugin.cs" />
-    <Compile Include="IMessageContext.cs" />
+    <Compile Include="IUpdateContext.cs" />
     <Compile Include="IPluginContext.cs" />
     <Compile Include="Storage\IPluginLocalStorage.cs" />
     <Compile Include="PluginInfo.cs" />

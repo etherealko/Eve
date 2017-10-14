@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using eth.Telegram.BotApi.Objects;
+using Newtonsoft.Json;
 
 namespace eth.Telegram.BotApi.Internal
 {
@@ -10,10 +11,13 @@ namespace eth.Telegram.BotApi.Internal
         [JsonProperty("result")]
         public T Result { get; set; }
 
+        [JsonProperty("error_code")]
+        public int? ErrorCode { get; set; }
+
         [JsonProperty("description")]
         public string Description { get; set; }
 
-        [JsonProperty("error_code")]
-        public int? ErrorCode { get; set; }
+        [JsonProperty("parameters")]
+        public ResponseParameters Parameters { get; set; }
     }
 }

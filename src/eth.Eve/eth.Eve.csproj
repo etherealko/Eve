@@ -54,7 +54,7 @@
     <Compile Include="Internal\BotUpdatePoller.cs" />
     <Compile Include="Internal\EveBotSpace.cs" />
     <Compile Include="Internal\EveSpaceInitializer.cs" />
-    <Compile Include="Internal\MessageContext.cs" />
+    <Compile Include="Internal\UpdateContext.cs" />
     <Compile Include="Internal\PluginContext.cs" />
     <Compile Include="Internal\PluginLocalStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

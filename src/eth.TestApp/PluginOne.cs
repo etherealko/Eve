@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using eth.Eve.PluginSystem;
+using eth.Telegram.BotApi.Objects.Enums;
 
 namespace eth.TestApp
 {
-    internal class PluginOne : IPlugin
+    internal class PluginOne : IPlugin, IDisposable
     {
         private IPluginContext _ctx;
 
@@ -23,7 +24,7 @@ namespace eth.TestApp
             Dispose();
         }
 
-        public HandleResult Handle(IMessageContext msg)
+        public HandleResult Handle(IUpdateContext msg)
         {
             if (msg.IsInitiallyPolled)
                 return HandleResult.Ignored;
@@ -36,7 +37,7 @@ namespace eth.TestApp
 
                 if (eva.IsMatch(update.Message.Text ?? ""))
                 {
-                    _ctx.BotApi.SendMessageAsync(-1001013065325, "i'm here");
+                    _ctx.BotApi.SendMessageAsync(-1001013065325, "i'm here", ParseMode.None, null, null, update.Message.MessageId);
                     return HandleResult.HandledCompletely;
                 }
 
