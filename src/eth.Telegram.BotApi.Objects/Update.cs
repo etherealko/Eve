@@ -2,6 +2,10 @@
 
 namespace eth.Telegram.BotApi.Objects
 {
+    /// <summary>
+    /// This object represents an incoming update.
+    /// At most one of the optional parameters can be present in any given update.
+    /// </summary>
     public class Update
     {
         /// <summary>
@@ -18,6 +22,24 @@ namespace eth.Telegram.BotApi.Objects
         public Message Message { get; set; }
 
         /// <summary>
+        /// Optional. New version of a message that is known to the bot and was edited
+        /// </summary>
+        [JsonProperty("channel_post", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public Message EditedMessage { get; set; }
+
+        /// <summary>
+        /// Optional. New version of a message that is known to the bot and was edited
+        /// </summary>
+        [JsonProperty("edited_channel_post", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public Message ChannelPost{ get; set; }
+
+        /// <summary>
+        /// Optional. New version of a message that is known to the bot and was edited
+        /// </summary>
+        [JsonProperty("edited_message", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public Message EditedChannelPost { get; set; }
+
+        /// <summary>
         /// Optional. New incoming inline query
         /// </summary>
         [JsonProperty("inline_query", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -28,5 +50,23 @@ namespace eth.Telegram.BotApi.Objects
         /// </summary>
         [JsonProperty("chosen_inline_result", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public ChosenInlineResult ChosenInlineResult { get; set; }
+
+        /// <summary>
+        /// Optional. New incoming callback query
+        /// </summary>
+        [JsonProperty("callback_query", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public CallbackQuery CallbackQuery { get; set; }
+
+        /// <summary>
+        /// Optional. New incoming shipping query. Only for invoices with flexible price
+        /// </summary>
+        [JsonProperty("shipping_query", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public ShippingQuery ShippingQuery { get; set; }
+
+        /// <summary>
+        /// Optional. New incoming pre-checkout query. Contains full information about checkout
+        /// </summary>
+        [JsonProperty("pre_checkout_query", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public PreCheckoutQuery PreCheckoutQuery { get; set; }
     }
 }

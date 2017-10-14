@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using eth.Telegram.BotApi.Objects.Base;
 
 namespace eth.Telegram.BotApi.Objects
 {
     /// <summary>
     /// This object represents a custom keyboard with reply options (see Introduction to bots for details and examples).
     /// </summary>
-    public class ReplyKeyboardMarkup
+    public class ReplyKeyboardMarkup : KeyboardMarkupReply
     {
         /// <summary>
         /// Array of button rows, each represented by an Array of Strings
         /// </summary>
         [JsonProperty("keyboard", Required = Required.Always)]
-        public List<List<string>> Keyboard { get; set; }
+        public List<List<KeyboardButton>> Keyboard { get; set; }
 
         /// <summary>
         /// Optional. Requests clients to resize the keyboard vertically for optimal fit(e.g., make the keyboard smaller if there are just two rows of buttons). 

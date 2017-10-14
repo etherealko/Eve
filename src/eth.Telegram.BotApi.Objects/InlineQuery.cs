@@ -11,7 +11,7 @@ namespace eth.Telegram.BotApi.Objects
         /// Unique identifier for this query
         /// </summary>
         [JsonProperty("id", Required = Required.Always)]
-        public long Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Sender
@@ -30,5 +30,11 @@ namespace eth.Telegram.BotApi.Objects
         /// </summary>
         [JsonProperty("offset", Required = Required.Always)]
         public string Offset { get; set; }
+        
+        /// <summary>
+        /// Optional. Sender location, only for bots that request user location
+        /// </summary>
+        [JsonProperty("location", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public Location Location { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using eth.Telegram.BotApi.Objects;
 using eth.Telegram.BotApi.Objects.Enums;
+using eth.Telegram.BotApi.Objects.Base;
 
 namespace eth.Telegram.BotApi
 {
@@ -18,8 +19,8 @@ namespace eth.Telegram.BotApi
             ParseMode parseMode = ParseMode.None, 
             bool? disableWebPagePreview = null, 
             bool? disableNotification = null, 
-            long? replyToMessageId = null, 
-            object replyMarkup = null);
+            long? replyToMessageId = null,
+            KeyboardMarkupReply replyMarkup = null);
 
         Task<Message> SendStickerAsync(ChatIdOrUsername chatId, string sticker);
 

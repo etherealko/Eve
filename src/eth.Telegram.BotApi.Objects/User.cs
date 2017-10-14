@@ -32,5 +32,11 @@ namespace eth.Telegram.BotApi.Objects
         /// </summary>
         [JsonProperty("username", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Username { get; set; }
+
+        /// <summary>
+        /// Optional. IETF language tag of the user's language
+        /// </summary>
+        [JsonProperty("language_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string LanguageCode { get; set; }
     }
 }

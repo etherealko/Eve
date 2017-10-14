@@ -27,7 +27,7 @@ namespace eth.TestApp
                 while (true)
                 {
                     var txt = Console.ReadLine();
-                    var msg = messageSender.SendTextMessage(108762758, txt).Result;
+                    var msg = messageSender.SendTextMessage(-1001013065325, txt).Result;
                 }
             }
             finally

@@ -2,6 +2,8 @@
 using System.Text.RegularExpressions;
 using eth.Eve.PluginSystem;
 using eth.Telegram.BotApi.Objects.Enums;
+using eth.Telegram.BotApi.Objects;
+using System.Collections.Generic;
 
 namespace eth.TestApp
 {
@@ -17,6 +19,22 @@ namespace eth.TestApp
         public void Initialize(IPluginContext ctx)
         {
             _ctx = ctx;
+
+            var chat = _ctx.BotApi.GetMeAsync().Result;
+
+            var ke = new InlineKeyboardMarkup
+            {
+                InlineKeyboard = new List<List<InlineKeyboardButton>>
+                {
+                    new List<InlineKeyboardButton>
+                    {
+                        new InlineKeyboardButton { Text = "леша", CallbackData = "1" },
+                        new InlineKeyboardButton { Text = "лох", CallbackData = "2" }
+                    }
+                }
+            };
+
+            _ctx.BotApi.SendMessageAsync(chatId: -1001013065325, text: "обратите внимание", replyMarkup: ke);
         }
 
         public void Teardown()

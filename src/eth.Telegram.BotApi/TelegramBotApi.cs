@@ -8,6 +8,7 @@ using eth.Telegram.BotApi.Objects;
 using eth.Telegram.BotApi.Objects.Enums;
 using Newtonsoft.Json.Linq;
 using eth.Telegram.BotApi.Internal.Serialization;
+using eth.Telegram.BotApi.Objects.Base;
 
 namespace eth.Telegram.BotApi
 {
@@ -57,7 +58,7 @@ namespace eth.Telegram.BotApi
             bool? disableWebPagePreview = null,
             bool? disableNotification = null,
             long? replyToMessageId = null,
-            object replyMarkup = null)
+            KeyboardMarkupReply replyMarkup = null)
         {
             var args = new ApiArgs
             {

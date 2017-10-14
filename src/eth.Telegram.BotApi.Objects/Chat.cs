@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using eth.Telegram.BotApi.Objects.Enums;
+using Newtonsoft.Json;
 
 namespace eth.Telegram.BotApi.Objects
 {
@@ -17,7 +17,7 @@ namespace eth.Telegram.BotApi.Objects
         /// <summary>
         /// Type of chat, can be either “private”, “group”, “supergroup” or “channel”
         /// </summary>
-        [JsonProperty("type", ItemConverterType = typeof(StringEnumConverter), DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public ChatType Type { get; set; }
 
         /// <summary>

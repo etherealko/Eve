@@ -28,6 +28,9 @@ namespace eth.Eve.PluginSystem.BasePlugins
 
             var chatMessage = msg.Update.Message;
 
+            if (chatMessage == null)
+                return HandleResult.Ignored;
+
             Console.WriteLine($"{chatMessage.Chat.Id}: {chatMessage.Text}");
 
             return HandleResult.HandledPartially;
