@@ -6,7 +6,7 @@ namespace eth.Telegram.BotApi.Internal.Serialization
     internal class ChatIdOrUsernameConverter : JsonConverter
     {
         public override bool CanRead { get { return false; } }
-
+        
         public override bool CanConvert(Type objectType)
         {
             return objectType == typeof(ChatIdOrUsername);

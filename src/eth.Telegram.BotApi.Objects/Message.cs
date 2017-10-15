@@ -13,11 +13,11 @@ namespace eth.Telegram.BotApi.Objects
         /// </summary>
         [JsonProperty("message_id", Required = Required.Always)]
         public int MessageId { get; set; }
-        
+
         /// <summary>
-        /// Sender
+        /// Optional. Sender, empty for messages sent to channels
         /// </summary>
-        [JsonProperty("from", Required = Required.Always)]
+        [JsonProperty("from", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public User From { get; set; }
         
         /// <summary>
@@ -42,7 +42,7 @@ namespace eth.Telegram.BotApi.Objects
         /// Optional. For forwarded messages, date the original message was sent in Unix time
         /// </summary>
         [JsonProperty("forward_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public int ForwardDate { get; set; }
+        public int? ForwardDate { get; set; }
         
         /// <summary>
         /// Optional. For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -138,36 +138,54 @@ namespace eth.Telegram.BotApi.Objects
         /// Optional. Informs that the group photo was deleted
         /// </summary>
         [JsonProperty("delete_chat_photo", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public bool DeleteChatPhoto { get; set; }
+        public bool? DeleteChatPhoto { get; set; }
         
         /// <summary>
         /// Optional. Informs that the group has been created
         /// </summary>
         [JsonProperty("group_chat_created", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public bool GroupChatCreated { get; set; }
+        public bool? GroupChatCreated { get; set; }
 
         /// <summary>
         /// Optional. Service message: the supergroup has been created
         /// </summary>
         [JsonProperty("supergroup_chat_created", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public bool SupergroupChatCreated { get; set; }
+        public bool? SupergroupChatCreated { get; set; }
 
         /// <summary>
         /// Optional. Service message: the channel has been created
         /// </summary>
         [JsonProperty("channel_chat_created", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public bool ChannelChatCreated { get; set; }
+        public bool? ChannelChatCreated { get; set; }
 
         /// <summary>
         /// Optional. The group has been migrated to a supergroup with the specified identifier, not exceeding 1e13 by absolute value
         /// </summary>
         [JsonProperty("migrate_to_chat_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public long MigrateToChatId { get; set; }
+        public long? MigrateToChatId { get; set; }
 
         /// <summary>
         /// Optional. The supergroup has been migrated from a group with the specified identifier, not exceeding 1e13 by absolute value
         /// </summary>
         [JsonProperty("migrate_from_chat_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public long MigrateFromChatId { get; set; }
+        public long? MigrateFromChatId { get; set; }
+
+        /// <summary>
+        /// Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply.
+        /// </summary>
+        [JsonProperty("pinned_message", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public Message PinnedMessage { get; set; }
+
+        /// <summary>
+        /// Optional. Message is an invoice for a payment, information about the invoice.
+        /// </summary>
+        [JsonProperty("invoice", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public Invoice Invoice { get; set; }
+
+        /// <summary>
+        /// Optional. Message is a service message about a successful payment, information about the payment.
+        /// </summary>
+        [JsonProperty("successful_payment", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public SuccessfulPayment SuccessfulPayment { get; set; }
     }
 }

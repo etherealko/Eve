@@ -26,9 +26,44 @@ namespace eth.TestApp
             Dispose();
         }
 
-        public HandleResult Handle(IUpdateContext msg)
+        public HandleResult Handle(IUpdateContext c)
         {
-            throw new NotImplementedException();
+            if (c.IsInitiallyPolled)
+                return HandleResult.Ignored;
+
+            switch (c.Update.Message?.Text)
+            {
+                case "/stuff":
+                case "/stuff@ramp30_bot":
+                case "/nishebrod":
+                case "/nishebrod@ramp30_bot":
+                case "/bankroll":
+                case "/bankroll@ramp30_bot":
+                    var msg = c.Update.Message;
+
+                    try
+                    {
+                        throw new NotImplementedException();
+                    }
+                    catch (Exception ex)
+                    {
+                        var exFirstLine = ex.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.None)[0];
+                        var fullStackTrace = Environment.StackTrace.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+
+                        var msgBuilder = new StringBuilder(exFirstLine + Environment.NewLine);
+
+                        for (var i = 2; i < fullStackTrace.Length; ++i)                        
+                            msgBuilder.AppendLine(fullStackTrace[i]);
+
+                        var output = msgBuilder.ToString().Substring(0, 4000);
+
+                        _ctx.BotApi.SendMessageAsync(chatId: msg.Chat.Id, replyToMessageId: msg.MessageId, text: output);
+                    }
+
+                    return HandleResult.HandledCompletely;
+                default:
+                    return HandleResult.Ignored;
+            }
         }
 
         public void Dispose() { }

@@ -17,7 +17,7 @@ namespace eth.Telegram.BotApi.Objects
         /// Duration of the audio in seconds as defined by sender
         /// </summary>
         [JsonProperty("duration", Required = Required.Always)]
-        public int Duration { get; set; }
+        public int? Duration { get; set; }
 
         /// <summary>
         /// Optional. Performer of the audio as defined by sender or by audio tags
@@ -41,6 +41,6 @@ namespace eth.Telegram.BotApi.Objects
         /// Optional. File size
         /// </summary>
         [JsonProperty("file_size", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public int FileSize { get; set; }
+        public int? FileSize { get; set; }
     }
 }

@@ -69,6 +69,7 @@
     <Compile Include="InlineQueryResultPhoto.cs" />
     <Compile Include="InlineQueryResultType.cs" />
     <Compile Include="InlineQueryResultVideo.cs" />
+    <Compile Include="Invoice.cs" />
     <Compile Include="KeyboardButton.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Message.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="ShippingAddress.cs" />
     <Compile Include="ShippingQuery.cs" />
     <Compile Include="Sticker.cs" />
+    <Compile Include="SuccessfulPayment.cs" />
     <Compile Include="Update.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserProfilePhotos.cs" />

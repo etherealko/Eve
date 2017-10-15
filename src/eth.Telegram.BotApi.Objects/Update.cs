@@ -31,7 +31,7 @@ namespace eth.Telegram.BotApi.Objects
         /// Optional. New version of a message that is known to the bot and was edited
         /// </summary>
         [JsonProperty("edited_channel_post", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public Message ChannelPost{ get; set; }
+        public Message ChannelPost { get; set; }
 
         /// <summary>
         /// Optional. New version of a message that is known to the bot and was edited

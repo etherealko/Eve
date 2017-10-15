@@ -9,6 +9,6 @@ namespace eth.Eve.PluginSystem
         void Initialize(IPluginContext ctx);
         void Teardown();
 
-        HandleResult Handle(IUpdateContext msg);
+        HandleResult Handle(IUpdateContext c);
     }
 }

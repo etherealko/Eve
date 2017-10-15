@@ -6,9 +6,11 @@ using eth.Telegram.BotApi.Objects.Base;
 
 namespace eth.Telegram.BotApi
 {
-    //Telegram Bot API v2.1
-    //for details: https://core.telegram.org/bots/api
-    //UPD: the api is currently somewhere between 2.1 and 3.4, keep it in mind and check online if in doubt
+    /// <summary>
+    /// Telegram Bot API v2.1
+    /// for details: https://core.telegram.org/bots/api
+    /// UPD: the api is currently somewhere between 2.1 and 3.4, keep it in mind and check online if in doubt
+    /// </summary>
     public interface ITelegramBotApi
     {
         Task<List<Update>> GetUpdatesAsync(int offset, int limit, int timeoutSeconds);
@@ -28,7 +30,14 @@ namespace eth.Telegram.BotApi
 
         Task<Message> SendPhotoAsync(ChatIdOrUsername chatId, File photo);
 
-        Task<Message> SendAudioAsync(ChatIdOrUsername chatId, Audio audio);
+        Task<Message> SendAudioAsync(ChatIdOrUsername chatId, InputFile audio, 
+            string caption = null, 
+            int? duration = null, 
+            string performer = null, 
+            string title = null, 
+            bool? disableNotification = null, 
+            int? replyToMessageId = null, 
+            KeyboardMarkupReply replyMarkup = null);
 
         Task<Message> SendDocumentAsync(ChatIdOrUsername chatId, Document document);
 

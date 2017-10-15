@@ -51,6 +51,7 @@ namespace eth.Eve.Internal
             try
             {
                 updates = await _updater.PollInitialUpdates();
+
                 HandleOld(updates);
             }
             catch (Exception ex)
@@ -89,7 +90,12 @@ namespace eth.Eve.Internal
                 var message = new UpdateContext { IsInitiallyPolled = true, Update = update };
 
                 foreach (var plugin in _plugins)
-                    plugin.Handle(message);
+                {
+                    var result = plugin.Handle(message);
+
+                    if (result == HandleResult.HandledCompletely)
+                        break;
+                }
             }
         }
 
@@ -100,7 +106,12 @@ namespace eth.Eve.Internal
             var message = new UpdateContext { Update = update };
 
             foreach (var plugin in _plugins)
-                plugin.Handle(message);
+            {
+                var result = plugin.Handle(message);
+
+                if (result == HandleResult.HandledCompletely)
+                    break;
+            }
         }
 
         public void Dispose()

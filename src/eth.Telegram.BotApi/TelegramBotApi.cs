@@ -111,7 +111,34 @@ namespace eth.Telegram.BotApi
             return await _api.CallAsync<Message>(ApiMethod.SendPhoto, args)
                 .ConfigureAwait(false);
         }
-        
+
+
+        public async Task<Message> SendAudioAsync(ChatIdOrUsername chatId, InputFile audio, 
+            string caption = null, 
+            int? duration = null, 
+            string performer = null, 
+            string title = null, 
+            bool? disableNotification = null, 
+            int? replyToMessageId = null, 
+            KeyboardMarkupReply replyMarkup = null)
+        {
+            var args = new ApiArgs
+            {
+                { "chat_id", chatId },
+                { "audio", audio.FileIdOrUrl },
+                { "caption", caption, true },
+                { "duration", duration, true },
+                { "performer", performer, true },
+                { "title", title, true },
+                { "disable_notification", disableNotification, true },
+                { "reply_to_message_id", replyToMessageId, true },
+                { "reply_markup", replyMarkup, true }
+            };
+
+            return await _api.CallAsync<Message>(ApiMethod.SendAudio, args)
+                .ConfigureAwait(false);
+        }
+
         public async Task<Message> SendAudioAsync(ChatIdOrUsername chatId, Audio audio)
         {
             var args = new
