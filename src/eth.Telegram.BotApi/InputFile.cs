@@ -1,13 +1,15 @@
 ﻿using System;
+using System.IO;
 
 namespace eth.Telegram.BotApi
 {
     public class InputFile
     {
-        //todo: from file constructor for post upload
-
         public string FileIdOrUrl { get; }
 
+        public Stream Stream { get; }
+        public string FileName { get; }
+        
         public InputFile(string fileIdOrUrl)
         {
             if (string.IsNullOrWhiteSpace(fileIdOrUrl))
@@ -15,7 +17,17 @@ namespace eth.Telegram.BotApi
 
             FileIdOrUrl = fileIdOrUrl;
         }
-        
+        public InputFile(Stream stream, string fileName)
+        {
+            if (stream == null)
+                throw new ArgumentNullException(nameof(stream));
+            if (string.IsNullOrWhiteSpace(fileName))
+                throw new ArgumentNullException(nameof(fileName));
+
+            Stream = stream;
+            FileName = fileName;
+        }
+
         public static implicit operator InputFile(string fileIdOrUrl)
         {
             return new InputFile(fileIdOrUrl);
@@ -23,7 +35,7 @@ namespace eth.Telegram.BotApi
 
         public override string ToString()
         {
-            return FileIdOrUrl;
+            return FileIdOrUrl ?? $"({Stream}, '{FileName}')";
         }
     }
 }

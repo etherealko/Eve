@@ -13,6 +13,8 @@
             _ctx = ctx;
         }
 
+        public virtual void Initialized() { }
+
         public virtual void Teardown() { }
     }
 }

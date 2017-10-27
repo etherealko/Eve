@@ -24,6 +24,8 @@ namespace eth.Eve.PluginSystem.BasePlugins
             _ctx = ctx;
         }
 
+        public void Initialized() { }
+
         public void Teardown()
         {
             Dispose();

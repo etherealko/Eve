@@ -56,31 +56,73 @@ namespace eth.Telegram.BotApi.Internal
             _client.DefaultRequestHeaders.Connection.Add("Keep-Alive");
         }
         
-        public async Task<T> CallAsync<T>(ApiMethod method, object args = null)
+
+        public async Task<T> CallJsonAsync<T>(ApiMethod method, object args = null)
         {
             var requestSerialized = JsonConvert.SerializeObject(args, Formatting.None, Converters);
+            var requestContent = new StringContent(requestSerialized, Encoding.UTF8, "application/json");
 
             #region trace
 
             if (Log.IsTraceEnabled)
-                Log.Trace("->" + (LogJsonFormatting == Formatting.Indented ? Environment.NewLine : null) + 
+                Log.Trace($"-> '{method}' via json, " + 
+                    (LogJsonFormatting == Formatting.Indented ? Environment.NewLine : null) + 
+                    JsonConvert.SerializeObject(args, LogJsonFormatting, Converters) ?? "(null)");
+
+            #endregion
+
+            return await CallInternalAsync<T>(method, requestContent);
+        }
+
+        public async Task<T> CallMultipartAsync<T>(ApiMethod method, ApiArgs args)
+        {
+            var requestContent = new MultipartFormDataContent();
+
+            foreach (var arg in args)
+            {
+                switch (arg.Value)
+                {
+                    case string s:
+                        requestContent.Add(new StringContent(s, Encoding.UTF8), arg.Key);
+                        break;
+                    case InputFile file:
+                        if (file.FileIdOrUrl != null)
+                            requestContent.Add(new StringContent(file.FileIdOrUrl, Encoding.UTF8, "application/json"), arg.Key);
+                        else
+                            requestContent.Add(new StreamContent(file.Stream), arg.Key, file.FileName);
+
+                        break;
+                    default:
+                        var json = JsonConvert.SerializeObject(arg.Value, Formatting.None, Converters);
+                        requestContent.Add(new StringContent(json, Encoding.UTF8, "application/json"), arg.Key);
+                        break;
+                }
+            }
+
+            #region trace
+
+            if (Log.IsTraceEnabled)
+                Log.Trace($"-> '{method}' via multipart, " + (LogJsonFormatting == Formatting.Indented ? Environment.NewLine : null) +
                     JsonConvert.SerializeObject(args, LogJsonFormatting, Converters));
 
             #endregion
 
-            var requestContent = new StringContent(requestSerialized, Encoding.UTF8, "application/json");
+            return await CallInternalAsync<T>(method, requestContent);
+        }
 
+        private async Task<T> CallInternalAsync<T>(ApiMethod method, HttpContent requestContent)
+        {
             var response = await _client.PostAsync($"/bot{_token}/{method}", requestContent).ConfigureAwait(false);
 
             var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             ApiResponse<T> responseDeserialized;
-            
+
             #region trace
 
             if (Log.IsTraceEnabled)
             {
                 // pavel durov molodec, sharit v unikode: "text":"\u0433\u043e\u0432\u043d\u043e"
-                
+
                 var json = responseString;
 
                 try { json = JToken.Parse(json).ToString(LogJsonFormatting, Converters); }

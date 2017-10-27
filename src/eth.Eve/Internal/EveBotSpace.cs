@@ -2,6 +2,7 @@
 using eth.Eve.Storage.Model;
 using eth.Telegram.BotApi;
 using eth.Telegram.BotApi.Objects;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,6 +13,8 @@ namespace eth.Eve.Internal
 {
     internal class EveBotSpace : IDisposable
     {
+        private static readonly Logger Log = LogManager.GetCurrentClassLogger();
+
         private volatile bool _shutdown;
 
         private readonly long _spaceId;
@@ -36,6 +39,9 @@ namespace eth.Eve.Internal
             foreach (var plugin in _plugins)
                 plugin.Initialize(new PluginContext(plugin.Info, _spaceId, _outgoingApi));
 
+            foreach (var plugin in _plugins)
+                plugin.Initialized();
+            
             _mainThread.Start();
         }
 

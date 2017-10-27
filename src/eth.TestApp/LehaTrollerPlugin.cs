@@ -8,8 +8,8 @@ namespace eth.TestApp
 {
     public class LehaTrollerPlugin : IPlugin
     {
-        //private const long LehinId = 161753839;
-        private const int LehinId = 114795281;
+        private const int LehinId = 292132197;
+        //private const int LehinId = 114795281;
 
         private IPluginContext _ctx;
 
@@ -53,9 +53,9 @@ namespace eth.TestApp
 
                     return HandleResult.HandledCompletely;
                 case 108762758:
-                    if (Regex.IsMatch(message.Text, "хватит обижать леху", RegexOptions.IgnoreCase))
+                    if (Regex.IsMatch(message.Text ?? "", "хватит обижать леху", RegexOptions.IgnoreCase))
                         _isActive = false;
-                    else if (Regex.IsMatch(message.Text, "леха зазнался", RegexOptions.IgnoreCase))
+                    else if (Regex.IsMatch(message.Text ?? "", "леха зазнался", RegexOptions.IgnoreCase))
                         _isActive = true;
                     else
                         break;
@@ -86,6 +86,8 @@ namespace eth.TestApp
         {
             _ctx = ctx;
         }
+
+        public void Initialized() { }
 
         public void Teardown() { }
     }

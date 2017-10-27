@@ -28,6 +28,12 @@ namespace eth.Telegram.BotApi.Objects.Enums
         UploadingDocument,
 
         [EnumMember(Value = "find_location")]
-        FindingLocation
+        FindingLocation,
+
+        [EnumMember(Value = "record_video_note")]
+        RecordingVideoNote,
+
+        [EnumMember(Value = "upload_video_note")]
+        UploadingVideoNote,
     }
 }

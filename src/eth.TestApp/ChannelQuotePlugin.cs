@@ -19,7 +19,7 @@ namespace eth.TestApp
         
         public override HandleResult Handle(IUpdateContext c)
         {
-            if (c.IsInitiallyPolled || c.Update?.Message.Chat.Id != ChatId)
+            if (c.IsInitiallyPolled || c.Update?.Message?.Chat.Id != ChatId)
                 return HandleResult.Ignored;
 
             var msg = c.Update.Message;

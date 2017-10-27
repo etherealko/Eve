@@ -4,6 +4,7 @@ using eth.Eve.PluginSystem;
 using eth.Telegram.BotApi.Objects.Enums;
 using eth.Telegram.BotApi.Objects;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace eth.TestApp
 {
@@ -33,9 +34,21 @@ namespace eth.TestApp
                     }
                 }
             };
+            
+            using (var s = ctx.GetStorage())
+            {
+                Debug.Assert(!(s.RemoveBinary("loh") && s.RemoveBinary("loh")));
+
+                s.SetBinary("loh", new byte[] { 1, 2, 3, 4 }, "looooh");
+                s.TryGetBinary("loh", out var mek);
+
+                Debug.Assert(s.RemoveBinary("loh"));
+            }
 
             //_ctx.BotApi.SendMessageAsync(chatId: -1001013065325, text: "обратите внимание", replyMarkup: ke);
         }
+
+        public void Initialized() { }
 
         public void Teardown()
         {

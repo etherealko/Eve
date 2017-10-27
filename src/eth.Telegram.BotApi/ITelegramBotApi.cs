@@ -24,7 +24,10 @@ namespace eth.Telegram.BotApi
             long? replyToMessageId = null,
             KeyboardMarkupReply replyMarkup = null);
 
-        Task<Message> SendStickerAsync(ChatIdOrUsername chatId, string sticker);
+        Task<Message> SendStickerAsync(ChatIdOrUsername chatId, string sticker,
+            bool? disableNotification = null,
+            long? replyToMessageId = null,
+            KeyboardMarkupReply replyMarkup = null);
 
         Task<Message> ForwardMessageAsync(ChatIdOrUsername chatId, ChatIdOrUsername fromChatId, int messageId);
 

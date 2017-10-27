@@ -12,7 +12,7 @@ namespace eth.Eve.PluginSystem.Storage
         bool RemoveBinary(string key);
 
         void SetString(string key, string value);
-        void SetBinary(string key, [NotNull] byte[] value, string metaData = null);
+        void SetBinary(string key, [NotNull] byte[] value, string metadata = null);
 
         //todo: introduce 'saveChanges' method
     }

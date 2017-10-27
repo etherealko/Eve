@@ -29,12 +29,14 @@ namespace eth.Eve.Storage
             modelBuilder.Entity<EveSpace>()
                 .HasMany(e => e.PluginStoreStrings)
                 .WithRequired()
-                .HasForeignKey(e => e.SpaceId);
+                .HasForeignKey(e => e.SpaceId)
+                .WillCascadeOnDelete();
 
             modelBuilder.Entity<EveSpace>()
                 .HasMany(e => e.PluginStoreBinaries)
                 .WithRequired()
-                .HasForeignKey(e => e.SpaceId);
+                .HasForeignKey(e => e.SpaceId)
+                .WillCascadeOnDelete();
 
             modelBuilder.Entity<PluginStoreBinary>().Property(e => e.Value).IsRequired();
 

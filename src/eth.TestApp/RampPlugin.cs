@@ -21,6 +21,8 @@ namespace eth.TestApp
             _ctx = ctx;
         }
 
+        public void Initialized() { }
+
         public void Teardown()
         {
             Dispose();
@@ -54,8 +56,8 @@ namespace eth.TestApp
 
                         for (var i = 2; i < fullStackTrace.Length; ++i)                        
                             msgBuilder.AppendLine(fullStackTrace[i]);
-
-                        var output = msgBuilder.ToString().Substring(0, 4000);
+                        
+                        var output = msgBuilder.ToString().Substring(0, 1500) + "...";
 
                         _ctx.BotApi.SendMessageAsync(chatId: msg.Chat.Id, replyToMessageId: msg.MessageId, text: output);
                     }
