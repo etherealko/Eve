@@ -19,6 +19,9 @@ namespace eth.Telegram.BotApi.Objects.Enums
         Left,
 
         [EnumMember(Value = "kicked")]
-        Kicked
+        Kicked,
+
+        [EnumMember(Value = "restricted")]
+        Restricted
     }
 }

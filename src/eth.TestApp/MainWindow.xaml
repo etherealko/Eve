@@ -22,8 +22,9 @@
         </Grid.ColumnDefinitions>
         
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
-            <TextBlock Text="Send action:" VerticalAlignment="Bottom" Margin="0,0,10,0"/>
-            <ComboBox x:Name="ActionComboBox" MinWidth="120" Margin="0,0,10,0"/>
+            <TextBlock Text="Send action:" VerticalAlignment="Bottom" Margin="0,0,5,0"/>
+            <ComboBox x:Name="ActionComboBox" Width="140" Margin="0,0,10,0"/>
+            
             <Button x:Name="SendChatActionButton" Click="SendChatActionButton_Click">do it</Button>
         </StackPanel>
 
@@ -36,13 +37,25 @@
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
             <TextBlock VerticalAlignment="Bottom" Text="Artist:" Margin="0,0,10,0"/>
             <TextBox x:Name="AudioArtistTextBox" VerticalAlignment="Bottom" Height="20" Width="80" VerticalContentAlignment="Bottom" Margin="0,0,10,0"/>
+            
             <TextBlock VerticalAlignment="Bottom" Text="Title:" Margin="0,0,10,0"/>
             <TextBox x:Name="AudioTitleTextBox" VerticalAlignment="Bottom" Height="20" Width="80" VerticalContentAlignment="Bottom" Margin="0,0,10,0"/>
+            
             <TextBlock VerticalAlignment="Bottom" Text="Drop audio here:" Margin="0,0,10,0"/>
             <Border x:Name="AudioDropBorder" Width="100" Height="50" BorderBrush="Black" BorderThickness="1" AllowDrop="True" Background="White"
                     Drop="AudioDropBorder_Drop"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="6"></StackPanel>
+        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Text="Typing event" VerticalAlignment="Bottom" Margin="0,0,5,0"/>
+            <CheckBox x:Name="TextTypingEventCheckBox" VerticalAlignment="Bottom" IsChecked="true" Margin="0,0,10,0"/>
+            
+            <TextBlock Text="Parse mode:" VerticalAlignment="Bottom" Margin="0,0,10,0"/>
+            <ComboBox x:Name="TextMessageParseModeComboBox" MinWidth="120" Margin="0,0,10,0"/>
+            
+            <TextBox x:Name="TextMessageTextBox" VerticalAlignment="Bottom" MinHeight="20" MaxHeight="200" Width="200" VerticalContentAlignment="Bottom" Margin="0,0,10,0" VerticalScrollBarVisibility="Auto" 
+                     TextChanged="TextMessageTextBox_TextChanged" PreviewKeyDown="TextMessageTextBox_PreviewKeyDown" AcceptsReturn="True"/>
+            <Button x:Name="SendTextMessageButton" Click="SendTextMessageButton_Click">send it</Button>
+        </StackPanel>
     </Grid>
 </Window>

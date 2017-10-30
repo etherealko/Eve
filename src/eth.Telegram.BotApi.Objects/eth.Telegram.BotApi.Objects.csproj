@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animation.cs" />
     <Compile Include="Audio.cs" />
     <Compile Include="Base\KeyboardMarkupReply.cs" />
     <Compile Include="CallbackQuery.cs" />
@@ -56,9 +57,11 @@
     <Compile Include="Contact.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="Enums\ChatAction.cs" />
+    <Compile Include="Enums\MessageEntityType.cs" />
     <Compile Include="Enums\ParseMode.cs" />
     <Compile Include="File.cs" />
     <Compile Include="ForceReply.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="InlineKeyboardButton.cs" />
     <Compile Include="InlineKeyboardMarkup.cs" />
     <Compile Include="InlineQuery.cs" />
@@ -73,6 +76,7 @@
     <Compile Include="KeyboardButton.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="MessageEntity.cs" />
     <Compile Include="OrderInfo.cs" />
     <Compile Include="PhotoSize.cs" />
     <Compile Include="PreCheckoutQuery.cs" />
@@ -87,7 +91,9 @@
     <Compile Include="Update.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserProfilePhotos.cs" />
+    <Compile Include="Venue.cs" />
     <Compile Include="Video.cs" />
+    <Compile Include="VideoNote.cs" />
     <Compile Include="Voice.cs" />
   </ItemGroup>
   <ItemGroup>

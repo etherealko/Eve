@@ -39,6 +39,25 @@ namespace eth.Telegram.BotApi.Objects
         public User ForwardFrom { get; set; }
 
         /// <summary>
+        /// Optional. For messages forwarded from channels, information about the original channel
+        /// </summary>
+        [JsonProperty("forward_from_chat", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public Chat ForwardFromChat { get; set; }
+
+        /// <summary>
+        /// Optional. For messages forwarded from channels, identifier of the original message in the channel
+        /// </summary>
+        /// 
+        [JsonProperty("forward_from_message_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public int? ForwardFromMessageId { get; set; }
+
+        /// <summary>
+        /// Optional. For messages forwarded from channels, signature of the post author if present
+        /// </summary>
+        [JsonProperty("forward_signature", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string ForwardSignature { get; set; }
+
+        /// <summary>
         /// Optional. For forwarded messages, date the original message was sent in Unix time
         /// </summary>
         [JsonProperty("forward_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -49,13 +68,37 @@ namespace eth.Telegram.BotApi.Objects
         /// </summary>
         [JsonProperty("reply_to_message", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Message ReplyToMessage { get; set; }
-                
+
         /// <summary>
-        /// Optional. For text messages, the actual UTF-8 text of the message
+        /// Date the message was last edited in Unix time
+        /// </summary>
+        [JsonProperty("edit_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public int? EditDate { get; set; }
+
+        /// <summary>
+        /// Optional. Signature of the post author for messages in channels
+        /// </summary>
+        [JsonProperty("author_signature", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string AuthorSignature { get; set; }
+
+        /// <summary>
+        /// Optional. For text messages, the actual UTF-8 text of the message, 0-4096 characters.
         /// </summary>
         [JsonProperty("text", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Text { get; set; }
-                        
+
+        /// <summary>
+        /// Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
+        /// </summary>
+        [JsonProperty("entities", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public List<MessageEntity> Entities { get; set; }
+
+        /// <summary>
+        /// Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
+        /// </summary>
+        [JsonProperty("caption_entities", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public List<MessageEntity> MessageEntities { get; set; }
+
         /// <summary>
         /// Optional. Message is an audio file, information about the file
         /// </summary>
@@ -67,7 +110,13 @@ namespace eth.Telegram.BotApi.Objects
         /// </summary>
         [JsonProperty("document", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Document Document { get; set; }
-        
+
+        /// <summary>
+        /// Optional. Message is a game, information about the game.
+        /// </summary>
+        [JsonProperty("game", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public Game Game { get; set; }
+
         /// <summary>
         /// Optional. Message is a photo, available sizes of the photo
         /// </summary>
@@ -93,6 +142,12 @@ namespace eth.Telegram.BotApi.Objects
         public Voice Voice { get; set; }
 
         /// <summary>
+        /// Optional. Message is a video note, information about the video message
+        /// </summary>
+        [JsonProperty("video_note", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public VideoNote VideoNote { get; set; }
+
+        /// <summary>
         /// Optional. Caption for the photo or video, 0-200 characters
         /// </summary>
         [JsonProperty("caption", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -109,18 +164,24 @@ namespace eth.Telegram.BotApi.Objects
         /// </summary>
         [JsonProperty("location", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Location Location { get; set; }
-        
+
         /// <summary>
-        /// Optional. A new member was added to the group, information about them (this member may be bot itself)
+        /// Optional. Message is a venue, information about the venue
         /// </summary>
-        [JsonProperty("new_chat_participant", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public User NewChatParticipant { get; set; }
-        
+        [JsonProperty("venue", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public Venue Venue { get; set; }
+
         /// <summary>
-        /// Optional. A member was removed from the group, information about them (this member may be bot itself)
+        /// Optional. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
         /// </summary>
-        [JsonProperty("left_chat_participant", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public User LeftChatParticipant { get; set; }
+        [JsonProperty("new_chat_members", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public List<User> NewChatMembers { get; set; }
+
+        /// <summary>
+        /// Optional. A member was removed from the group, information about them (this member may be the bot itself)
+        /// </summary>
+        [JsonProperty("left_chat_member", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public User LeftChatMember { get; set; }
         
         /// <summary>
         /// Optional. A group title was changed to this value

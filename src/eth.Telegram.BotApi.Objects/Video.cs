@@ -14,13 +14,13 @@ namespace eth.Telegram.BotApi.Objects
         public string FileId { get; set; }
 
         /// <summary>
-        ///  Sticker width
+        /// Video width as defined by sender
         /// </summary>
         [JsonProperty("width", Required = Required.Always)]
         public int Width { get; set; }
 
         /// <summary>
-        ///  Sticker height
+        /// Video height as defined by sender
         /// </summary>
         [JsonProperty("height", Required = Required.Always)]
         public int Height { get; set; }
@@ -32,13 +32,13 @@ namespace eth.Telegram.BotApi.Objects
         public int Duration { get; set; }
 
         /// <summary>
-        /// Optional. Document thumbnail as defined by sender
+        /// Optional. Video thumbnail
         /// </summary>
         [JsonProperty("thumb", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public PhotoSize Thumb { get; set; }
 
         /// <summary>
-        /// Optional. MIME type of the file as defined by sender
+        /// Optional. Mime type of a file as defined by sender
         /// </summary>
         [JsonProperty("mime_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string MimeType { get; set; }

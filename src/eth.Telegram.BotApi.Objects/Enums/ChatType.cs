@@ -15,7 +15,7 @@ namespace eth.Telegram.BotApi.Objects.Enums
         [EnumMember(Value = "supergroup")]
         Supergroup,
 
-        [EnumMember(Value = "vhannel")]
+        [EnumMember(Value = "channel")]
         Channel
     }
 }

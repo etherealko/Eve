@@ -72,7 +72,7 @@ namespace eth.Telegram.BotApi.Internal
 
             #endregion
 
-            return await CallInternalAsync<T>(method, requestContent);
+            return await CallInternalAsync<T>(method, requestContent).ConfigureAwait(false);
         }
 
         public async Task<T> CallMultipartAsync<T>(ApiMethod method, ApiArgs args)
@@ -108,7 +108,7 @@ namespace eth.Telegram.BotApi.Internal
 
             #endregion
 
-            return await CallInternalAsync<T>(method, requestContent);
+            return await CallInternalAsync<T>(method, requestContent).ConfigureAwait(false);
         }
 
         private async Task<T> CallInternalAsync<T>(ApiMethod method, HttpContent requestContent)
