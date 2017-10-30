@@ -1,4 +1,4 @@
 # Eve
 A telegram bot project.
 
-Mamku ebal. Bota pisal. Hz.
+Plugin-based C# telegram bot with weird code samples.
