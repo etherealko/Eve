@@ -16,7 +16,8 @@ namespace eth.Telegram.BotApi.Internal
         private readonly static JsonConverter[] Converters = new JsonConverter[]
         {
             new DefaultValueToNullStringEnumConverter(),
-            new ChatIdOrUsernameConverter()
+            new ChatIdOrUsernameConverter(),
+            new InputFileConverter()
         };
 
         private readonly static Logger Log = LogManager.GetCurrentClassLogger();
@@ -113,7 +114,7 @@ namespace eth.Telegram.BotApi.Internal
         private async Task<T> CallInternalAsync<T>(ApiMethod method, HttpContent requestContent)
         {
             var response = await _client.PostAsync($"/bot{_token}/{method}", requestContent).ConfigureAwait(false);
-
+            
             var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             ApiResponse<T> responseDeserialized;
 

@@ -29,9 +29,14 @@ namespace eth.Telegram.BotApi
             long? replyToMessageId = null,
             KeyboardMarkupReply replyMarkup = null);
 
-        Task<Message> ForwardMessageAsync(ChatIdOrUsername chatId, ChatIdOrUsername fromChatId, int messageId);
+        Task<Message> ForwardMessageAsync(ChatIdOrUsername chatId, ChatIdOrUsername fromChatId, int messageId,
+            bool? disableNotification = null);
 
-        Task<Message> SendPhotoAsync(ChatIdOrUsername chatId, File photo);
+        Task<Message> SendPhotoAsync(ChatIdOrUsername chatId, InputFile photo,
+            string caption = null,
+            bool? disableNotification = null,
+            long? replyToMessageId = null,
+            KeyboardMarkupReply replyMarkup = null);
 
         Task<Message> SendAudioAsync(ChatIdOrUsername chatId, InputFile audio, 
             string caption = null, 

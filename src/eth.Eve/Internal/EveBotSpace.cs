@@ -30,7 +30,7 @@ namespace eth.Eve.Internal
             _plugins = plugins;
             
             _updater = new BotUpdatePoller(space.BotApiAccessToken);
-            _outgoingApi = new TelegramBotApi(space.BotApiAccessToken);
+            _outgoingApi = new TelegramBotApi(space.BotApiAccessToken) { HttpClientTimeout = TimeSpan.FromSeconds(30) };
             _mainThread = new Thread(UpdateProc);
         }
 

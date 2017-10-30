@@ -9,16 +9,40 @@
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
             <TextBlock Text="Send action:" VerticalAlignment="Bottom" Margin="0,0,10,0"/>
             <ComboBox x:Name="ActionComboBox" MinWidth="120" Margin="0,0,10,0"/>
             <Button x:Name="SendChatActionButton" Click="SendChatActionButton_Click">do it</Button>
         </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock VerticalAlignment="Bottom" Text="Drop photo here:" Margin="0,0,10,0"/>
+            <Border x:Name="PhotoDropBorder" Width="100" Height="50" BorderBrush="Black" BorderThickness="1" AllowDrop="True" Background="White"
+                    Drop="PhotoDropBorder_Drop"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock VerticalAlignment="Bottom" Text="Artist:" Margin="0,0,10,0"/>
+            <TextBox x:Name="AudioArtistTextBox" VerticalAlignment="Bottom" Height="20" Width="80" VerticalContentAlignment="Bottom" Margin="0,0,10,0"/>
+            <TextBlock VerticalAlignment="Bottom" Text="Title:" Margin="0,0,10,0"/>
+            <TextBox x:Name="AudioTitleTextBox" VerticalAlignment="Bottom" Height="20" Width="80" VerticalContentAlignment="Bottom" Margin="0,0,10,0"/>
+            <TextBlock VerticalAlignment="Bottom" Text="Drop audio here:" Margin="0,0,10,0"/>
+            <Border x:Name="AudioDropBorder" Width="100" Height="50" BorderBrush="Black" BorderThickness="1" AllowDrop="True" Background="White"
+                    Drop="AudioDropBorder_Drop"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="6"></StackPanel>
     </Grid>
 </Window>

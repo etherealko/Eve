@@ -23,9 +23,8 @@ namespace eth.Telegram.BotApi.Internal.Serialization
 
             if (inputFile == null)
                 writer.WriteToken(JsonToken.Null);
-
-            if (inputFile.FileIdOrUrl != null)
-                writer.WriteToken(JsonToken.String, inputFile.ToString());
+            
+            writer.WriteToken(JsonToken.String, inputFile.ToString());
         }
     }
 }

@@ -80,7 +80,6 @@ namespace eth.Telegram.BotApi
             long? replyToMessageId = null,
             KeyboardMarkupReply replyMarkup = null)
         {
-
             var args = new ApiArgs
             {
                 { "chat_id", chatId },
@@ -94,28 +93,37 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
         
-        public async Task<Message> ForwardMessageAsync(ChatIdOrUsername chatId, ChatIdOrUsername fromChatId, int messageId)
+        public async Task<Message> ForwardMessageAsync(ChatIdOrUsername chatId, ChatIdOrUsername fromChatId, int messageId,
+            bool? disableNotification = null)
         {
-            var args = new
+            var args = new ApiArgs
             {
-                chat_id = chatId,
-                from_chat_id = fromChatId,
-                message_id = messageId
+                { "chat_id", chatId },
+                { "from_chat_id", fromChatId },
+                { "message_id", messageId },
+                { "disable_notification", disableNotification, true }
             };
 
             return await _api.CallJsonAsync<Message>(ApiMethod.ForwardMessage, args)
                 .ConfigureAwait(false);
         }
         
-        public async Task<Message> SendPhotoAsync(ChatIdOrUsername chatId, File photo)
+        public async Task<Message> SendPhotoAsync(ChatIdOrUsername chatId, InputFile photo,
+            string caption = null,
+            bool? disableNotification = null,
+            long? replyToMessageId = null,
+            KeyboardMarkupReply replyMarkup = null)
         {
-            var args = new
+            var args = new ApiArgs
             {
-                chat_id = chatId,
-                photo = photo
+                { "chat_id", chatId },
+                { "photo", photo },
+                { "disable_notification", disableNotification, true },
+                { "reply_to_message_id", replyToMessageId, true },
+                { "reply_markup", replyMarkup, true }
             };
 
-            return await _api.CallJsonAsync<Message>(ApiMethod.SendPhoto, args)
+            return await _api.CallMultipartAsync<Message>(ApiMethod.SendPhoto, args)
                 .ConfigureAwait(false);
         }
         
@@ -141,7 +149,7 @@ namespace eth.Telegram.BotApi
                 { "reply_markup", replyMarkup, true }
             };
 
-            return await _api.CallJsonAsync<Message>(ApiMethod.SendAudio, args)
+            return await _api.CallMultipartAsync<Message>(ApiMethod.SendAudio, args)
                 .ConfigureAwait(false);
         }
         
