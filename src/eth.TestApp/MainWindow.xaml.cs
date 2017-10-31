@@ -59,6 +59,7 @@ namespace eth.TestApp
 
             var photo = new InputFile(new FileStream(files[0], FileMode.Open, FileAccess.Read), "file" + IOPath.GetExtension(files[0]));
 
+            _uiSupportPlugin.PluginContext.BotApi.SendChatActionAsync(_chatId, ChatAction.UploadingPhoto);
             var meh = await _uiSupportPlugin.PluginContext.BotApi.SendPhotoAsync(_chatId, photo);
         }
 
@@ -67,7 +68,8 @@ namespace eth.TestApp
             var files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
             var audio = new InputFile(new FileStream(files[0], FileMode.Open, FileAccess.Read), "file" + IOPath.GetExtension(files[0]));
-            
+
+            _uiSupportPlugin.PluginContext.BotApi.SendChatActionAsync(_chatId, ChatAction.UploadingAudio);
             var meh = await _uiSupportPlugin.PluginContext.BotApi.SendAudioAsync(chatId: _chatId, audio: audio, 
                 performer: AudioArtistTextBox.Text, title: AudioTitleTextBox.Text);
         }

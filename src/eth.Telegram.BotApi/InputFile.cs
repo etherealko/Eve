@@ -17,6 +17,7 @@ namespace eth.Telegram.BotApi
 
             FileIdOrUrl = fileIdOrUrl;
         }
+
         public InputFile(Stream stream, string fileName)
         {
             if (stream == null)
@@ -27,6 +28,9 @@ namespace eth.Telegram.BotApi
             Stream = stream;
             FileName = fileName;
         }
+
+        public InputFile(byte[] bytes, string fileName)
+            : this(new MemoryStream(bytes ?? throw new ArgumentNullException(nameof(bytes))), fileName) { }
 
         public static implicit operator InputFile(string fileIdOrUrl)
         {

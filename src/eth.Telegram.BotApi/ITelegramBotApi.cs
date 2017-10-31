@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using eth.Telegram.BotApi.Objects;
 using eth.Telegram.BotApi.Objects.Enums;
 using eth.Telegram.BotApi.Objects.Base;
+using Stream = System.IO.Stream;
 
 namespace eth.Telegram.BotApi
 {
@@ -76,5 +77,15 @@ namespace eth.Telegram.BotApi
         Task<int> GetChatMembersCountAsync(ChatIdOrUsername chatId);
 
         Task<ChatMember> GetChatMemberAsync(ChatIdOrUsername chatId, ChatIdOrUsername userId);
+
+        Task<File> GetFileInfoAsync(string fileId);
+
+        #region file download
+
+        Task<Stream> GetFileStreamAsync(string filePath);
+
+        Task<byte[]> GetFileBytesAsync(string filePath);
+
+        #endregion
     }
 }

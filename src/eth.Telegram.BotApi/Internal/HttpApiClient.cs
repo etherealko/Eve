@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using eth.Telegram.BotApi.Internal.Serialization;
 using NLog;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace eth.Telegram.BotApi.Internal
 {
@@ -57,7 +58,6 @@ namespace eth.Telegram.BotApi.Internal
             _client.DefaultRequestHeaders.Connection.Add("Keep-Alive");
         }
         
-
         public async Task<T> CallJsonAsync<T>(ApiMethod method, object args = null)
         {
             var requestSerialized = JsonConvert.SerializeObject(args, Formatting.None, Converters);
@@ -109,6 +109,22 @@ namespace eth.Telegram.BotApi.Internal
             #endregion
 
             return await CallInternalAsync<T>(method, requestContent).ConfigureAwait(false);
+        }
+
+        public async Task<byte[]> GetFileBytes(string filePath)
+        {
+            var content = await GetFileContent(filePath);
+
+            return await content.ReadAsByteArrayAsync()
+                .ConfigureAwait(false);
+        }
+
+        public async Task<Stream> GetFileStream(string filePath)
+        {
+            var content = await GetFileContent(filePath);
+
+            return await content.ReadAsStreamAsync()
+                .ConfigureAwait(false);
         }
 
         private async Task<T> CallInternalAsync<T>(ApiMethod method, HttpContent requestContent)
@@ -166,8 +182,19 @@ namespace eth.Telegram.BotApi.Internal
 
             return responseDeserialized.Result;
         }
+        
+        private async Task<HttpContent> GetFileContent(string filePath)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+                throw new ArgumentNullException(nameof(filePath));
 
-        //todo: call with multipartformdata file attached
+            var response = await _client.GetAsync($"/file/bot{_token}/{filePath}", HttpCompletionOption.ResponseHeadersRead)
+                .ConfigureAwait(false);
+
+            //check response headers and shit
+
+            return response.Content;
+        }
 
         public void Dispose()
         {

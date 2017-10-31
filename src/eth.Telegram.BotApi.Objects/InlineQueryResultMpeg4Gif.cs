@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using eth.Telegram.BotApi.Objects.Base;
+using eth.Telegram.BotApi.Objects.Enums;
+using Newtonsoft.Json;
 
 namespace eth.Telegram.BotApi.Objects
 {

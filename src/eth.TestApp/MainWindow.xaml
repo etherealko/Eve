@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:eth.TestApp"
              mc:Ignorable="d" 
              Height="600" Width="800" ResizeMode="NoResize">
-    <Grid Margin="20">
+    <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="10"/>

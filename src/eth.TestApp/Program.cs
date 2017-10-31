@@ -2,6 +2,9 @@
 using eth.Eve;
 using eth.Eve.PluginSystem.BasePlugins;
 using System.Threading;
+using eth.TestApp.FancyPlugins;
+using System.Windows;
+using System.IO;
 
 namespace eth.TestApp
 {
@@ -21,6 +24,7 @@ namespace eth.TestApp
                 space.Value.Plugins.Enqueue(new SimpleConsoleLogger());
                 space.Value.Plugins.Enqueue(uiSupportPlugin);
                 space.Value.Plugins.Enqueue(new PluginOne());
+                space.Value.Plugins.Enqueue(new PhotoTextPlugin());
                 space.Value.Plugins.Enqueue(new LehaTrollerPlugin());
                 space.Value.Plugins.Enqueue(new ChannelQuotePlugin());
                 space.Value.Plugins.Enqueue(new FixAudioTagsPlugin());
@@ -52,6 +56,10 @@ namespace eth.TestApp
 
         private static void UIMain(object uiSupportPlugin)
         {
+            //var wnd1 = new Window();
+            //wnd1.Content = new PhotoTextRenderControl(File.ReadAllBytes(@"C:\Users\eth\Desktop\mgsvtpp 2017-10-16 14-14-07-35.jpg"), "govno kakoe-to");
+            //wnd1.ShowDialog();
+
             var wnd = new MainWindow((UISupportPlugin)uiSupportPlugin);
             wnd.ShowDialog();
         }

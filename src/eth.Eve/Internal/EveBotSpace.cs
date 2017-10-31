@@ -6,6 +6,7 @@ using NLog;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,27 +18,28 @@ namespace eth.Eve.Internal
 
         private volatile bool _shutdown;
 
-        private readonly long _spaceId;
         private List<IPlugin> _plugins;
 
         private readonly BotUpdatePoller _updater;
-        private readonly TelegramBotApi _outgoingApi;
         private readonly Thread _mainThread;
+
+        public long SpaceId { get; }
+        public TelegramBotApi OutgoingApi { get; }
 
         public EveBotSpace(EveSpace space, List<IPlugin> plugins)
         {
-            _spaceId = space.Id;
+            SpaceId = space.Id;
             _plugins = plugins;
             
             _updater = new BotUpdatePoller(space.BotApiAccessToken);
-            _outgoingApi = new TelegramBotApi(space.BotApiAccessToken) { HttpClientTimeout = TimeSpan.FromSeconds(30) };
+            OutgoingApi = new TelegramBotApi(space.BotApiAccessToken) { HttpClientTimeout = TimeSpan.FromSeconds(30) };
             _mainThread = new Thread(UpdateProc);
         }
 
         public void Start()
         {
             foreach (var plugin in _plugins)
-                plugin.Initialize(new PluginContext(plugin.Info, _spaceId, _outgoingApi));
+                plugin.Initialize(new PluginContext(plugin.Info, this));
 
             foreach (var plugin in _plugins)
                 plugin.Initialized();
@@ -76,6 +78,9 @@ namespace eth.Eve.Internal
                 catch (TaskCanceledException)
                 {
                 }
+                catch (HttpRequestException)
+                {
+                }
                 catch (Exception ex)
                 {
                     //todo: add logging
@@ -89,7 +94,7 @@ namespace eth.Eve.Internal
         {
             Debug.Assert(updates != null);
 
-            Debug.WriteLine($"{_spaceId}: {updates.Count} message(s)");
+            Debug.WriteLine($"{SpaceId}: {updates.Count} message(s)");
 
             foreach (var update in updates)
             {
@@ -125,7 +130,7 @@ namespace eth.Eve.Internal
             _shutdown = true;
 
             _updater.Dispose();
-            _outgoingApi.Dispose();
+            OutgoingApi.Dispose();
 
             foreach (var plugin in _plugins)
                 plugin.Teardown();

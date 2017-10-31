@@ -7,20 +7,19 @@ namespace eth.Eve.Internal
     internal class PluginContext : IPluginContext
     {
         private readonly PluginInfo _pluginInfo;
-        private readonly long _spaceId;
+        private readonly EveBotSpace _space;
 
-        public ITelegramBotApi BotApi { get; }
+        public ITelegramBotApi BotApi => _space.OutgoingApi;
 
-        public PluginContext(PluginInfo pluginInfo, long spaceId, ITelegramBotApi botApi)
+        public PluginContext(PluginInfo pluginInfo, EveBotSpace space)
         {
             _pluginInfo = pluginInfo;
-            _spaceId = spaceId;
-            BotApi = botApi;
+            _space = space;
         }
 
         public IPluginLocalStorage GetStorage()
         {
-            return new PluginLocalStorage(_pluginInfo, _spaceId);
+            return new PluginLocalStorage(_pluginInfo, _space.SpaceId);
         }
     }
 }

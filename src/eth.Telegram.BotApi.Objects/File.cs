@@ -19,12 +19,12 @@ namespace eth.Telegram.BotApi.Objects
         /// Optional. File size, if known
         /// </summary>
         [JsonProperty("file_size", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public int FileSize { get; set; }
+        public int? FileSize { get; set; }
 
         /// <summary>
         /// Optional. File path. Use https://api.telegram.org/file/bot<token>/<file_path> to get the file.
         /// </summary>
         [JsonProperty("file_path", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public int FilePath { get; set; }
+        public string FilePath { get; set; }
     }
 }

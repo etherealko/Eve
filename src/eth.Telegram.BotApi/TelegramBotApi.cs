@@ -9,6 +9,7 @@ using eth.Telegram.BotApi.Objects.Enums;
 using Newtonsoft.Json.Linq;
 using eth.Telegram.BotApi.Internal.Serialization;
 using eth.Telegram.BotApi.Objects.Base;
+using Stream = System.IO.Stream;
 
 namespace eth.Telegram.BotApi
 {
@@ -118,6 +119,7 @@ namespace eth.Telegram.BotApi
             {
                 { "chat_id", chatId },
                 { "photo", photo },
+                { "caption", caption, true },
                 { "disable_notification", disableNotification, true },
                 { "reply_to_message_id", replyToMessageId, true },
                 { "reply_markup", replyMarkup, true }
@@ -332,14 +334,26 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<UserProfilePhotos> GetFileAsync(string fileId)
+        public async Task<File> GetFileInfoAsync(string fileId)
         {
             var args = new
             {
                 file_id = fileId
             };
 
-            return await _api.CallJsonAsync<UserProfilePhotos>(ApiMethod.GetFile, args)
+            return await _api.CallJsonAsync<File>(ApiMethod.GetFile, args)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<Stream> GetFileStreamAsync(string filePath)
+        {
+            return await _api.GetFileStream(filePath)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<byte[]> GetFileBytesAsync(string filePath)
+        {
+            return await _api.GetFileBytes(filePath)
                 .ConfigureAwait(false);
         }
 

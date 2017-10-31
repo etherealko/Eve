@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="eth.TestApp.FancyPlugins.PhotoTextRenderControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:eth.TestApp.FancyPlugins"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" 
+             x:Name="_this"
+             DataContext="{Binding ElementName=_this}"
+             d:DataContext="{d:DesignInstance Type=local:PhotoTextRenderControl, IsDesignTimeCreatable=True}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.8*" />
+            <RowDefinition Height="0.07*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="0.8*"/>
+            <ColumnDefinition Width="0.1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Image Grid.RowSpan="3" Grid.ColumnSpan="3" Source="{Binding Path=PhotoBitmap, Mode=OneTime}" Stretch="None"/>
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            
+            <Viewbox Grid.Row="1" StretchDirection="Both" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" TextWrapping="Wrap"
+                    FontFamily="pack://application:,,,/Resources/lobster.ttf#Lobster 1.4, Segoe UI"
+                    Text="{Binding Path=PhotoText, Mode=OneTime, TargetNullValue='х л лох охх л лох охх л лох охх л лох ох '}"
+                    TextAlignment="Center"
+                    Foreground="White"
+                    MinWidth="120"
+                    MaxWidth="180"
+                    MinHeight="20">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="0" BlurRadius="2.5"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+            </Viewbox>
+        </Grid>
+    </Grid>
+</UserControl>

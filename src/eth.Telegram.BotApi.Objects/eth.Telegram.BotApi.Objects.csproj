@@ -66,11 +66,11 @@
     <Compile Include="InlineKeyboardMarkup.cs" />
     <Compile Include="InlineQuery.cs" />
     <Compile Include="InlineQueryResultArticle.cs" />
-    <Compile Include="InlineQueryResultBase.cs" />
+    <Compile Include="Base\InlineQueryResultBase.cs" />
     <Compile Include="InlineQueryResultGif.cs" />
     <Compile Include="InlineQueryResultMpeg4Gif.cs" />
     <Compile Include="InlineQueryResultPhoto.cs" />
-    <Compile Include="InlineQueryResultType.cs" />
+    <Compile Include="Enums\InlineQueryResultType.cs" />
     <Compile Include="InlineQueryResultVideo.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="KeyboardButton.cs" />
