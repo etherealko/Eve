@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using eth.Telegram.BotApi;
 using System.IO;
 using eth.Telegram.BotApi.Objects.Enums;
+using System.Linq;
 
 #pragma warning disable CS4014 //missing await
 
@@ -53,7 +54,7 @@ namespace eth.TestApp
             if (text == null || !text.StartsWith("говно "))
                 return false;
 
-            var args = text.Substring(5).Split('-', '–');
+            var args = text.Substring(5).Split('-', '–').Select(s => s.Trim()).ToArray();
 
             if (args.Length != 2)
                 return false;
