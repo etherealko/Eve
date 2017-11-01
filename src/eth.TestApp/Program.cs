@@ -37,11 +37,6 @@ namespace eth.TestApp
             {
                 bot.Start();
 
-                var thread = new Thread(UIMain);
-                thread.SetApartmentState(ApartmentState.STA);
-                thread.IsBackground = true;
-                thread.Start(uiSupportPlugin);
-
                 while (true)
                 {
                     var txt = Console.ReadLine();
@@ -52,16 +47,6 @@ namespace eth.TestApp
             {
                 bot.Stop();
             }
-        }
-
-        private static void UIMain(object uiSupportPlugin)
-        {
-            //var wnd1 = new Window();
-            //wnd1.Content = new PhotoTextRenderControl(File.ReadAllBytes(@"C:\Users\eth\Desktop\mgsvtpp 2017-10-16 14-14-07-35.jpg"), "govno kakoe-to");
-            //wnd1.ShowDialog();
-
-            var wnd = new MainWindow((UISupportPlugin)uiSupportPlugin);
-            wnd.ShowDialog();
         }
     }
 }
