@@ -23,7 +23,9 @@ namespace eth.TestApp.FancyPlugins
     {
         public string PhotoText { get; }
         public BitmapImage PhotoBitmap { get; }
-                
+
+        public PhotoTextRenderControl() { }
+
         public PhotoTextRenderControl(byte[] imageFile, string text)
         {
             PhotoBitmap = new BitmapImage();

@@ -90,7 +90,7 @@ namespace eth.Telegram.BotApi.Internal
                         if (file.FileIdOrUrl != null)
                             requestContent.Add(new StringContent(file.FileIdOrUrl, Encoding.UTF8, "application/json"), arg.Key);
                         else
-                            requestContent.Add(new StreamContent(file.Stream), arg.Key, file.FileName);
+                            requestContent.Add(new StreamContent(file.Stream, 4096), arg.Key, file.FileName);
 
                         break;
                     default:
