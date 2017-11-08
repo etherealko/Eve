@@ -18,7 +18,8 @@ namespace eth.Telegram.BotApi.Internal
         {
             new DefaultValueToNullStringEnumConverter(),
             new ChatIdOrUsernameConverter(),
-            new InputFileConverter()
+            new InputFileConverter(),
+            new ApiArgsConverter()
         };
 
         private readonly static Logger Log = LogManager.GetCurrentClassLogger();
@@ -58,7 +59,7 @@ namespace eth.Telegram.BotApi.Internal
             _client.DefaultRequestHeaders.Connection.Add("Keep-Alive");
         }
         
-        public async Task<T> CallJsonAsync<T>(ApiMethod method, object args = null)
+        public async Task<T> CallJsonAsync<T>(ApiMethod method, ApiArgs args = null)
         {
             var requestSerialized = JsonConvert.SerializeObject(args, Formatting.None, Converters);
             var requestContent = new StringContent(requestSerialized, Encoding.UTF8, "application/json");
@@ -75,30 +76,31 @@ namespace eth.Telegram.BotApi.Internal
             return await CallInternalAsync<T>(method, requestContent).ConfigureAwait(false);
         }
 
-        public async Task<T> CallMultipartAsync<T>(ApiMethod method, ApiArgs args)
+        public async Task<T> CallMultipartAsync<T>(ApiMethod method, ApiArgs args = null)
         {
             var requestContent = new MultipartFormDataContent();
 
-            foreach (var arg in args)
-            {
-                switch (arg.Value)
+            if (args != null)
+                foreach (var arg in args)
                 {
-                    case string s:
-                        requestContent.Add(new StringContent(s, Encoding.UTF8), arg.Key);
-                        break;
-                    case InputFile file:
-                        if (file.FileIdOrUrl != null)
-                            requestContent.Add(new StringContent(file.FileIdOrUrl, Encoding.UTF8, "application/json"), arg.Key);
-                        else
-                            requestContent.Add(new StreamContent(file.Stream, 4096), arg.Key, file.FileName);
+                    switch (arg.Value)
+                    {
+                        case string s:
+                            requestContent.Add(new StringContent(s, Encoding.UTF8), arg.SerializationArgumentName);
+                            break;
+                        case InputFile file:
+                            if (file.FileIdOrUrl != null)
+                                requestContent.Add(new StringContent(file.FileIdOrUrl, Encoding.UTF8, "application/json"), arg.SerializationArgumentName);
+                            else
+                                requestContent.Add(new StreamContent(file.Stream, 4096), arg.SerializationArgumentName, file.FileName);
 
-                        break;
-                    default:
-                        var json = JsonConvert.SerializeObject(arg.Value, Formatting.None, Converters);
-                        requestContent.Add(new StringContent(json, Encoding.UTF8, "application/json"), arg.Key);
-                        break;
+                            break;
+                        default:
+                            var json = JsonConvert.SerializeObject(arg.Value, Formatting.None, Converters);
+                            requestContent.Add(new StringContent(json, Encoding.UTF8, "application/json"), arg.SerializationArgumentName);
+                            break;
+                    }
                 }
-            }
 
             #region trace
 
@@ -153,7 +155,7 @@ namespace eth.Telegram.BotApi.Internal
             try
             {
                 responseDeserialized = JsonConvert.DeserializeObject<ApiResponse<T>>(responseString, Converters);
-            }
+            } 
             catch
             {
                 // a non-success status code response still could be correctly deserialized giving us a detailed telegram api error message

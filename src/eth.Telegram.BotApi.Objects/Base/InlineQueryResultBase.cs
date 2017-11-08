@@ -12,7 +12,7 @@ namespace eth.Telegram.BotApi.Objects.Base
         /// <summary>
         /// Type of the result
         /// </summary>
-        [JsonProperty("type", Required = Required.Always, ItemConverterType = typeof(StringEnumConverter))]
+        [JsonProperty("type", Required = Required.Always)]
         public InlineQueryResultType Type { get; set; }
 
         /// <summary>

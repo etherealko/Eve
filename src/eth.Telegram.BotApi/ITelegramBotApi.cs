@@ -14,8 +14,6 @@ namespace eth.Telegram.BotApi
     /// </summary>
     public interface ITelegramBotApi
     {
-        Task<List<Update>> GetUpdatesAsync(int offset, int limit, int timeoutSeconds);
-
         Task<User> GetMeAsync();
 
         Task<Message> SendMessageAsync(ChatIdOrUsername chatId, string text, 
@@ -79,6 +77,27 @@ namespace eth.Telegram.BotApi
         Task<ChatMember> GetChatMemberAsync(ChatIdOrUsername chatId, ChatIdOrUsername userId);
 
         Task<File> GetFileInfoAsync(string fileId);
+
+        Task<Message> EditMessageText(string text,
+            ChatIdOrUsername chatId = null,
+            int? messageId = null,
+            string inlineMessageId = null, 
+            ParseMode parseMode = ParseMode.None,
+            bool? disableWebPagePreview = null,
+            KeyboardMarkupReply replyMarkup = null);
+
+        Task<Message> EditMessageCaption(string caption = null,
+            ChatIdOrUsername chatId = null,
+            int? messageId = null,
+            string inlineMessageId = null,
+            KeyboardMarkupReply replyMarkup = null);
+
+        Task<Message> EditMessageReplyMarkup(ChatIdOrUsername chatId = null,
+            int? messageId = null,
+            string inlineMessageId = null,
+            KeyboardMarkupReply replyMarkup = null);
+
+        Task<Message> DeleteMessage(ChatIdOrUsername chatId, int messageId);
 
         #region file download
 

@@ -27,7 +27,7 @@ namespace eth.Eve
             _spaceInitializers = spaces.Select(s => new EveSpaceInitializer(s)).ToList();
         }
 
-        public ReadOnlyDictionary<long, IEveSpaceInitializer> GetSpaceInitializers()
+        public IReadOnlyDictionary<long, IEveSpaceInitializer> GetSpaceInitializers()
         {
             if (_started || _shutdown)
                 throw new InvalidOperationException("it's too late to initialize: either it's already running or already stopped");

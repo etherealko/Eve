@@ -28,8 +28,6 @@ namespace eth.TestApp
         public void Initialize(IPluginContext ctx)
         {
             _ctx = ctx;
-
-            var chat = _ctx.BotApi.GetMeAsync().Result;
         }
 
         public void Initialized() { }

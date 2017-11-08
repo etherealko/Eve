@@ -49,14 +49,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChatIdOrUsername.cs" />
+    <Compile Include="Events\TelegramBotApiDelegates.cs" />
     <Compile Include="InputFile.cs" />
-    <Compile Include="Internal\ApiMethod.cs" />
+    <Compile Include="ApiMethod.cs" />
     <Compile Include="Internal\ApiResponse.cs" />
     <Compile Include="Internal\Serialization\ApiArgs.cs" />
+    <Compile Include="ApiArgument.cs" />
+    <Compile Include="Internal\Serialization\ApiArgsConverter.cs" />
     <Compile Include="Internal\Serialization\IgnoreOptionalParametersContractResolver.cs" />
     <Compile Include="Internal\Serialization\ChatIdOrUsernameConverter.cs" />
-    <Compile Include="Internal\Serialization\IgnoreDefaultValueStringEnumConverter.cs" />
+    <Compile Include="Internal\Serialization\DefaultValueStringEnumConverter.cs" />
     <Compile Include="Internal\Serialization\InputFileConverter.cs" />
+    <Compile Include="Internal\Serialization\ApiArgumentRequired.cs" />
+    <Compile Include="Events\RequestEventArgs.cs" />
+    <Compile Include="Events\ResponseEventArgs.cs" />
     <Compile Include="TelegramBotApiException.cs" />
     <Compile Include="ITelegramBotApi.cs" />
     <Compile Include="TelegramBotApi.cs" />

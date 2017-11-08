@@ -2,15 +2,14 @@
 
 namespace eth.Telegram.BotApi.Internal.Serialization
 {
-    internal class ApiArgs : Dictionary<string, object>
+    internal partial class ApiArgs : List<ApiArgument>
     {
-        // maybe "isOptional" enum will be better?
-        public void Add<T>(string parameterName, T value, bool isOptional = false)
+        public void Add<T>(string serializationArgumentName, T value, string argumentName, ApiArgumentRequired required = ApiArgumentRequired.Yes)
         {
-            if (isOptional && Equals(value, default(T)))
+            if (required == ApiArgumentRequired.Optional && Equals(value, default(T)))
                 return;
 
-            base.Add(parameterName, value);
+            base.Add(new ApiArgument(argumentName, serializationArgumentName, value));
         }
     }
 }
