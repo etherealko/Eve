@@ -9,7 +9,7 @@ using System.Linq;
 
 #pragma warning disable CS4014 //missing await
 
-namespace eth.TestApp
+namespace eth.TestApp.FancyPlugins
 {
     public class FixAudioTagsPlugin : PluginBase
     {

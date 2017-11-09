@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using eth.Common;
 using eth.Common.JetBrains.Annotations;
 using eth.Telegram.BotApi.Internal;
 using eth.Telegram.BotApi.Objects;
@@ -13,7 +12,7 @@ using eth.Telegram.BotApi.Events;
 
 namespace eth.Telegram.BotApi
 {
-    public class TelegramBotApi : ITelegramBotApi, IHttpClientTimeout, IDisposable
+    public class TelegramBotApi : ITelegramBotApiWithTimeout, IDisposable
     {
         private readonly HttpApiClient _api;
 
@@ -23,16 +22,20 @@ namespace eth.Telegram.BotApi
             set { _api.Timeout = value; }
         }
 
+        public object Owner { get; }
+
         public event RequestEventHandler Request;
         public event ResponseEventHandler Response;
 
-        public TelegramBotApi([NotNull] string token, string apiBase = "https://api.telegram.org/")
+        public TelegramBotApi([NotNull] string token, object owner = null, string apiBase = "https://api.telegram.org/")
         {
             if (string.IsNullOrEmpty(token))
                 throw new ArgumentNullException(nameof(token));
             if (string.IsNullOrEmpty(apiBase))
                 throw new ArgumentNullException(nameof(apiBase));
-            
+
+            Owner = owner;
+
             _api = new HttpApiClient(new Uri(apiBase), token);
         }
 
@@ -472,7 +475,7 @@ namespace eth.Telegram.BotApi
             if (e == null)
                 return false;
 
-            var eventArgs = new RequestEventArgs<T>(method, args, multipartRequired);
+            var eventArgs = new RequestEventArgs<T>(method, args, multipartRequired, Owner);
 
             e(this, eventArgs);
 
@@ -494,7 +497,7 @@ namespace eth.Telegram.BotApi
             if (e == null)
                 return;
 
-            var eventArgs = new ResponseEventArgs(method, args, response, ex);
+            var eventArgs = new ResponseEventArgs(method, args, response, ex, Owner);
 
             e(this, eventArgs);
         }

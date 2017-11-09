@@ -6,6 +6,8 @@ namespace eth.Telegram.BotApi.Events
 {
     public class RequestEventArgs
     {
+        public object ApiOwner { get; }
+
         public ApiMethod Method { get; }
         public List<ApiArgument> Arguments { get; }
 
@@ -14,8 +16,10 @@ namespace eth.Telegram.BotApi.Events
         public bool ResponseIsForced { get; private set; }
         public object ForcedResponse { get; private set; }
 
-        protected RequestEventArgs(ApiMethod method, List<ApiArgument> arguments, bool multipartRequired)
+        protected RequestEventArgs(ApiMethod method, List<ApiArgument> arguments, bool multipartRequired, object apiOwner)
         {
+            ApiOwner = apiOwner;
+
             Method = method;
             Arguments = arguments;
 
@@ -41,7 +45,7 @@ namespace eth.Telegram.BotApi.Events
     {
         public new TResponse ForcedResponse { get; private set; }
 
-        internal RequestEventArgs(ApiMethod method, ApiArgs args, bool multipartRequired) : base(method, args, multipartRequired) { }
+        internal RequestEventArgs(ApiMethod method, ApiArgs args, bool multipartRequired, object apiOwner) : base(method, args, multipartRequired, apiOwner) { }
 
         public override void ForceResponse(object response)
         {

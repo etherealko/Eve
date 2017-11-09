@@ -3,7 +3,7 @@ using eth.Eve.PluginSystem.BasePlugins;
 using System;
 using System.Text.RegularExpressions;
 
-namespace eth.TestApp
+namespace eth.TestApp.FancyPlugins
 {
     public class ChannelQuotePlugin : PluginBase
     {

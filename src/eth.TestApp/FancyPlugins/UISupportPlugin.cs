@@ -3,7 +3,7 @@ using System;
 using eth.Eve.PluginSystem;
 using System.Threading;
 
-namespace eth.TestApp
+namespace eth.TestApp.FancyPlugins
 {
     public class UISupportPlugin : PluginBase, IDisposable
     {

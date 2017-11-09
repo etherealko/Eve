@@ -64,6 +64,7 @@
     <Compile Include="Internal\Serialization\ApiArgumentRequired.cs" />
     <Compile Include="Events\RequestEventArgs.cs" />
     <Compile Include="Events\ResponseEventArgs.cs" />
+    <Compile Include="ITelegramBotApiWithTimeout.cs" />
     <Compile Include="TelegramBotApiException.cs" />
     <Compile Include="ITelegramBotApi.cs" />
     <Compile Include="TelegramBotApi.cs" />

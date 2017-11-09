@@ -13,9 +13,9 @@ namespace eth.Eve.Internal
         private bool _preStartUpdatesPolled;
         private int _lastUpdate;
 
-        public BotUpdatePoller(string token)
+        public BotUpdatePoller(TelegramBotApi api)
         {
-            _api = new TelegramBotApi(token) { HttpClientTimeout = TimeSpan.FromSeconds(35) };
+            _api = api;
         }
 
         public async Task<List<Update>> PollInitialUpdates()

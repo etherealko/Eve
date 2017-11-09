@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 
 #pragma warning disable CS4014 //missing await
 
-namespace eth.TestApp
+namespace eth.TestApp.FancyPlugins
 {
     internal class PluginOne : IPlugin
     {

@@ -2,31 +2,37 @@
 using eth.Eve.PluginSystem.Storage;
 using eth.Telegram.BotApi;
 using eth.Telegram.BotApi.Objects;
+using System;
 using System.Threading.Tasks;
 
 namespace eth.Eve.Internal
 {
     internal class PluginContext : IPluginContext
     {
-        private readonly PluginInfo _pluginInfo;
         private readonly EveBotSpace _space;
 
-        public ITelegramBotApi BotApi => _space.OutgoingApi;
+        ITelegramBotApiWithTimeout IPluginContext.BotApi => BotApi;
+
+        public TelegramBotApi BotApi { get; }
+        public IPlugin Plugin { get; }
 
         public TaskFactory TaskFactory => _space.TaskFactory;
 
-        public PluginContext(PluginInfo pluginInfo, EveBotSpace space)
+        public User Me => _space.GetMeAsync(false).Result;
+
+        public PluginContext(IPlugin plugin, EveBotSpace space, TelegramBotApi outgoingApi)
         {
-            _pluginInfo = pluginInfo;
+            Plugin = plugin;
+            BotApi = outgoingApi;
             _space = space;
         }
 
         public IPluginLocalStorage GetStorage()
         {
-            return new PluginLocalStorage(_pluginInfo, _space.SpaceId);
+            return new PluginLocalStorage(Plugin.Info, _space.SpaceId);
         }
 
-        public Task<User> GetMe(bool forceServerQuery = false)
+        public Task<User> GetMeAsync(bool forceServerQuery = false)
         {
             return _space.GetMeAsync(forceServerQuery);
         }

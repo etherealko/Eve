@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eth.TestApp
+namespace eth.TestApp.FancyPlugins
 {
     public class RampPlugin : IPlugin
     {

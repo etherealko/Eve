@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace eth.TestApp
+namespace eth.TestApp.FancyPlugins
 {
     public class LehaTrollerPlugin : IPlugin
     {

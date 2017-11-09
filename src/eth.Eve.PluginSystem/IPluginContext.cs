@@ -7,12 +7,14 @@ namespace eth.Eve.PluginSystem
 {
     public interface IPluginContext
     {
-        ITelegramBotApi BotApi { get; }
+        ITelegramBotApiWithTimeout BotApi { get; }
         TaskFactory TaskFactory { get; }
+
+        User Me { get; }
 
         IPluginLocalStorage GetStorage();
 
-        Task<User> GetMe(bool forceServerQuery = false);
+        Task<User> GetMeAsync(bool forceServerQuery = false);
 
         // pipeline
         // bot info, host info

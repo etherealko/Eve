@@ -1,5 +1,6 @@
 ﻿using eth.Telegram.BotApi;
 using eth.Telegram.BotApi.Objects.Enums;
+using eth.TestApp.FancyPlugins;
 using System;
 using System.Collections.Generic;
 using System.IO;
