@@ -6,6 +6,7 @@ using eth.Telegram.BotApi;
 using System.IO;
 using eth.Telegram.BotApi.Objects.Enums;
 using System.Linq;
+using eth.Telegram.BotApi.Objects;
 
 #pragma warning disable CS4014 //missing await
 
@@ -18,26 +19,38 @@ namespace eth.TestApp.FancyPlugins
                                                          "FixAudio",
                                                          "0.0.0.1");
 
+        public override void Initialize(IPluginContext ctx)
+        {
+            ctx.BotApi.HttpClientTimeout = TimeSpan.FromSeconds(30);
+            base.Initialize(ctx);
+        }
+
         public override HandleResult Handle(IUpdateContext c)
         {
-            var u = c.Update;
-            
-            if (u.Message?.ReplyToMessage?.Audio == null || !ParseFixCommand(u.Message.Text, out var title, out var performer))
+            if (c.IsInitiallyPolled)
                 return HandleResult.Ignored;
 
-            var a = u.Message.ReplyToMessage.Audio;
+            var u = c.Update;
 
+            Audio audio;
+
+            if ((audio = u.Message.Audio) == null && (audio = u.Message?.ReplyToMessage?.Audio) == null)
+                return HandleResult.Ignored;
+
+            if (!ParseFixCommand(u.Message.Text ?? u.Message.Caption, out var title, out var performer))
+                return HandleResult.Ignored;
+            
             Task.Run(async () =>
             {
                 _ctx.BotApi.SendChatActionAsync(u.Message.Chat.Id, ChatAction.UploadingAudio);
 
-                var fileInfo = await _ctx.BotApi.GetFileInfoAsync(a.FileId);
+                var fileInfo = await _ctx.BotApi.GetFileInfoAsync(audio.FileId);
                 var fileBytes = await _ctx.BotApi.GetFileBytesAsync(fileInfo.FilePath);
                 var fileStream = new MemoryStream(fileBytes);
                 
                 var r = await _ctx.BotApi.SendAudioAsync(chatId: u.Message.Chat.Id, replyToMessageId: u.Message.MessageId,
                     audio: new InputFile(fileStream, Path.GetFileName(fileInfo.FilePath)),
-                    duration: a.Duration,
+                    duration: audio.Duration,
 
                     title: title,
                     performer: performer,
@@ -51,10 +64,10 @@ namespace eth.TestApp.FancyPlugins
         {
             title = performer = null;
             
-            if (text == null || !text.StartsWith("говно "))
+            if (text == null || !text.StartsWith("tags ", StringComparison.OrdinalIgnoreCase))
                 return false;
 
-            var args = text.Substring(5).Split('-', '–').Select(s => s.Trim()).ToArray();
+            var args = text.Substring(4).Split('-', '–').Select(s => s.Trim()).ToArray();
 
             if (args.Length != 2)
                 return false;

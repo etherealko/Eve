@@ -33,7 +33,7 @@ namespace eth.TestApp
             space.Value.Plugins.Enqueue(new PhotoTextPlugin());
             space.Value.Plugins.Enqueue(new LehaTrollerPlugin());
             space.Value.Plugins.Enqueue(new ChannelQuotePlugin());
-            //space.Value.Plugins.Enqueue(new FixAudioTagsPlugin());
+            space.Value.Plugins.Enqueue(new FixAudioTagsPlugin());
             space.Value.Plugins.Enqueue(new RampPlugin());
             //space.Value.Plugins.Enqueue(messageSender);
             space.Value.Plugins.Enqueue(sharedStorage);
