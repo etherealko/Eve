@@ -68,6 +68,8 @@ namespace eth.TestApp
 
     internal class Kek : PluginBase, IRequestInterceptor, IResponseInterceptor 
     {
+        private readonly object _queueLock = new object();
+
         private readonly Queue<ResponseEventArgs> _messages = new Queue<ResponseEventArgs>();
 
         public override PluginInfo Info => throw new NotImplementedException();
@@ -85,11 +87,14 @@ namespace eth.TestApp
             
             var botMessage = c.Update.Message.ReplyToMessage;
 
-            var storedMessageInfo = _messages.FirstOrDefault(m => 
-            {
-                var msg = (Message)m.Response;
-                return msg.MessageId == botMessage.MessageId && msg.Chat.Id == botMessage.Chat.Id;
-            });
+            ResponseEventArgs storedMessageInfo;
+
+            lock (_queueLock)
+                storedMessageInfo = _messages.FirstOrDefault(m => 
+                {
+                    var msg = (Message)m.Response;
+                    return msg.MessageId == botMessage.MessageId && msg.Chat.Id == botMessage.Chat.Id;
+                });
 
             if (storedMessageInfo == null)
                 _ctx.BotApi.SendMessageAsync(chatId: c.Update.Message.Chat.Id, replyToMessageId: c.Update.Message.MessageId, text: "i have no information about this message");
@@ -115,10 +120,13 @@ namespace eth.TestApp
             if (!(args.Response is Message))
                 return;
 
-            _messages.Enqueue(args);
+            lock (_queueLock)
+            {
+                _messages.Enqueue(args);
 
-            if (_messages.Count > 200)
-                _messages.Dequeue();
+                if (_messages.Count > 200)
+                    _messages.Dequeue();
+            }
         }
     }
 }
