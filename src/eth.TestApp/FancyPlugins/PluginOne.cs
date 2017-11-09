@@ -68,7 +68,7 @@ namespace eth.TestApp
 
             if (update.Message?.Text == "get" && update.Message?.ReplyToMessage?.Audio != null)
             {
-                Task.Factory.StartNew(async () => 
+                _ctx.TaskFactory.StartNew(async () => 
                 {
                     var audio = update.Message?.ReplyToMessage?.Audio;
                     var fileInfo = await _ctx.BotApi.GetFileInfoAsync(audio.FileId);
@@ -80,7 +80,7 @@ namespace eth.TestApp
                                                 
                         var bytes = ms.ToArray();
                     }
-                }, TaskCreationOptions.LongRunning);
+                });
                 
                 return HandleResult.HandledCompletely;
             }

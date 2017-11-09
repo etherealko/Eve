@@ -12,6 +12,10 @@ namespace eth.Eve.Internal
 
         public Queue<IPlugin> Plugins { get; } = new Queue<IPlugin>();
 
+        public Queue<IRequestInterceptor> RequestInterceptors { get; } = new Queue<IRequestInterceptor>();
+
+        public Queue<IResponseInterceptor> ResponseInterceptors { get; } = new Queue<IResponseInterceptor>();
+
         public EveSpaceInitializer(EveSpace space)
         {
             EveSpace = space;

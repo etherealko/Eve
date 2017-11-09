@@ -8,5 +8,8 @@ namespace eth.Eve
         long SpaceId { get; }
 
         Queue<IPlugin> Plugins { get; }
+
+        Queue<IRequestInterceptor> RequestInterceptors { get; }
+        Queue<IResponseInterceptor> ResponseInterceptors { get; }
     }
 }

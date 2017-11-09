@@ -44,7 +44,10 @@ namespace eth.Eve
 
             try
             {
-                _spaces = _spaceInitializers.Select(i => new EveBotSpace(i.EveSpace, i.Plugins.ToList())).ToList();
+                _spaces = _spaceInitializers.Select(i => new EveBotSpace(i.EveSpace, 
+                    i.Plugins.ToList(), 
+                    i.RequestInterceptors.ToList(), 
+                    i.ResponseInterceptors.ToList())).ToList();
 
                 _spaceInitializers = null;
 

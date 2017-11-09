@@ -17,6 +17,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using IOPath = System.IO.Path;
 
+#pragma warning disable CS4014 //missing await
+
 namespace eth.TestApp
 {
     /// <summary>
