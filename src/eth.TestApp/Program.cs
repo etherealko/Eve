@@ -1,6 +1,6 @@
 ﻿using System;
 using eth.Eve;
-using eth.Eve.PluginSystem.BasePlugins;
+using eth.Eve.PluginSystem.Samples;
 using System.Threading;
 using eth.TestApp.FancyPlugins;
 using System.Windows;

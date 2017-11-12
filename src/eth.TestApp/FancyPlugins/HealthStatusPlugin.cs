@@ -1,4 +1,4 @@
-﻿using eth.Eve.PluginSystem.BasePlugins;
+﻿using eth.Eve.PluginSystem.Samples;
 using System;
 using System.Collections.Generic;
 using System.Linq;

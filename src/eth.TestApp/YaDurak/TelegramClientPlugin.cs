@@ -1,4 +1,4 @@
-﻿using eth.Eve.PluginSystem.BasePlugins;
+﻿using eth.Eve.PluginSystem.Samples;
 using System;
 using eth.Eve.PluginSystem;
 using System.Threading;
@@ -23,7 +23,7 @@ namespace eth.TestApp.YaDurak
             _thread = new Thread(UIMain);
             _thread.SetApartmentState(ApartmentState.STA);
             _thread.IsBackground = true;
-            _thread.Start(this);
+            _thread.Start();
             _wndCreated.Wait();
         }
 

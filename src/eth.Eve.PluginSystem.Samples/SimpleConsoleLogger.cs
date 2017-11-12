@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace eth.Eve.PluginSystem.BasePlugins
+namespace eth.Eve.PluginSystem.Samples
 {
     public class SimpleConsoleLogger : IPlugin
     {

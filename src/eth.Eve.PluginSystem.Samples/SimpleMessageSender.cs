@@ -3,7 +3,7 @@ using eth.Telegram.BotApi.Objects;
 using System;
 using System.Threading.Tasks;
 
-namespace eth.Eve.PluginSystem.BasePlugins
+namespace eth.Eve.PluginSystem.Samples
 {
     public class SimpleMessageSender : IPlugin
     {

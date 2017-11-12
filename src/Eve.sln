@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eth.Eve.PluginSystem", "eth
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eth.Eve.Storage", "eth.Eve.Storage\eth.Eve.Storage.csproj", "{9D11D33B-C7FE-4835-8576-643F55CCB206}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eth.Eve.PluginSystem.BasePlugins", "eth.Eve.PluginSystem.BasePlugins\eth.Eve.PluginSystem.BasePlugins.csproj", "{BFD70AD6-88ED-4F08-835A-F2B99D3A7D7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eth.Eve.PluginSystem.Samples", "eth.Eve.PluginSystem.Samples\eth.Eve.PluginSystem.Samples.csproj", "{59C5CF45-86F0-431F-B825-422F6124F841}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,10 +57,10 @@ Global
 		{9D11D33B-C7FE-4835-8576-643F55CCB206}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D11D33B-C7FE-4835-8576-643F55CCB206}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D11D33B-C7FE-4835-8576-643F55CCB206}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BFD70AD6-88ED-4F08-835A-F2B99D3A7D7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BFD70AD6-88ED-4F08-835A-F2B99D3A7D7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BFD70AD6-88ED-4F08-835A-F2B99D3A7D7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BFD70AD6-88ED-4F08-835A-F2B99D3A7D7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59C5CF45-86F0-431F-B825-422F6124F841}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59C5CF45-86F0-431F-B825-422F6124F841}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59C5CF45-86F0-431F-B825-422F6124F841}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59C5CF45-86F0-431F-B825-422F6124F841}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,7 +71,7 @@ Global
 		{76557207-8F96-4750-A90C-93D7DE086392} = {704296CC-521D-4039-8861-9A7353F765C2}
 		{AD7A62E3-D448-4A7F-94BE-1496F8A93487} = {704296CC-521D-4039-8861-9A7353F765C2}
 		{9D11D33B-C7FE-4835-8576-643F55CCB206} = {704296CC-521D-4039-8861-9A7353F765C2}
-		{BFD70AD6-88ED-4F08-835A-F2B99D3A7D7B} = {704296CC-521D-4039-8861-9A7353F765C2}
+		{59C5CF45-86F0-431F-B825-422F6124F841} = {704296CC-521D-4039-8861-9A7353F765C2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {47A40E27-75E8-455E-9B29-5296DD7E3AFA}

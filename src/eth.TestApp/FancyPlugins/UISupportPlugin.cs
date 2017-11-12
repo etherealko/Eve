@@ -1,4 +1,4 @@
-﻿using eth.Eve.PluginSystem.BasePlugins;
+﻿using eth.Eve.PluginSystem.Samples;
 using System;
 using eth.Eve.PluginSystem;
 using System.Threading;
