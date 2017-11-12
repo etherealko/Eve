@@ -4,10 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:eth.TestApp.YaDurak"
+             xmlns:localvm="clr-namespace:eth.TestApp.YaDurak.ViewModels"
              mc:Ignorable="d" 
              x:Name="_this"
-             DataContext="{Binding ElementName=_this}"
-             d:DataContext="{d:DesignInstance Type=local:TelegramClientWindow, IsDesignTimeCreatable=false}"
+             DataContext="{Binding ElementName=_this, Path=TelegramClientViewModel}"
+             d:DataContext="{d:DesignInstance Type=localvm:TelegramClientViewModel, IsDesignTimeCreatable=false}"
              Height="550" Width="900" Title="Telegram Client Window">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -19,7 +20,9 @@
         <GridSplitter Grid.Column="1" Grid.RowSpan="2" Width="3"
                       VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
 
-        <ListBox></ListBox>
+        <ListBox ItemsSource="{Binding Path=Chats}" SelectedItem="{Binding Path=SelectedChat}" SelectionMode="Single">
+            
+        </ListBox>
         
         <Grid Grid.Column="2">
             

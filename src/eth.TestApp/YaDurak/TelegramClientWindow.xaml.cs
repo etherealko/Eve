@@ -1,4 +1,6 @@
-﻿using System;
+﻿using eth.Eve.PluginSystem;
+using eth.TestApp.YaDurak.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,11 +24,24 @@ namespace eth.TestApp.YaDurak
     {
         private readonly TelegramClientPlugin _telegramClientPlugin;
 
+        public TelegramClientViewModel TelegramClientViewModel { get; set; }
+
         public TelegramClientWindow(TelegramClientPlugin telegramClientPlugin)
         {
             _telegramClientPlugin = telegramClientPlugin;
+            _telegramClientPlugin.HandleEvent += TelegramClientPlugin_HandleEvent;
             
             InitializeComponent();
+        }
+
+        private void TelegramClientPlugin_HandleEvent(object sender, HandleEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Handle(IUpdateContext c)
+        {
+
         }
     }
 }

@@ -88,6 +88,11 @@
     <Compile Include="YaDurak\TelegramClientWindow.xaml.cs">
       <DependentUpon>TelegramClientWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="YaDurak\ViewModels\ChatViewModel.cs" />
+    <Compile Include="YaDurak\ViewModels\MessageViewModel.cs" />
+    <Compile Include="YaDurak\ViewModels\ViewModelBase.cs" />
+    <Compile Include="YaDurak\ViewModels\TelegramClientViewModel.cs" />
+    <Compile Include="YaDurak\ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestAssets\08b.jpg" />
