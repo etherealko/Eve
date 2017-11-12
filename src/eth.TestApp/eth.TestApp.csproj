@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FancyPlugins\ChannelQuotePlugin.cs" />
+    <Compile Include="FancyPlugins\HealthStatusPlugin.cs" />
     <Compile Include="FancyPlugins\PhotoTextPlugin.cs" />
     <Compile Include="FancyPlugins\FixAudioTagsPlugin.cs" />
     <Compile Include="FancyPlugins\LehaTrollerPlugin.cs" />
@@ -75,6 +76,7 @@
       <DependentUpon>PhotoTextRenderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="FancyPlugins\PluginOne.cs" />
+    <Compile Include="FancyPlugins\ReplyWithExceptionPlugin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FancyPlugins\RampPlugin.cs" />

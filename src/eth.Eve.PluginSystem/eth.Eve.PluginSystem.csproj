@@ -42,9 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HandleResult.cs" />
+    <Compile Include="IHealthListener.cs" />
     <Compile Include="IResponseInterceptor.cs" />
     <Compile Include="IRequestInterceptor.cs" />
     <Compile Include="IPlugin.cs" />
+    <Compile Include="ISpaceEnvironment.cs" />
     <Compile Include="IUpdateContext.cs" />
     <Compile Include="IPluginContext.cs" />
     <Compile Include="Storage\IPluginLocalStorage.cs" />

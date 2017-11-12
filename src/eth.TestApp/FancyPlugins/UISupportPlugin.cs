@@ -54,7 +54,14 @@ namespace eth.TestApp.FancyPlugins
         private static void UIMain(object uiSupportPlugin)
         {
             var wnd = new MainWindow((UISupportPlugin)uiSupportPlugin);
-            wnd.ShowDialog();
+            try
+            {
+                wnd.ShowDialog();
+            }
+            catch
+            {
+                wnd.Close();
+            }
         }
     }
 }

@@ -18,13 +18,7 @@ namespace eth.TestApp.FancyPlugins
                                                          "FixAudio",
                                                          "FixAudio",
                                                          "0.0.0.1");
-
-        public override void Initialize(IPluginContext ctx)
-        {
-            ctx.BotApi.HttpClientTimeout = TimeSpan.FromSeconds(30);
-            base.Initialize(ctx);
-        }
-
+        
         public override HandleResult Handle(IUpdateContext c)
         {
             if (c.IsInitiallyPolled)
@@ -42,7 +36,7 @@ namespace eth.TestApp.FancyPlugins
             
             Task.Run(async () =>
             {
-                _ctx.BotApi.SendChatActionAsync(u.Message.Chat.Id, ChatAction.UploadingAudio);
+                _ctx.BotApi.SendChatActionAsync(u.Message.Chat.Id, ChatAction.UploadingDocument);
 
                 var fileInfo = await _ctx.BotApi.GetFileInfoAsync(audio.FileId);
                 var fileBytes = await _ctx.BotApi.GetFileBytesAsync(fileInfo.FilePath);

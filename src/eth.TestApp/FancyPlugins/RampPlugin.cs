@@ -49,6 +49,8 @@ namespace eth.TestApp.FancyPlugins
                     }
                     catch (Exception ex)
                     {
+                        throw; 
+
                         var exFirstLine = ex.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.None)[0];
                         var fullStackTrace = Environment.StackTrace.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 

@@ -16,6 +16,8 @@ namespace eth.Eve.Internal
 
         public Queue<IResponseInterceptor> ResponseInterceptors { get; } = new Queue<IResponseInterceptor>();
 
+        public Queue<IHealthListener> HealthListeners { get; } = new Queue<IHealthListener>();
+
         public EveSpaceInitializer(EveSpace space)
         {
             EveSpace = space;

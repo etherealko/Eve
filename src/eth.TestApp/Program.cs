@@ -21,27 +21,35 @@ namespace eth.TestApp
             //var messageSender = new SimpleMessageSender();
             var sharedStorage = new SimpleSharedStorage();
             var uiSupportPlugin = new UISupportPlugin(sharedStorage);
+            var replyWithExceptionPlugin = new ReplyWithExceptionPlugin();
             var bot = new EveBot();
 
             var space = bot.GetSpaceInitializers().Single();
 
             var kek = new Kek();
 
+            // message handling expected, priority DESC
             space.Value.Plugins.Enqueue(new SimpleConsoleLogger());
             space.Value.Plugins.Enqueue(uiSupportPlugin);
+            space.Value.Plugins.Enqueue(new HealthStatusPlugin());
             space.Value.Plugins.Enqueue(new PluginOne());
             space.Value.Plugins.Enqueue(new PhotoTextPlugin());
             space.Value.Plugins.Enqueue(new LehaTrollerPlugin());
             space.Value.Plugins.Enqueue(new ChannelQuotePlugin());
             space.Value.Plugins.Enqueue(new FixAudioTagsPlugin());
             space.Value.Plugins.Enqueue(new RampPlugin());
+
+            // message handling NOT expected, lowest priority
             //space.Value.Plugins.Enqueue(messageSender);
             space.Value.Plugins.Enqueue(sharedStorage);
             space.Value.Plugins.Enqueue(kek);
+            space.Value.Plugins.Enqueue(replyWithExceptionPlugin);
 
             //space.Value.RequestInterceptors.Enqueue(kek);
 
             space.Value.ResponseInterceptors.Enqueue(kek);
+
+            space.Value.HealthListeners.Enqueue(replyWithExceptionPlugin);
 
             try
             {

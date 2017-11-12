@@ -23,6 +23,7 @@ namespace eth.Eve.Internal
         private readonly List<PluginContext> _pluginContexts;
         private readonly List<IRequestInterceptor> _requestInterceptors;
         private readonly List<IResponseInterceptor> _responseInterceptors;
+        private readonly List<IHealthListener> _healthListeners;
 
         private readonly BotUpdatePoller _updater;
         private readonly Thread _mainThread;
@@ -35,25 +36,26 @@ namespace eth.Eve.Internal
         public long SpaceId { get; }
         public TaskFactory TaskFactory { get; }
 
-        public EveBotSpace(EveSpace space, List<IPlugin> plugins, List<IRequestInterceptor> requestInterceptors, List<IResponseInterceptor> responseInterceptors)
+        public EveBotSpace(EveSpaceInitializer initializer)
         {
-            SpaceId = space.Id;
+            SpaceId = initializer.EveSpace.Id;
 
-            _requestInterceptors = requestInterceptors;
-            _responseInterceptors = responseInterceptors;
+            _requestInterceptors = initializer.RequestInterceptors.ToList();
+            _responseInterceptors = initializer.ResponseInterceptors.ToList();
+            _healthListeners = initializer.HealthListeners.ToList();
 
             TaskFactory = new TaskFactory(_cts.Token, 
                 TaskCreationOptions.DenyChildAttach | TaskCreationOptions.LongRunning, 
                 TaskContinuationOptions.None, 
                 TaskScheduler.Default);
 
-            _outgoingApi = new TelegramBotApi(space.BotApiAccessToken, null) { HttpClientTimeout = TimeSpan.FromSeconds(30) };
+            _outgoingApi = new TelegramBotApi(initializer.EveSpace.BotApiAccessToken, null) { HttpClientTimeout = TimeSpan.FromSeconds(30) };
             _updater = new BotUpdatePoller(_outgoingApi);
             _mainThread = new Thread(UpdateProc);
             
-            _pluginContexts = plugins.Select(p =>
+            _pluginContexts = initializer.Plugins.Select(p =>
             {
-                var api = new TelegramBotApi(space.BotApiAccessToken, p) { HttpClientTimeout = TimeSpan.FromSeconds(10) };
+                var api = new TelegramBotApi(initializer.EveSpace.BotApiAccessToken, p) { HttpClientTimeout = TimeSpan.FromSeconds(10) };
 
                 api.Request += (o, e) =>
                 {
@@ -145,7 +147,7 @@ namespace eth.Eve.Internal
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex);
+                    Log.Fatal(ex, "very very very bad");
                 }
             }
 
@@ -155,8 +157,6 @@ namespace eth.Eve.Internal
         private void HandleOld(List<Update> updates)
         {
             Debug.Assert(updates != null);
-
-            Debug.WriteLine($"{SpaceId}: {updates.Count} message(s)");
 
             foreach (var update in updates)
             {
@@ -172,7 +172,10 @@ namespace eth.Eve.Internal
                     }
                     catch (Exception ex)
                     {
-                        Log.Warn(ex, "message handling has thrown an exception");
+                        Log.Warn(ex, "message handling: plugin has thrown an exception (initial poll)");
+
+                        foreach (var listener in _healthListeners)
+                            listener.OnHandleMessageException(ex, message, pluginContext.Plugin);
                     }
             }
         }
@@ -193,7 +196,10 @@ namespace eth.Eve.Internal
                 }
                 catch (Exception ex)
                 {
-                    Log.Warn(ex, "message handling has thrown an exception");
+                    Log.Warn(ex, "message handling: plugin has thrown an exception");
+                    
+                    foreach (var listener in _healthListeners)
+                        listener.OnHandleMessageException(ex, message, pluginContext.Plugin);
                 }
         }
 
@@ -204,21 +210,19 @@ namespace eth.Eve.Internal
             _updater.Dispose();
             _outgoingApi.Dispose();
 
-            _cts.Cancel();
-
             foreach (var pluginContext in _pluginContexts)
             {
-                pluginContext.BotApi.Dispose();
-
                 try //i should not be writing this
                 {
-                    pluginContext.Plugin.Teardown();
+                    pluginContext.Dispose();
                 }
                 catch (Exception ex)
                 {
 
                 }
             }
+
+            _cts.Cancel();
         }
     }
 }
