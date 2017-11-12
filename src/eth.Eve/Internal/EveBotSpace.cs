@@ -1,6 +1,5 @@
 ﻿using eth.Common.Extensions;
 using eth.Eve.PluginSystem;
-using eth.Eve.Storage.Model;
 using eth.Telegram.BotApi;
 using eth.Telegram.BotApi.Objects;
 using NLog;

@@ -1,80 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AD7A62E3-D448-4A7F-94BE-1496F8A93487}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>eth.Eve.PluginSystem</RootNamespace>
-    <AssemblyName>eth.Eve.PluginSystem</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\eth.Common\eth.Common.csproj" />
+    <ProjectReference Include="..\eth.Telegram.BotApi.Objects\eth.Telegram.BotApi.Objects.csproj" />
+    <ProjectReference Include="..\eth.Telegram.BotApi\eth.Telegram.BotApi.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="HandleResult.cs" />
-    <Compile Include="IHealthListener.cs" />
-    <Compile Include="IResponseInterceptor.cs" />
-    <Compile Include="IRequestInterceptor.cs" />
-    <Compile Include="IPlugin.cs" />
-    <Compile Include="ISpaceEnvironment.cs" />
-    <Compile Include="IUpdateContext.cs" />
-    <Compile Include="IPluginContext.cs" />
-    <Compile Include="Storage\IPluginLocalStorage.cs" />
-    <Compile Include="PluginInfo.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Storage\PluginStoreBinary.cs" />
-    <Compile Include="Storage\PluginStoreString.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\eth.Common\eth.Common.csproj">
-      <Project>{370D9116-F209-4465-811B-60D68E9675D2}</Project>
-      <Name>eth.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\eth.Telegram.BotApi.Objects\eth.Telegram.BotApi.Objects.csproj">
-      <Project>{058856d0-b5b7-4068-870c-b44f7b8d47a1}</Project>
-      <Name>eth.Telegram.BotApi.Objects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\eth.Telegram.BotApi\eth.Telegram.BotApi.csproj">
-      <Project>{fe38a951-9aaa-4f64-8557-9d9e0e8cbbd0}</Project>
-      <Name>eth.Telegram.BotApi</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

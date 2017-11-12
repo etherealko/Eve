@@ -6,8 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\eth.Eve.PluginSystem\eth.Eve.PluginSystem.csproj" />
-    <ProjectReference Include="..\eth.Telegram.BotApi.Objects\eth.Telegram.BotApi.Objects.csproj" />
-    <ProjectReference Include="..\eth.Telegram.BotApi\eth.Telegram.BotApi.csproj" />
   </ItemGroup>
 
 </Project>
