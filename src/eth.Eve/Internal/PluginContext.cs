@@ -25,6 +25,8 @@ namespace eth.Eve.Internal
 
         public User Me => _space.GetMeAsync(false).Result;
 
+        public object PluginData { get; set; }
+
         public PluginContext(IPlugin plugin, EveBotSpace space, TelegramBotApi outgoingApi)
         {
             Plugin = plugin;

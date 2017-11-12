@@ -11,45 +11,54 @@ using eth.Telegram.BotApi;
 using System.Linq;
 using System.Collections.Generic;
 using eth.Telegram.BotApi.Objects;
+using eth.TestApp.YaDurak;
 
 namespace eth.TestApp
 {
     internal class Program
     {
         private static void Main(string[] args)
-        {            
-            //var messageSender = new SimpleMessageSender();
-            var sharedStorage = new SimpleSharedStorage();
-            var uiSupportPlugin = new UISupportPlugin(sharedStorage);
-            var replyWithExceptionPlugin = new ReplyWithExceptionPlugin();
+        {
             var bot = new EveBot();
 
-            var space = bot.GetSpaceInitializers().Single();
+            foreach (var space in bot.GetSpaceInitializers())            
+                switch (space.Key)
+                {
+                    case 1:
+                        var kek = new Kek();
+                        //var messageSender = new SimpleMessageSender();
+                        var sharedStorage = new SimpleSharedStorage();
+                        var uiSupportPlugin = new UISupportPlugin(sharedStorage);
+                        var replyWithExceptionPlugin = new ReplyWithExceptionPlugin();
 
-            var kek = new Kek();
+                        // message handling expected, priority DESC
+                        space.Value.Plugins.Enqueue(new SimpleConsoleLogger());
+                        space.Value.Plugins.Enqueue(new HealthStatusPlugin());
+                        space.Value.Plugins.Enqueue(uiSupportPlugin);
+                        space.Value.Plugins.Enqueue(new PluginOne());
+                        space.Value.Plugins.Enqueue(new PhotoTextPlugin());
+                        space.Value.Plugins.Enqueue(new LehaTrollerPlugin());
+                        space.Value.Plugins.Enqueue(new ChannelQuotePlugin());
+                        space.Value.Plugins.Enqueue(new FixAudioTagsPlugin());
+                        space.Value.Plugins.Enqueue(new RampPlugin());
 
-            // message handling expected, priority DESC
-            space.Value.Plugins.Enqueue(new SimpleConsoleLogger());
-            space.Value.Plugins.Enqueue(uiSupportPlugin);
-            space.Value.Plugins.Enqueue(new HealthStatusPlugin());
-            space.Value.Plugins.Enqueue(new PluginOne());
-            space.Value.Plugins.Enqueue(new PhotoTextPlugin());
-            space.Value.Plugins.Enqueue(new LehaTrollerPlugin());
-            space.Value.Plugins.Enqueue(new ChannelQuotePlugin());
-            space.Value.Plugins.Enqueue(new FixAudioTagsPlugin());
-            space.Value.Plugins.Enqueue(new RampPlugin());
+                        // message handling NOT expected, lowest priority
+                        //space.Value.Plugins.Enqueue(messageSender);
+                        space.Value.Plugins.Enqueue(sharedStorage);
+                        space.Value.Plugins.Enqueue(kek);
+                        space.Value.Plugins.Enqueue(replyWithExceptionPlugin);
 
-            // message handling NOT expected, lowest priority
-            //space.Value.Plugins.Enqueue(messageSender);
-            space.Value.Plugins.Enqueue(sharedStorage);
-            space.Value.Plugins.Enqueue(kek);
-            space.Value.Plugins.Enqueue(replyWithExceptionPlugin);
+                        //space.Value.RequestInterceptors.Enqueue(kek);
 
-            //space.Value.RequestInterceptors.Enqueue(kek);
+                        space.Value.ResponseInterceptors.Enqueue(kek);
 
-            space.Value.ResponseInterceptors.Enqueue(kek);
-
-            space.Value.HealthListeners.Enqueue(replyWithExceptionPlugin);
+                        space.Value.HealthListeners.Enqueue(replyWithExceptionPlugin);
+                        break;
+                    case 2:
+                        space.Value.Plugins.Enqueue(new TelegramClientPlugin());
+                        space.Value.Plugins.Enqueue(new HealthStatusPlugin());
+                        break;
+                }
 
             try
             {

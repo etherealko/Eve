@@ -16,6 +16,8 @@ namespace eth.Eve.PluginSystem
 
         User Me { get; }
 
+        object PluginData { get; set; }
+
         IPluginLocalStorage GetStorage();
 
         Task<User> GetMeAsync(bool forceServerQuery = false);

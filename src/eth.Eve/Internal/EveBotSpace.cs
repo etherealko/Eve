@@ -164,7 +164,9 @@ namespace eth.Eve.Internal
 
                 foreach (var pluginContext in _pluginContexts)
                     try
-                    { 
+                    {
+                        message.CurrentContext = pluginContext;
+
                         var result = pluginContext.Plugin.Handle(message);
 
                         if (result == HandleResult.HandledCompletely)
@@ -187,8 +189,10 @@ namespace eth.Eve.Internal
             var message = new UpdateContext { Update = update };
 
             foreach (var pluginContext in _pluginContexts)
-                try 
+                try
                 {
+                    message.CurrentContext = pluginContext;
+
                     var result = pluginContext.Plugin.Handle(message);
 
                     if (result == HandleResult.HandledCompletely)

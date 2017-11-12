@@ -77,13 +77,17 @@
     </Compile>
     <Compile Include="FancyPlugins\PluginOne.cs" />
     <Compile Include="FancyPlugins\ReplyWithExceptionPlugin.cs" />
+    <Compile Include="FancyPlugins\UISupportPlugin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FancyPlugins\RampPlugin.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FancyPlugins\UISupportPlugin.cs" />
+    <Compile Include="YaDurak\TelegramClientPlugin.cs" />
+    <Compile Include="YaDurak\TelegramClientWindow.xaml.cs">
+      <DependentUpon>TelegramClientWindow.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestAssets\08b.jpg" />
@@ -135,6 +139,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="YaDurak\TelegramClientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

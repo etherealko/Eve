@@ -4,8 +4,9 @@ namespace eth.Eve.PluginSystem
 {
     public interface IUpdateContext
     {
-        Update Update { get; }
+        IPluginContext CurrentContext { get; }
 
+        Update Update { get; }
         bool IsInitiallyPolled { get; }
 
         object PluginData { get; set; }
