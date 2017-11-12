@@ -1,5 +1,5 @@
 ﻿using eth.Eve.PluginSystem;
-using eth.Eve.PluginSystem.Samples;
+using eth.PluginSamples;
 using System;
 using System.Text.RegularExpressions;
 

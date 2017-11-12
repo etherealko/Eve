@@ -1,14 +1,9 @@
-﻿using eth.Eve.PluginSystem.Samples;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using eth.Eve.PluginSystem;
 
-namespace eth.TestApp.FancyPlugins
+namespace eth.PluginSamples
 {
-    internal class ReplyWithExceptionPlugin : PluginBase, IHealthListener
+    public class ReplyWithExceptionPlugin : PluginBase, IHealthListener
     {
         public override PluginInfo Info => new PluginInfo(new Guid(), "ReplyWithException", "ReplyWithException", "0.0.0.1");
 

@@ -1,7 +1,8 @@
-﻿using eth.Eve.PluginSystem.Storage;
+﻿using eth.Eve.PluginSystem;
+using eth.Eve.PluginSystem.Storage;
 using System;
 
-namespace eth.Eve.PluginSystem.Samples
+namespace eth.PluginSamples
 {
     public class SimpleSharedStorage : PluginBase
     {

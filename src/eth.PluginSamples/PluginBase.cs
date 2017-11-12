@@ -1,4 +1,6 @@
-﻿namespace eth.Eve.PluginSystem.Samples
+﻿using eth.Eve.PluginSystem;
+
+namespace eth.PluginSamples
 {
     public abstract class PluginBase : IPlugin
     {

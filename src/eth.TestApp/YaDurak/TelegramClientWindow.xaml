@@ -24,8 +24,22 @@
             
         </ListBox>
         
-        <Grid Grid.Column="2">
-            
+        <Grid Grid.Column="2" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1" Margin="10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBox Grid.Column="0" x:Name="TextMessageTextBox" VerticalAlignment="Bottom" MinHeight="20" MaxHeight="200"  VerticalContentAlignment="Bottom" Margin="0,0,10,0" VerticalScrollBarVisibility="Auto" 
+                     TextChanged="TextMessageTextBox_TextChanged" PreviewKeyDown="TextMessageTextBox_PreviewKeyDown" AcceptsReturn="True"/>
+                <Button Grid.Column="2" x:Name="SendTextMessageButton" Click="SendTextMessageButton_Click">send it</Button>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

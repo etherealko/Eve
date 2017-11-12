@@ -1,7 +1,7 @@
-﻿using eth.Eve.PluginSystem.Samples;
-using System;
+﻿using System;
 using eth.Eve.PluginSystem;
 using System.Threading;
+using eth.PluginSamples;
 
 namespace eth.TestApp.YaDurak
 {

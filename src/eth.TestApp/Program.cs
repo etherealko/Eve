@@ -1,6 +1,5 @@
 ﻿using System;
 using eth.Eve;
-using eth.Eve.PluginSystem.Samples;
 using System.Threading;
 using eth.TestApp.FancyPlugins;
 using System.Windows;
@@ -12,6 +11,7 @@ using System.Linq;
 using System.Collections.Generic;
 using eth.Telegram.BotApi.Objects;
 using eth.TestApp.YaDurak;
+using eth.PluginSamples;
 
 namespace eth.TestApp
 {

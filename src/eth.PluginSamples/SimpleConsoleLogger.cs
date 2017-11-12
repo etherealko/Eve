@@ -1,11 +1,9 @@
-﻿using eth.Telegram.BotApi;
-using eth.Telegram.BotApi.Objects;
+﻿using eth.Eve.PluginSystem;
 using System;
-using System.Threading.Tasks;
 
-namespace eth.Eve.PluginSystem.Samples
+namespace eth.PluginSamples
 {
-    public class SimpleMessageSender : IPlugin
+    public class SimpleConsoleLogger : IPlugin
     {
         private IPluginContext _ctx;
 
@@ -13,11 +11,6 @@ namespace eth.Eve.PluginSystem.Samples
                                                          "PluginOne",
                                                          "Brand new Eve plugin",
                                                          "0.0.0.1");
-
-        public Task<Message> SendTextMessage(ChatIdOrUsername chatId, string message)
-        {
-            return _ctx.BotApi.SendMessageAsync(chatId, message);
-        }
 
         public void Initialize(IPluginContext ctx)
         {
@@ -33,7 +26,17 @@ namespace eth.Eve.PluginSystem.Samples
 
         public HandleResult Handle(IUpdateContext msg)
         {
-            return HandleResult.Ignored;
+            if (msg.IsInitiallyPolled)
+                return HandleResult.Ignored;
+
+            var chatMessage = msg.Update.Message;
+
+            if (chatMessage == null)
+                return HandleResult.Ignored;
+
+            Console.WriteLine($"{chatMessage.Chat.Id}: {chatMessage.Text}");
+
+            return HandleResult.HandledPartially;
         }
 
         public void Dispose() { }

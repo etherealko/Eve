@@ -73,7 +73,6 @@
       <DependentUpon>PhotoTextRenderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="FancyPlugins\PluginOne.cs" />
-    <Compile Include="FancyPlugins\ReplyWithExceptionPlugin.cs" />
     <Compile Include="FancyPlugins\UISupportPlugin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,10 +109,6 @@
       <Project>{f6ad48de-8c0b-49c4-ad8d-d908404727c0}</Project>
       <Name>eth.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\eth.Eve.PluginSystem.Samples\eth.Eve.PluginSystem.Samples.csproj">
-      <Project>{59c5cf45-86f0-431f-b825-422f6124f841}</Project>
-      <Name>eth.Eve.PluginSystem.Samples</Name>
-    </ProjectReference>
     <ProjectReference Include="..\eth.Eve.PluginSystem\eth.Eve.PluginSystem.csproj">
       <Project>{1af1bb4b-e1ff-46a7-88be-7824e52312ac}</Project>
       <Name>eth.Eve.PluginSystem</Name>
@@ -121,6 +116,10 @@
     <ProjectReference Include="..\eth.Eve\eth.Eve.csproj">
       <Project>{200bc497-a009-4642-be08-ee20eac628b2}</Project>
       <Name>eth.Eve</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eth.PluginSamples\eth.PluginSamples.csproj">
+      <Project>{01a6ad1b-e989-46b5-8272-fc7e25bc22a4}</Project>
+      <Name>eth.PluginSamples</Name>
     </ProjectReference>
     <ProjectReference Include="..\eth.Telegram.BotApi.Objects\eth.Telegram.BotApi.Objects.csproj">
       <Project>{cb3140d0-a64f-44ed-a2ed-1d9110ab28dc}</Project>
