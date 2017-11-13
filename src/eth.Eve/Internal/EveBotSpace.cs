@@ -129,6 +129,9 @@ namespace eth.Eve.Internal
                 {
                     updates = await (isDisconnected ? _updater.PollInitialUpdates() : _updater.PollUpdates());
 
+                    if (isDisconnected && retryCount > 0)
+                        Log.Info($"Successful update poll on {retryCount} retry.");
+
                     retryCount = 0;
                     lastPolled = DateTime.Now;
                 }
@@ -138,24 +141,29 @@ namespace eth.Eve.Internal
                 }
                 catch (Exception ex)
                 {
+                    Log.Warn(ex, $"Poll Updates failed. isDisconnected={isDisconnected}, retryCount={retryCount} ");
+
+                    if (DateTime.Now - lastPolled > TimeSpan.FromSeconds(45))
+                        isDisconnected = true;
+
                     switch (retryCount)
                     {
                         case 0:
-                            Thread.Sleep(100);
+                            Thread.Sleep(300);
                             break;
                         case 1:
-                            Thread.Sleep(500);
-                            break;
                         case 2:
-                            Thread.Sleep(1500);
+                            Thread.Sleep(1000);
                             break;
-                        default:
+                        case 3:
+                        case 4:
+                        case 5:
                             Thread.Sleep(3000);
                             break;
+                        default:
+                            Thread.Sleep(10000);
+                            break;
                     }
-
-                    if (DateTime.Now - lastPolled > TimeSpan.FromSeconds(30))
-                        isDisconnected = true;
 
                     ++retryCount;
                     continue;
@@ -196,7 +204,7 @@ namespace eth.Eve.Internal
                     }
                     catch (Exception ex)
                     {
-                        Log.Warn(ex, "message handling: plugin has thrown an exception (initial poll) ");
+                        Log.Warn(ex, "message handling: plugin has thrown an exception, isInitial=" + isInitial);
 
                         foreach (var listener in _healthListeners)
                             listener.OnHandleMessageException(ex, message, pluginContext.Plugin);

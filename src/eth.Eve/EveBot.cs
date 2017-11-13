@@ -56,7 +56,7 @@ namespace eth.Eve
 
                 _started = true;
             }
-            catch (Exception)
+            catch
             {
                 Dispose();
 
