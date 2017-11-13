@@ -1,4 +1,6 @@
-﻿using System;
+﻿using eth.Telegram.BotApi.Objects;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -9,10 +11,38 @@ namespace eth.TestApp.YaDurak.ViewModels
 {
     public class MessageViewModel : ViewModelBase
     {
-        public UserViewModel Sender { get; private set; }
+        private bool _isSent;
 
-        public bool IsSent { get; set; }
+        public UserViewModel Sender { get; }
+
+        public bool IsMyMessage { get; }
+        public bool IsSent { get => _isSent; set => SetField(ref _isSent, value); }
 
         public string Text { get; private set; }
+
+        public MessageViewModel(Message message, UserViewModel sender)
+        {
+            Sender = sender;
+
+            Text = message.Text ?? JsonConvert.SerializeObject(message);
+        }
+
+        public MessageViewModel(string text, UserViewModel me)
+        {
+            Sender = me;
+
+            IsMyMessage = true;
+            Text = text;
+        }
+
+        public void OnSent(Message message)
+        {
+            IsSent = true;
+        }
+
+        public void OnSendFailed(Exception ex)
+        {
+
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace eth.TestApp.YaDurak
         
         public IPluginContext PluginContext => _ctx;
 
-        public event EventHandler<HandleEventArgs> HandleEvent;
+        public event EventHandler<IUpdateContext> HandleEvent;
         
         public override void Initialize(IPluginContext ctx)
         {
@@ -34,7 +34,7 @@ namespace eth.TestApp.YaDurak
             if (e == null)
                 return HandleResult.Ignored;
             
-            e(this, new HandleEventArgs { UpdateContext = c });
+            e(this, c);
             return HandleResult.HandledPartially;
         }
 

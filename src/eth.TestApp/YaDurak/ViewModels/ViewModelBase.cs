@@ -25,6 +25,11 @@ namespace eth.TestApp.YaDurak.ViewModels
             return true;
         }
 
+        protected void OnPropertiesChanged()
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
+        }
+
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -20,8 +20,13 @@
         <GridSplitter Grid.Column="1" Grid.RowSpan="2" Width="3"
                       VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
 
-        <ListBox ItemsSource="{Binding Path=Chats}" SelectedItem="{Binding Path=SelectedChat}" SelectionMode="Single">
-            
+        <ListBox ItemsSource="{Binding Path=Chats}" SelectedItem="{Binding Path=SelectedChat, Mode=TwoWay}" SelectionMode="Single">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=Name}" HorizontalAlignment="Right"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
         </ListBox>
         
         <Grid Grid.Column="2" Margin="10">
@@ -29,15 +34,36 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+            
+            <ItemsControl Grid.Row="0" ItemsSource="{Binding Path=SelectedChat.Messages}" Margin="0,0,0,10">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Bottom"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="{Binding Path=Sender.ViewNameTemp}" HorizontalAlignment="Right"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Path=Text}" HorizontalAlignment="Right" TextWrapping="Wrap" TextAlignment="Right"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
             <Grid Grid.Row="1" Margin="10,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <TextBox Grid.Column="0" x:Name="TextMessageTextBox" VerticalAlignment="Bottom" MinHeight="20" MaxHeight="200"  VerticalContentAlignment="Bottom" Margin="0,0,10,0" VerticalScrollBarVisibility="Auto" 
-                     TextChanged="TextMessageTextBox_TextChanged" PreviewKeyDown="TextMessageTextBox_PreviewKeyDown" AcceptsReturn="True"/>
+                     AcceptsReturn="True" Text="{Binding Path=SelectedChat.DraftMessage}" PreviewKeyDown="TextMessageTextBox_PreviewKeyDown" TextChanged="TextMessageTextBox_TextChanged"/>
                 <Button Grid.Column="2" x:Name="SendTextMessageButton" Click="SendTextMessageButton_Click">send it</Button>
             </Grid>
         </Grid>
