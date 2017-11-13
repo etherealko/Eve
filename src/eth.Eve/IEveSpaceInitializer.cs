@@ -12,5 +12,7 @@ namespace eth.Eve
         Queue<IRequestInterceptor> RequestInterceptors { get; }
         Queue<IResponseInterceptor> ResponseInterceptors { get; }
         Queue<IHealthListener> HealthListeners { get; }
+
+        void Disable();
     }
 }

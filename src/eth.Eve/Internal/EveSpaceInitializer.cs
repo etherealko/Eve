@@ -10,6 +10,8 @@ namespace eth.Eve.Internal
 
         public long SpaceId { get; }
 
+        public bool IsEnabled { get; private set; } = true;
+
         public Queue<IPlugin> Plugins { get; } = new Queue<IPlugin>();
 
         public Queue<IRequestInterceptor> RequestInterceptors { get; } = new Queue<IRequestInterceptor>();
@@ -22,6 +24,11 @@ namespace eth.Eve.Internal
         {
             EveSpace = space;
             SpaceId = space.Id;
+        }
+
+        public void Disable()
+        {
+            IsEnabled = false;
         }
     }
 }
