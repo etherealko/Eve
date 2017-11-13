@@ -41,7 +41,7 @@ namespace eth.Eve.Internal
         public async Task<List<Update>> PollUpdates(uint pollTimeoutMs = 30000)
         {
             if (!_preStartUpdatesPolled)
-                await PollInitialUpdates();
+                await PollInitialUpdates().ConfigureAwait(false);
 
             var newUpdates = await _api.GetUpdatesAsync(_lastUpdate, 100, (int)pollTimeoutMs/1000)
                 .ConfigureAwait(false);

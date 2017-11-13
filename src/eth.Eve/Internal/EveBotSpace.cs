@@ -119,47 +119,70 @@ namespace eth.Eve.Internal
         {
             List<Update> updates;
 
-            try
-            {
-                updates = await _updater.PollInitialUpdates();
-
-                HandleOld(updates);
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-
+            var retryCount = 0;
+            var isDisconnected = true;
+            var lastPolled = DateTime.MinValue;
+            
             while (!_shutdown)
             {
                 try
                 {
-                    updates = await _updater.PollUpdates();
-                    foreach (var update in updates)
-                        HandleNew(update);
+                    updates = await (isDisconnected ? _updater.PollInitialUpdates() : _updater.PollUpdates());
+
+                    retryCount = 0;
+                    lastPolled = DateTime.Now;
                 }
                 catch (TaskCanceledException)
                 {
-                }
-                catch (HttpRequestException)
-                {
+                    continue;
                 }
                 catch (Exception ex)
                 {
-                    Log.Fatal(ex, "very very very bad");
+                    switch (retryCount)
+                    {
+                        case 0:
+                            Thread.Sleep(100);
+                            break;
+                        case 1:
+                            Thread.Sleep(500);
+                            break;
+                        case 2:
+                            Thread.Sleep(1500);
+                            break;
+                        default:
+                            Thread.Sleep(3000);
+                            break;
+                    }
+
+                    if (DateTime.Now - lastPolled > TimeSpan.FromSeconds(30))
+                        isDisconnected = true;
+
+                    ++retryCount;
+                    continue;
                 }
+
+                try
+                {
+                    HandleUpdates(updates, isDisconnected);
+                }
+                catch (Exception ex)
+                {
+                    Log.Warn(ex, "very very very bad ");
+                }
+
+                isDisconnected = false;
             }
 
             Debug.WriteLine("Update thread finished");
         }
 
-        private void HandleOld(List<Update> updates)
+        private void HandleUpdates(List<Update> updates, bool isInitial)
         {
             Debug.Assert(updates != null);
 
             foreach (var update in updates)
             {
-                var message = new UpdateContext { IsInitiallyPolled = true, Update = update };
+                var message = new UpdateContext { IsInitiallyPolled = isInitial, Update = update };
 
                 foreach (var pluginContext in _pluginContexts)
                     try
@@ -173,37 +196,12 @@ namespace eth.Eve.Internal
                     }
                     catch (Exception ex)
                     {
-                        Log.Warn(ex, "message handling: plugin has thrown an exception (initial poll)");
+                        Log.Warn(ex, "message handling: plugin has thrown an exception (initial poll) ");
 
                         foreach (var listener in _healthListeners)
                             listener.OnHandleMessageException(ex, message, pluginContext.Plugin);
                     }
             }
-        }
-
-        private void HandleNew(Update update)
-        {
-            Debug.Assert(update != null);
-            
-            var message = new UpdateContext { Update = update };
-
-            foreach (var pluginContext in _pluginContexts)
-                try
-                {
-                    message.CurrentContext = pluginContext;
-
-                    var result = pluginContext.Plugin.Handle(message);
-
-                    if (result == HandleResult.HandledCompletely)
-                        break;
-                }
-                catch (Exception ex)
-                {
-                    Log.Warn(ex, "message handling: plugin has thrown an exception");
-                    
-                    foreach (var listener in _healthListeners)
-                        listener.OnHandleMessageException(ex, message, pluginContext.Plugin);
-                }
         }
 
         public void Dispose()
