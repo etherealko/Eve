@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{25CF3523-B052-45DD-9082-728A2C449C86}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>eth.TestApp.FancyPlugins</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ChannelQuotePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FixAudioTagsPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HealthStatusPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LehaTrollerPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PluginOne.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RampPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kek.cs" />
+  </ItemGroup>
+</Project>

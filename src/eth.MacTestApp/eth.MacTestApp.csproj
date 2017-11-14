@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssetTargetFallback>$(AssetTargetFallback);net45;net451</AssetTargetFallback>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\eth.PluginSamples\eth.PluginSamples.csproj" />
+    <ProjectReference Include="..\eth.Eve\eth.Eve.csproj" />
+    <ProjectReference Include="..\eth.Eve.PluginSystem\eth.Eve.PluginSystem.csproj" />
+    <ProjectReference Include="..\eth.Telegram.BotApi\eth.Telegram.BotApi.csproj" />
+    <ProjectReference Include="..\eth.Telegram.BotApi.Objects\eth.Telegram.BotApi.Objects.csproj" />
+    <ProjectReference Include="..\eth.Common\eth.Common.csproj" />
+  </ItemGroup>
+  <Import Project="..\eth.TestApp.FancyPlugins\eth.TestApp.FancyPlugins.projitems" Label="Shared" Condition="Exists('..\eth.TestApp.FancyPlugins\eth.TestApp.FancyPlugins.projitems')" />
+</Project>
