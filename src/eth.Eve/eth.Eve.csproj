@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssetTargetFallback>$(AssetTargetFallback);net45</AssetTargetFallback>
   </PropertyGroup>
 
   <ItemGroup>
