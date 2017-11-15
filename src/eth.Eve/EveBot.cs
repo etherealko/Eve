@@ -4,20 +4,24 @@ using System.Linq;
 using eth.Eve.Internal;
 using eth.Eve.Storage;
 using System.Collections.ObjectModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace eth.Eve
 {
     public sealed class EveBot : IDisposable
     {
+        private readonly Action<DbContextOptionsBuilder<EveDb>> _dbContextOptionsBuilder;
+
         private volatile bool _shutdown;
         private volatile bool _started;
 
         private List<EveSpaceInitializer> _spaceInitializers;
         private List<EveBotSpace> _spaces;
-        
-        public EveBot()
+                
+        public EveBot(Action<DbContextOptionsBuilder<EveDb>> optionsBuilder)
         {
-            var db = new EveDb();
+            _dbContextOptionsBuilder = optionsBuilder;
+            var db = GetDbContext();
 
             var spaces = db.EveSpaces.ToList();
 
@@ -46,7 +50,7 @@ namespace eth.Eve
             {
                 _spaces = _spaceInitializers
                     .Where(i => i.IsEnabled)
-                    .Select(i => new EveBotSpace(i))
+                    .Select(i => new EveBotSpace(i, GetDbContext))
                     .ToList();
 
                 _spaceInitializers = null;
@@ -77,6 +81,14 @@ namespace eth.Eve
                 space.Dispose();
 
             _spaces.Clear();
+        }
+
+        private EveDb GetDbContext()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<EveDb>();
+            _dbContextOptionsBuilder(optionsBuilder);
+
+            return new EveDb(optionsBuilder.Options);
         }
     }
 }

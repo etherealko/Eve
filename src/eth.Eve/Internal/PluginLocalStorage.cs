@@ -10,19 +10,19 @@ namespace eth.Eve.Internal
     internal sealed class PluginLocalStorage : IPluginLocalStorage
     {
         private readonly PluginInfo _pluginInfo;
-        private readonly long _spaceId;
+        private readonly EveBotSpace _space;
         private readonly EveDb _dbContext;
 
-        public PluginLocalStorage(PluginInfo pluginInfo, long spaceId)
+        public PluginLocalStorage(PluginInfo pluginInfo, EveBotSpace space)
         {
             _pluginInfo = pluginInfo;
-            _spaceId = spaceId;
-            _dbContext = new EveDb();
+            _space = space;
+            _dbContext = space.GetDbContext();
         }
 
         public bool RemoveBinary(string key)
         {
-            var entry = _dbContext.PluginStoreBinaries.SingleOrDefault(b => b.SpaceId == _spaceId &&
+            var entry = _dbContext.PluginStoreBinaries.SingleOrDefault(b => b.SpaceId == _space.SpaceId &&
                 b.PluginGuid == _pluginInfo.Guid &&
                 b.Key == key);
 
@@ -37,7 +37,7 @@ namespace eth.Eve.Internal
 
         public bool RemoveString(string key)
         {
-            var entry = _dbContext.PluginStoreStrings.SingleOrDefault(b => b.SpaceId == _spaceId &&
+            var entry = _dbContext.PluginStoreStrings.SingleOrDefault(b => b.SpaceId == _space.SpaceId &&
                 b.PluginGuid == _pluginInfo.Guid &&
                 b.Key == key);
 
@@ -52,7 +52,7 @@ namespace eth.Eve.Internal
 
         public void SetBinary(string key, [NotNull] byte[] value, string metadata = null)
         {
-            var entry = _dbContext.PluginStoreBinaries.SingleOrDefault(b => b.SpaceId == _spaceId &&
+            var entry = _dbContext.PluginStoreBinaries.SingleOrDefault(b => b.SpaceId == _space.SpaceId &&
                 b.PluginGuid == _pluginInfo.Guid &&
                 b.Key == key);
 
@@ -66,7 +66,7 @@ namespace eth.Eve.Internal
             {
                 entry = new DbModel.PluginStoreBinary
                 {
-                    SpaceId = _spaceId,
+                    SpaceId = _space.SpaceId,
                     PluginGuid = _pluginInfo.Guid,
                     PluginVersion = _pluginInfo.Version,
 
@@ -83,7 +83,7 @@ namespace eth.Eve.Internal
 
         public void SetString(string key, string value)
         {
-            var entry = _dbContext.PluginStoreStrings.SingleOrDefault(b => b.SpaceId == _spaceId &&
+            var entry = _dbContext.PluginStoreStrings.SingleOrDefault(b => b.SpaceId == _space.SpaceId &&
                 b.PluginGuid == _pluginInfo.Guid &&
                 b.Key == key);
 
@@ -96,7 +96,7 @@ namespace eth.Eve.Internal
             {
                 entry = new DbModel.PluginStoreString
                 {
-                    SpaceId = _spaceId,
+                    SpaceId = _space.SpaceId,
                     PluginGuid = _pluginInfo.Guid,
                     PluginVersion = _pluginInfo.Version,
 
@@ -112,7 +112,7 @@ namespace eth.Eve.Internal
 
         public bool TryGetBinary(string key, out PluginStoreBinary value)
         {
-            var dbValue = _dbContext.PluginStoreBinaries.SingleOrDefault(b => b.SpaceId == _spaceId && 
+            var dbValue = _dbContext.PluginStoreBinaries.SingleOrDefault(b => b.SpaceId == _space.SpaceId && 
                 b.PluginGuid == _pluginInfo.Guid && 
                 b.Key == key);
 
@@ -134,7 +134,7 @@ namespace eth.Eve.Internal
 
         public bool TryGetString(string key, out PluginStoreString value)
         {
-            var dbValue = _dbContext.PluginStoreStrings.SingleOrDefault(b => b.SpaceId == _spaceId &&
+            var dbValue = _dbContext.PluginStoreStrings.SingleOrDefault(b => b.SpaceId == _space.SpaceId &&
                 b.PluginGuid == _pluginInfo.Guid &&
                 b.Key == key);
 

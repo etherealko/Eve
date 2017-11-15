@@ -6,6 +6,7 @@ using System.Windows;
 using System.IO;
 using eth.TestApp.YaDurak;
 using eth.PluginSamples;
+using Microsoft.EntityFrameworkCore;
 
 namespace eth.TestApp
 {
@@ -13,7 +14,7 @@ namespace eth.TestApp
     {
         private static void Main(string[] args)
         {
-            var bot = new EveBot();
+            var bot = new EveBot(options => options.UseSqlServer(@"data source=(LocalDb)\MSSQLLocalDB;initial catalog=EveDb;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"));
 
             foreach (var space in bot.GetSpaceInitializers())            
                 switch (space.Key)

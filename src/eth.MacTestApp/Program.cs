@@ -2,6 +2,8 @@
 using eth.Eve;
 using eth.PluginSamples;
 using eth.TestApp.FancyPlugins;
+using eth.Eve.Storage;
+using Microsoft.EntityFrameworkCore;
 
 namespace eth.MacTestApp
 {
@@ -9,7 +11,7 @@ namespace eth.MacTestApp
     {
         static void Main(string[] args)
         {
-            var bot = new EveBot();
+            var bot = new EveBot(options => options.UseSqlServer(@"data source=(LocalDb)\MSSQLLocalDB;initial catalog=EveDb;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"));
 
             foreach (var space in bot.GetSpaceInitializers())
                 switch (space.Key)

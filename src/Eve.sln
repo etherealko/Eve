@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eth.TestApp", "eth.TestApp\eth.TestApp.csproj", "{7E355AB8-4756-45F1-9CEF-56B91F03E666}"
 EndProject
@@ -9,29 +9,33 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Telegram", "Telegram", "{A9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Eve", "Eve", "{704296CC-521D-4039-8861-9A7353F765C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eth.Telegram.BotApi.Objects", "eth.Telegram.BotApi.Objects\eth.Telegram.BotApi.Objects.csproj", "{CB3140D0-A64F-44ED-A2ED-1D9110AB28DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eth.Telegram.BotApi.Objects", "eth.Telegram.BotApi.Objects\eth.Telegram.BotApi.Objects.csproj", "{CB3140D0-A64F-44ED-A2ED-1D9110AB28DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eth.Telegram.BotApi", "eth.Telegram.BotApi\eth.Telegram.BotApi.csproj", "{F57EFA7D-4925-48BA-AEA0-873A1FA52476}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eth.Telegram.BotApi", "eth.Telegram.BotApi\eth.Telegram.BotApi.csproj", "{F57EFA7D-4925-48BA-AEA0-873A1FA52476}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eth.Common", "eth.Common\eth.Common.csproj", "{F6AD48DE-8C0B-49C4-AD8D-D908404727C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eth.Common", "eth.Common\eth.Common.csproj", "{F6AD48DE-8C0B-49C4-AD8D-D908404727C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eth.Eve.PluginSystem", "eth.Eve.PluginSystem\eth.Eve.PluginSystem.csproj", "{1AF1BB4B-E1FF-46A7-88BE-7824E52312AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eth.Eve.PluginSystem", "eth.Eve.PluginSystem\eth.Eve.PluginSystem.csproj", "{1AF1BB4B-E1FF-46A7-88BE-7824E52312AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eth.Eve.Storage", "eth.Eve.Storage\eth.Eve.Storage.csproj", "{415FF49B-A953-480F-8FB3-DD2D62061A1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eth.Eve.Storage", "eth.Eve.Storage\eth.Eve.Storage.csproj", "{415FF49B-A953-480F-8FB3-DD2D62061A1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eth.Eve", "eth.Eve\eth.Eve.csproj", "{200BC497-A009-4642-BE08-EE20EAC628B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eth.Eve", "eth.Eve\eth.Eve.csproj", "{200BC497-A009-4642-BE08-EE20EAC628B2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other", "Other", "{6719DD6C-4FF1-4381-B818-A0FB8DBBF10D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eth.PluginSamples", "eth.PluginSamples\eth.PluginSamples.csproj", "{01A6AD1B-E989-46B5-8272-FC7E25BC22A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eth.PluginSamples", "eth.PluginSamples\eth.PluginSamples.csproj", "{01A6AD1B-E989-46B5-8272-FC7E25BC22A4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eth", "eth", "{B25E5632-CA6B-4DF7-AAD6-CECB6156E7E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eth.MacTestApp", "eth.MacTestApp\eth.MacTestApp.csproj", "{BF9B3DE8-492F-4793-B948-0C5C308BC95D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eth.MacTestApp", "eth.MacTestApp\eth.MacTestApp.csproj", "{BF9B3DE8-492F-4793-B948-0C5C308BC95D}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "eth.TestApp.FancyPlugins", "eth.TestApp.FancyPlugins\eth.TestApp.FancyPlugins.shproj", "{25CF3523-B052-45DD-9082-728A2C449C86}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		eth.TestApp.FancyPlugins\eth.TestApp.FancyPlugins.projitems*{25cf3523-b052-45dd-9082-728a2c449c86}*SharedItemsImports = 13
+		eth.TestApp.FancyPlugins\eth.TestApp.FancyPlugins.projitems*{7e355ab8-4756-45f1-9cef-56b91f03e666}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

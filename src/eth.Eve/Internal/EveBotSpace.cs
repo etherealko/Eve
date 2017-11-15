@@ -1,5 +1,6 @@
 ﻿using eth.Common.Extensions;
 using eth.Eve.PluginSystem;
+using eth.Eve.Storage;
 using eth.Telegram.BotApi;
 using eth.Telegram.BotApi.Objects;
 using NLog;
@@ -30,14 +31,18 @@ namespace eth.Eve.Internal
         private readonly CancellationTokenSource _cts = new CancellationTokenSource();
         private readonly TelegramBotApi _outgoingApi;
 
+        public Func<EveDb> GetDbContext { get; }
+
         private volatile User _me;
-        
+                
         public long SpaceId { get; }
         public TaskFactory TaskFactory { get; }
 
-        public EveBotSpace(EveSpaceInitializer initializer)
+        public EveBotSpace(EveSpaceInitializer initializer, Func<EveDb> getDbContext)
         {
             SpaceId = initializer.EveSpace.Id;
+
+            GetDbContext = getDbContext;
 
             _requestInterceptors = initializer.RequestInterceptors.ToList();
             _responseInterceptors = initializer.ResponseInterceptors.ToList();
@@ -114,7 +119,7 @@ namespace eth.Eve.Internal
 
             return me;
         }
-
+        
         private async void UpdateProc()
         {
             List<Update> updates;

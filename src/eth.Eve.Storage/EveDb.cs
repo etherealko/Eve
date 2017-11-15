@@ -1,26 +1,18 @@
 using eth.Eve.Storage.Model;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace eth.Eve.Storage
 {
     public class EveDb : DbContext
     {
-        static EveDb()
-        {
-            Database.SetInitializer(new CreateDatabaseIfNotExists<EveDb>());
-            //Database.SetInitializer(new DropCreateDatabaseAlways<EveDb>());
-        }
-
         public virtual DbSet<EveSpace> EveSpaces { get; set; }
 
         public virtual DbSet<PluginStoreString> PluginStoreStrings { get; set; }
         public virtual DbSet<PluginStoreBinary> PluginStoreBinaries { get; set; }
+        
+        public EveDb(DbContextOptions<EveDb> options) : base(options) { }
 
-        public EveDb() : this("name=EveDb") { }
-
-        public EveDb(string nameOrConnectionString) : base(nameOrConnectionString) { }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PluginStoreString>().HasKey(e => new { e.SpaceId, e.PluginGuid, e.Key });
             modelBuilder.Entity<PluginStoreBinary>().HasKey(e => new { e.SpaceId, e.PluginGuid, e.Key });
@@ -28,19 +20,23 @@ namespace eth.Eve.Storage
 
             modelBuilder.Entity<EveSpace>()
                 .HasMany(e => e.PluginStoreStrings)
-                .WithRequired()
+                .WithOne()
                 .HasForeignKey(e => e.SpaceId)
-                .WillCascadeOnDelete();
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<EveSpace>()
                 .HasMany(e => e.PluginStoreBinaries)
-                .WithRequired()
+                .WithOne()
                 .HasForeignKey(e => e.SpaceId)
-                .WillCascadeOnDelete();
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<PluginStoreBinary>().Property(e => e.Value).IsRequired();
 
             modelBuilder.Entity<EveSpace>().Property(e => e.BotApiAccessToken).HasMaxLength(50);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
         }
     }
 }

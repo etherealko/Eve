@@ -36,7 +36,7 @@ namespace eth.Eve.Internal
 
         public IPluginLocalStorage GetStorage()
         {
-            return new PluginLocalStorage(Plugin.Info, _space.SpaceId);
+            return new PluginLocalStorage(Plugin.Info, _space);
         }
 
         public Task<User> GetMeAsync(bool forceServerQuery = false)

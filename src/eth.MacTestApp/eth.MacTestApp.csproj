@@ -13,6 +13,13 @@
     <ProjectReference Include="..\eth.Telegram.BotApi\eth.Telegram.BotApi.csproj" />
     <ProjectReference Include="..\eth.Telegram.BotApi.Objects\eth.Telegram.BotApi.Objects.csproj" />
     <ProjectReference Include="..\eth.Common\eth.Common.csproj" />
+    
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
+    
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.1" />
+    
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
   </ItemGroup>
   <Import Project="..\eth.TestApp.FancyPlugins\eth.TestApp.FancyPlugins.projitems" Label="Shared" Condition="Exists('..\eth.TestApp.FancyPlugins\eth.TestApp.FancyPlugins.projitems')" />
 </Project>
