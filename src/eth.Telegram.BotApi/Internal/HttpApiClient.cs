@@ -34,7 +34,9 @@ namespace eth.Telegram.BotApi.Internal
         {
             #region log configuration
 
-            if (LogManager.Configuration.Variables.TryGetValue("apiIndentJson", out var v) && bool.TryParse(v.Text, out var b))
+            if (LogManager.Configuration != null && 
+                LogManager.Configuration.Variables.TryGetValue("apiIndentJson", out var v) == true && 
+                bool.TryParse(v?.Text, out var b))
                 LogJsonFormatting = b ? Formatting.Indented: Formatting.None;
             else
                 LogJsonFormatting = Formatting.Indented;

@@ -4,6 +4,7 @@ using eth.PluginSamples;
 using eth.TestApp.FancyPlugins;
 using eth.Eve.Storage;
 using Microsoft.EntityFrameworkCore;
+using eth.Telegram.BotApi.Objects;
 
 namespace eth.MacTestApp
 {
@@ -11,14 +12,15 @@ namespace eth.MacTestApp
     {
         static void Main(string[] args)
         {
-            var bot = new EveBot(options => options.UseSqlServer(@"data source=(LocalDb)\MSSQLLocalDB;initial catalog=EveDb;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"));
+            var bot = new EveBot(builder => builder.UseMySql(@"server=localhost;port=3306;database=eveDb;uid=root;password=password"));
+
+            var messageSender = new SimpleMessageSender();
 
             foreach (var space in bot.GetSpaceInitializers())
                 switch (space.Key)
                 {
                     case 1:
                     var kek = new Kek();
-                        var messageSender = new SimpleMessageSender();
                         var replyWithExceptionPlugin = new ReplyWithExceptionPlugin();
 
                         // message handling expected, priority DESC
@@ -50,11 +52,15 @@ namespace eth.MacTestApp
             {
                 bot.Start();
 
-                //while (true)
-                //{
-                //    var txt = Console.ReadLine();
-                //    var msg = messageSender.SendTextMessage(-1001013065325, txt).Result;
-                //}
+                while (true)
+                {
+                    var txt = Console.ReadLine();
+
+                    if (txt == "")
+                        break;
+
+                    var msg = messageSender.SendTextMessage(-1001013065325, txt).Result;
+                }
 
                 Console.ReadLine();
             }

@@ -20,6 +20,11 @@
     
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
+    <ProjectReference Include="..\eth.Eve.Storage\eth.Eve.Storage.csproj" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.2" />
+    <PackageReference Include="Pomelo.Redis" Version="1.0.0" />
+    <PackageReference Include="Pomelo.Data.MySql" Version="1.0.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.0.1" />
   </ItemGroup>
   <Import Project="..\eth.TestApp.FancyPlugins\eth.TestApp.FancyPlugins.projitems" Label="Shared" Condition="Exists('..\eth.TestApp.FancyPlugins\eth.TestApp.FancyPlugins.projitems')" />
 </Project>

@@ -77,10 +77,13 @@ namespace eth.Eve
         {
             _shutdown = true;
 
-            foreach (var space in _spaces)
-                space.Dispose();
+            if (_spaces != null)
+            {
+                foreach (var space in _spaces)
+                    space.Dispose();
 
-            _spaces.Clear();
+                _spaces = null;
+            }
         }
 
         private EveDb GetDbContext()

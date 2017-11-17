@@ -13,7 +13,7 @@ namespace eth.MacTestApp
         {
             var builder = new DbContextOptionsBuilder<EveDb>();
             
-            builder.UseSqlServer(@"data source=(LocalDb)\MSSQLLocalDB;initial catalog=EveDb;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework");
+            builder.UseMySql(@"server=localhost;port=3306;database=eveDb;uid=root;password=password");
 
             return new EveDb(builder.Options);
         }
