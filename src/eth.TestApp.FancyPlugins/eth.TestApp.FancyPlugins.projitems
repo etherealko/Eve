@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ChannelQuotePlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FixAudioTagsPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HealthStatusPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HogwartsPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LehaTrollerPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginOne.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RampPlugin.cs" />

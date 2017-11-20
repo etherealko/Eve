@@ -36,6 +36,7 @@ namespace eth.TestApp
                         space.Value.Plugins.Enqueue(new ChannelQuotePlugin());
                         space.Value.Plugins.Enqueue(new FixAudioTagsPlugin());
                         space.Value.Plugins.Enqueue(new RampPlugin());
+                        space.Value.Plugins.Enqueue(new HogwartsPlugin());
 
                         // message handling NOT expected, lowest priority
                         //space.Value.Plugins.Enqueue(messageSender);
