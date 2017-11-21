@@ -18,7 +18,7 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
 
         private Random Rnd;
 
-        private bool AllowPrivateChat = true;
+        private bool AllowPrivateChat = false;
 
         private Dictionary<HogwartsHouse, List<HogwartsMember>> Members { get; set; }
         private Dictionary<HogwartsHouse, ulong> Score { get; set; }
@@ -309,7 +309,7 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
         private HogwartsHouse AssignHouseToMember(HogwartsMember member)
         {
             var max = Enum.GetNames(typeof(HogwartsHouse)).Length;
-            var number = Rnd.Next(4);
+            var number = Rnd.Next(max);
             var house = (HogwartsHouse)number;
             Members[house].Add(member);
             return house;
