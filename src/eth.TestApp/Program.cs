@@ -7,6 +7,7 @@ using System.IO;
 using eth.TestApp.YaDurak;
 using eth.PluginSamples;
 using Microsoft.EntityFrameworkCore;
+using eth.TestApp.FancyPlugins.HogwartsPlugin;
 
 namespace eth.TestApp
 {

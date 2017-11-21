@@ -12,7 +12,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ChannelQuotePlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FixAudioTagsPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HealthStatusPlugin.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)HogwartsPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LehaTrollerPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginOne.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RampPlugin.cs" />
