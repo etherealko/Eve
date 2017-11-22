@@ -149,5 +149,8 @@
         WoodMouse,
         Rooster,
         Kys,
+        BondSKnopkai,
+        VishneviyBlazer,
+        BanochkaPesto
     }
 }
