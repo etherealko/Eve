@@ -13,12 +13,14 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
 {
     public class HogwartsPlugin : IPlugin
     {
-        private const string DBScoreKey = "TotalScore";
-        private const string DBMembersKey = "Members";
+        private const string DBScoreKey = "TotalScore.";
+        private const string DBMembersKey = "Members.";
 
         private Random Rnd;
 
         private bool AllowPrivateChat = false;
+        private bool RestrictOtherConf = true;
+        private long ConfId = -1001013065325;
 
         private Dictionary<HogwartsHouse, List<HogwartsMember>> Members { get; set; }
         private Dictionary<HogwartsHouse, ulong> Score { get; set; }
@@ -86,6 +88,11 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
             }
 
             if (!AllowPrivateChat && msg.Chat.Type == Telegram.BotApi.Objects.Enums.ChatType.Private)
+            {
+                return HandleResult.Ignored;
+            }
+
+            if (RestrictOtherConf && msg.Chat.Id != ConfId)
             {
                 return HandleResult.Ignored;
             }
@@ -402,14 +409,14 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
         {
             var data = JsonConvert.SerializeObject(Score);
             var storage = _ctx.GetStorage();
-            storage.SetString(DBScoreKey, data);
+            storage.SetString(DBScoreKey + ConfId, data);
         }
 
         private Dictionary<HogwartsHouse, ulong> LoadScore()
         {
             Dictionary<HogwartsHouse, ulong> score = null;
             var storage = _ctx.GetStorage();
-            if (storage.TryGetString(DBScoreKey, out PluginStoreString data))
+            if (storage.TryGetString(DBScoreKey + ConfId, out PluginStoreString data))
             {
                 score = JsonConvert.DeserializeObject<Dictionary<HogwartsHouse, ulong>>(data.Value);
             }
@@ -420,14 +427,14 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
         {
             var data = JsonConvert.SerializeObject(Members);
             var storage = _ctx.GetStorage();
-            storage.SetString(DBMembersKey, data);
+            storage.SetString(DBMembersKey + ConfId, data);
         }
 
         private Dictionary<HogwartsHouse, List<HogwartsMember>> LoadMembers()
         {
             Dictionary<HogwartsHouse, List<HogwartsMember>> members = null;
             var storage = _ctx.GetStorage();
-            if (storage.TryGetString(DBMembersKey, out PluginStoreString data))
+            if (storage.TryGetString(DBMembersKey + ConfId, out PluginStoreString data))
             {
                 members = JsonConvert.DeserializeObject<Dictionary<HogwartsHouse, List<HogwartsMember>>>(data.Value);
             }
