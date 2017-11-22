@@ -47,7 +47,7 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
                     { HogwartsHouse.Gryffindor, 0 },
                     { HogwartsHouse.Hufflepuff, 0 },
                     { HogwartsHouse.Ravenclaw, 0 },
-                    { HogwartsHouse.Петухи, 0 }
+                    { HogwartsHouse.Slytherin, 0 }
                 };
             }
         }
@@ -61,7 +61,7 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
                     { HogwartsHouse.Gryffindor, new List<HogwartsMember>() },
                     { HogwartsHouse.Hufflepuff, new List<HogwartsMember>() },
                     { HogwartsHouse.Ravenclaw, new List<HogwartsMember>() },
-                    { HogwartsHouse.Петухи, new List<HogwartsMember>() }
+                    { HogwartsHouse.Slytherin, new List<HogwartsMember>() }
                 };
             }
         }
@@ -368,9 +368,9 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
                 HogwartsHouse = HogwartsHouse.Ravenclaw;
                 return true;
             }
-            if (compareInfo.IndexOf(input, "петухам", CompareOptions.IgnoreCase) >= 0)
+            if (compareInfo.IndexOf(input, "слизерину", CompareOptions.IgnoreCase) >= 0)
             {
-                HogwartsHouse = HogwartsHouse.Петухи;
+                HogwartsHouse = HogwartsHouse.Slytherin;
                 return true;
             }
 
