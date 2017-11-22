@@ -101,7 +101,7 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
                 || IsAssignHouseCommand(msg)
                 || IsMembersListCommand(msg)
                 || IsScoreCommand(msg)
-                || IsNewPartronusCommand(msg)
+                //|| IsNewPartronusCommand(msg)
                 || IsPatronusCommand(msg)
                 || IsSnitchCommand(msg))
             {

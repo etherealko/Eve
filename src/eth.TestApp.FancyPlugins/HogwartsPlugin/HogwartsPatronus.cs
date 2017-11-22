@@ -151,6 +151,7 @@
         Kys,
         BondSKnopkai,
         VishneviyBlazer,
-        BanochkaPesto
+        BanochkaPesto,
+        BatyaPiroga
     }
 }
