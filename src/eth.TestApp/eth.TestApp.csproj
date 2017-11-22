@@ -129,11 +129,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FancyPlugins\HogwartsPlugin\HogwartsMember.cs" />
-    <Compile Include="FancyPlugins\HogwartsPlugin\HogwartsPlugin.cs" />
-    <Compile Include="FancyPlugins\HogwartsPlugin\HogwartsHouse.cs" />
-    <Compile Include="FancyPlugins\HogwartsPlugin\HogwartsPatronus.cs" />
-    <Compile Include="FancyPlugins\HogwartsPlugin\HogwartsQuidditchGame.cs" />
     <Compile Include="FancyPlugins\PhotoTextPlugin.cs" />
     <Compile Include="FancyPlugins\PhotoTextRenderControl.xaml.cs">
       <DependentUpon>PhotoTextRenderControl.xaml</DependentUpon>
