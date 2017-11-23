@@ -20,8 +20,8 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
 
         private Dictionary<HogwartsMember, DateTime> LastAttemptToCatch { get; set; }
 
-        private int ChanceForSnitch = 5;
-        public int CatchCooldownInMinutes = 2;
+        private int ChanceForSnitch = 15;
+        public int CatchCooldownInMinutes = 30;
         private int MatchDurationInHours = 12;
 
         public HogwartsQuidditchGame()

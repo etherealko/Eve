@@ -36,7 +36,7 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
         private const string NotAMemberWarning = "Сначала наденьте шляпу, чтобы стать волшебником!";
         private const string SnitchCatchingResultFailed = "Вы усердно всматриваетесь в небо, но снитч нигде не виден";
         private const string SnitchCatchingResultSuccessFormat = "{0}. Сегодня вы оказались самым ловким и везучим, снитч ваш, а с ним и победа для вашей комманды! {1} получает {2} очков!";
-        private const string SnitchCatchingResultOnCooldownFormat = "{0}, можете попробовать поймать снитч снова через {1} минуты";
+        private const string SnitchCatchingResultOnCooldownFormat = "{0}, можете попробовать поймать снитч не чаще раза в {1} минут";
 
         private Dictionary<HogwartsHouse, ulong> EmptyScore
         {
@@ -103,7 +103,8 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
                 || IsScoreCommand(msg)
                 //|| IsNewPartronusCommand(msg)
                 || IsPatronusCommand(msg)
-                || IsSnitchCommand(msg))
+                || IsSnitchCommand(msg)
+                || IsPrihodCommand(msg))
             {
                 return HandleResult.HandledCompletely;
             }
@@ -295,7 +296,7 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
                     }
 
                     uint points = 200;
-                    AddPoints(house, points);
+                    Score[house] += points;
                     _ctx.BotApi.SendMessageAsync(chatId, string.Format(SnitchCatchingResultSuccessFormat, member.Name, house, points));
                 }
                 else if (result == HogwartsQuidditchGame.SnitchCatchingResult.Failed)
@@ -305,6 +306,51 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
                 else if (result == HogwartsQuidditchGame.SnitchCatchingResult.OnCooldown)
                 {
                     _ctx.BotApi.SendMessageAsync(chatId, string.Format(SnitchCatchingResultOnCooldownFormat, member.Name, CurrentGame.CatchCooldownInMinutes));
+                }
+            }
+            return true;
+        }
+
+        private bool IsPrihodCommand(Message msg)
+        {
+            if (!msg.Text.StartsWith("поймать приход", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return false;
+            }
+
+            var chatId = msg.Chat.Id;
+            var member = FindMemberById(msg.From.Id);
+            if (member == null)
+            {
+                _ctx.BotApi.SendMessageAsync(chatId, NotAMemberWarning);
+                return true;
+            }
+
+            if (!CurrentGame.IsEnded)
+            {
+                var result = CurrentGame.TryCatchSnitch(member);
+                if (result == HogwartsQuidditchGame.SnitchCatchingResult.Success)
+                {
+                    var house = HogwartsHouse.Gryffindor;
+                    foreach (var kvp in Members)
+                    {
+                        if (kvp.Value.Any(m => m.Id == member.Id))
+                        {
+                            house = kvp.Key;
+                        };
+                    }
+
+                    uint points = 5;
+                    AddPoints(house, points);
+                    _ctx.BotApi.SendMessageAsync(chatId, string.Format("{0}. Сегодня вы оказались самым ловким и везучим наркопотребителем, приход ваш, а с ним и победа для вашей комманды! {1} получает утешительные {2} очков!", member.Name, house, points));
+                }
+                else if (result == HogwartsQuidditchGame.SnitchCatchingResult.Failed)
+                {
+                    _ctx.BotApi.SendMessageAsync(chatId, "Вы усердно всматриваетесь в локтевой сгиб, но вены нигде не видно");
+                }
+                else if (result == HogwartsQuidditchGame.SnitchCatchingResult.OnCooldown)
+                {
+                    _ctx.BotApi.SendMessageAsync(chatId, string.Format("{0}, можете попробовать поймать приход не чаще раза в {1} минут. Контролируйте свое потребление.", member.Name, CurrentGame.CatchCooldownInMinutes));
                 }
             }
             return true;
