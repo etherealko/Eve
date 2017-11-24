@@ -99,6 +99,11 @@ namespace eth.Telegram.BotApi
 
         Task<Message> DeleteMessage(ChatIdOrUsername chatId, int messageId);
 
+        Task<bool> PinChatMessage(ChatIdOrUsername chatId, int messageId,
+            bool? disableNotification = null);
+        
+        Task<bool> UnpinChatMessage(ChatIdOrUsername chatId);
+
         #region file download
 
         Task<Stream> GetFileStreamAsync(string filePath);

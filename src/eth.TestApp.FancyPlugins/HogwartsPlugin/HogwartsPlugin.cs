@@ -38,6 +38,8 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
         private const string SnitchCatchingResultSuccessFormat = "{0}. Сегодня вы оказались самым ловким и везучим, снитч ваш, а с ним и победа для вашей комманды! {1} получает {2} очков!";
         private const string SnitchCatchingResultOnCooldownFormat = "{0}, можете попробовать поймать снитч не чаще раза в {1} минут";
 
+        private bool _pinQuidditchSuccess;
+
         private Dictionary<HogwartsHouse, ulong> EmptyScore
         {
             get
@@ -117,15 +119,22 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
         public void Initialize(IPluginContext ctx)
         {
             _ctx = ctx;
-        }
 
-        public void Initialized()
-        {
             Score = LoadScore();
             Members = LoadMembers();
             CurrentGame = new HogwartsQuidditchGame();
 
             Rnd = new Random(); 
+
+            using (var s = _ctx.GetStorage())
+            {
+                if (s.TryGetString("pinQuidditchSuccess", out var pinQuidditchSuccess))
+                    _pinQuidditchSuccess = string.Equals(pinQuidditchSuccess?.Value, "true", StringComparison.OrdinalIgnoreCase);
+            }
+        }
+
+        public void Initialized()
+        {
         }
 
         public void Teardown()
@@ -297,7 +306,15 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
 
                     uint points = 200;
                     Score[house] += points;
-                    _ctx.BotApi.SendMessageAsync(chatId, string.Format(SnitchCatchingResultSuccessFormat, member.Name, house, points));
+                    var task = _ctx.BotApi.SendMessageAsync(chatId, string.Format(SnitchCatchingResultSuccessFormat, member.Name, house, points));
+                        
+                    if (_pinQuidditchSuccess)
+                        task.ContinueWith(m => 
+                        {
+                            var message = m.Result;
+
+                            _ctx.BotApi.PinChatMessage(message.Chat.Id, message.MessageId);
+                        });
                 }
                 else if (result == HogwartsQuidditchGame.SnitchCatchingResult.Failed)
                 {
