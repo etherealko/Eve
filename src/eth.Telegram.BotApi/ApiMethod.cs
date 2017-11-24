@@ -88,5 +88,10 @@ namespace eth.Telegram.BotApi
         [EnumMember(Value = "deleteMessage")]
         DeleteMessage,
 
+        [EnumMember(Value = "pinChatMessage")]
+        PinChatMessage,
+
+        [EnumMember(Value = "unpinChatMessage")]
+        UnpinChatMessage
     }
 }

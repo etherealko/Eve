@@ -424,14 +424,29 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public Task<bool> PinChatMessage(ChatIdOrUsername chatId, int messageId, bool? disableNotification = null)
+        public async Task<bool> PinChatMessage(ChatIdOrUsername chatId, int messageId, 
+            bool? disableNotification = null)
         {
-            throw new NotImplementedException();
+            var args = new ApiArgs
+            {
+                { "chat_id", chatId, nameof(chatId) },
+                { "message_id", messageId, nameof(messageId) },
+                { "disable_notification", disableNotification, nameof(disableNotification), ApiArgumentRequired.Optional }
+            };
+
+            return await CallApiAsync<bool>(ApiMethod.PinChatMessage, args)
+                .ConfigureAwait(false);
         }
 
-        public Task<bool> UnpinChatMessage(ChatIdOrUsername chatId)
+        public async Task<bool> UnpinChatMessage(ChatIdOrUsername chatId)
         {
-            throw new NotImplementedException();
+            var args = new ApiArgs
+            {
+                { "chat_id", chatId, nameof(chatId) }
+            };
+
+            return await CallApiAsync<bool>(ApiMethod.UnpinChatMessage, args)
+                .ConfigureAwait(false);
         }
 
         #region file download
