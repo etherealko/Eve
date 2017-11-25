@@ -39,6 +39,7 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
         private const string SnitchCatchingResultOnCooldownFormat = "{0}, можете попробовать поймать снитч не чаще раза в {1} минут";
 
         private bool _pinQuidditchSuccess;
+        private bool _addPointsCooldown = true;
 
         private Dictionary<HogwartsHouse, ulong> EmptyScore
         {
@@ -130,6 +131,8 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
             {
                 if (s.TryGetString("pinQuidditchSuccess", out var pinQuidditchSuccess))
                     _pinQuidditchSuccess = string.Equals(pinQuidditchSuccess?.Value, "true", StringComparison.OrdinalIgnoreCase);
+                if (s.TryGetString("addPointsCooldown", out var addPointsCooldown))
+                    _addPointsCooldown = !string.Equals(addPointsCooldown?.Value, "false", StringComparison.OrdinalIgnoreCase);
             }
         }
 
@@ -162,7 +165,7 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
 
             if (!_pointFloodControl.TryGetValue(msg.From.Id, out var lastHandled) || DateTime.Now - lastHandled > TimeSpan.FromSeconds(30))
                 _pointFloodControl[msg.From.Id] = DateTime.Now;
-            else
+            else if (_addPointsCooldown)
                 return true;
 
             AddPoints(house, points);
