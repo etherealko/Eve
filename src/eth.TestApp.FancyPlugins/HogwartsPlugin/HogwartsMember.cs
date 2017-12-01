@@ -10,5 +10,9 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
         public string Name { get; set; }
         [JsonProperty("patronus", Required = Required.Always)]
         public HogwartsPatronus Patronus { get; set; }
+        [JsonProperty("isAdmin", Required = Required.Always)]
+        public bool IsAdmin { get; set; }
+        [JsonProperty("stats", Required = Required.Always)]
+        public HogwartsStats Stats { get; set; }
     }
 }

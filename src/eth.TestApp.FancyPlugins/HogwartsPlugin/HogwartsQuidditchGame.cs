@@ -52,6 +52,11 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
             return SnitchCatchingResult.Failed;
         }
 
+        public void BludgerFrom(HogwartsMember member)
+        {
+
+        }
+
         private void SetTeams()
         {
             var firstTeam = RollHouse();

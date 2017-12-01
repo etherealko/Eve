@@ -12,11 +12,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)ChannelQuotePlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FixAudioTagsPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HealthStatusPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HogwartsPlugin\HogwartsCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HogwartsPlugin\HogwartsCommandsHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HogwartsPlugin\HogwartsConfigs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HogwartsPlugin\HogwartsHouse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HogwartsPlugin\HogwartsMember.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HogwartsPlugin\HogwartsPatronus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HogwartsPlugin\HogwartsPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HogwartsPlugin\HogwartsQuidditchGame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HogwartsPlugin\HogwartsService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HogwartsPlugin\HogwartsStats.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LehaTrollerPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginOne.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RampPlugin.cs" />
