@@ -78,7 +78,7 @@ namespace eth.Telegram.BotApi
 
         Task<File> GetFileInfoAsync(string fileId);
 
-        Task<Message> EditMessageText(string text,
+        Task<Message> EditMessageTextAsync(string text,
             ChatIdOrUsername chatId = null,
             int? messageId = null,
             string inlineMessageId = null, 
@@ -86,23 +86,37 @@ namespace eth.Telegram.BotApi
             bool? disableWebPagePreview = null,
             KeyboardMarkupReply replyMarkup = null);
 
-        Task<Message> EditMessageCaption(string caption = null,
+        Task<Message> EditMessageCaptionAsync(string caption = null,
             ChatIdOrUsername chatId = null,
             int? messageId = null,
             string inlineMessageId = null,
             KeyboardMarkupReply replyMarkup = null);
 
-        Task<Message> EditMessageReplyMarkup(ChatIdOrUsername chatId = null,
+        Task<Message> EditMessageReplyMarkupAsync(ChatIdOrUsername chatId = null,
             int? messageId = null,
             string inlineMessageId = null,
             KeyboardMarkupReply replyMarkup = null);
 
-        Task<Message> DeleteMessage(ChatIdOrUsername chatId, int messageId);
+        Task<Message> DeleteMessageAsync(ChatIdOrUsername chatId, int messageId);
 
-        Task<bool> PinChatMessage(ChatIdOrUsername chatId, int messageId,
+        Task<bool> PinChatMessageAsync(ChatIdOrUsername chatId, int messageId,
             bool? disableNotification = null);
         
-        Task<bool> UnpinChatMessage(ChatIdOrUsername chatId);
+        Task<bool> UnpinChatMessageAsync(ChatIdOrUsername chatId);
+        
+        Task<StickerSet> GetStickerSetAsync(string name);
+
+        Task<File> UploadStickerFileAsync(string userId, InputFile pngSticker);
+
+        Task<bool> CreateNewStickerSetAsync(int userId, string name, string title, InputFile pngSticker, string emojis,
+            bool? containsMasks = null, MaskPosition maskPosition = null);
+
+        Task<bool> AddStickerToSetAsync(int userId, string name, InputFile pngSticker, string emojis, 
+            MaskPosition maskPosition = null);
+
+        Task<bool> SetStickerPositionInSetAsync(string sticker, int position);
+
+        Task<bool> DeleteStickerFromSetAsync(string sticker);
 
         #region file download
 

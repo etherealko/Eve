@@ -353,7 +353,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
         
-        public async Task<Message> EditMessageText(string text, 
+        public async Task<Message> EditMessageTextAsync(string text, 
             ChatIdOrUsername chatId = null, 
             int? messageId = null, 
             string inlineMessageId = null, 
@@ -376,7 +376,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> EditMessageCaption(string caption = null, 
+        public async Task<Message> EditMessageCaptionAsync(string caption = null, 
             ChatIdOrUsername chatId = null, 
             int? messageId = null, 
             string inlineMessageId = null, 
@@ -395,7 +395,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> EditMessageReplyMarkup(ChatIdOrUsername chatId = null, 
+        public async Task<Message> EditMessageReplyMarkupAsync(ChatIdOrUsername chatId = null, 
             int? messageId = null, 
             string inlineMessageId = null, 
             KeyboardMarkupReply replyMarkup = null)
@@ -412,7 +412,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<Message> DeleteMessage(ChatIdOrUsername chatId, int messageId)
+        public async Task<Message> DeleteMessageAsync(ChatIdOrUsername chatId, int messageId)
         {
             var args = new ApiArgs
             {
@@ -424,7 +424,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<bool> PinChatMessage(ChatIdOrUsername chatId, int messageId, 
+        public async Task<bool> PinChatMessageAsync(ChatIdOrUsername chatId, int messageId, 
             bool? disableNotification = null)
         {
             var args = new ApiArgs
@@ -438,7 +438,7 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
-        public async Task<bool> UnpinChatMessage(ChatIdOrUsername chatId)
+        public async Task<bool> UnpinChatMessageAsync(ChatIdOrUsername chatId)
         {
             var args = new ApiArgs
             {
@@ -446,6 +446,86 @@ namespace eth.Telegram.BotApi
             };
 
             return await CallApiAsync<bool>(ApiMethod.UnpinChatMessage, args)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<StickerSet> GetStickerSetAsync(string name)
+        {
+            var args = new ApiArgs
+            {
+                { "name", name, nameof(name) }
+            };
+
+            return await CallApiAsync<StickerSet>(ApiMethod.GetStickerSet, args)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<File> UploadStickerFileAsync(string userId, InputFile pngSticker)
+        {
+            var args = new ApiArgs
+            {
+                { "user_id", userId, nameof(userId) },
+                { "png_sticker", pngSticker, nameof(pngSticker) }
+            };
+
+            return await CallApiAsync<File>(ApiMethod.UploadStickerFile, args, true)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<bool> CreateNewStickerSetAsync(int userId, string name, string title, InputFile pngSticker, string emojis, 
+            bool? containsMasks = null, MaskPosition maskPosition = null)
+        {
+            var args = new ApiArgs
+            {
+                { "user_id", userId, nameof(userId) },
+                { "name", name, nameof(name) },
+                { "title", title, nameof(title) },
+                { "png_sticker", pngSticker, nameof(pngSticker) },
+                { "emojis", emojis, nameof(emojis) },
+                { "contains_masks", containsMasks, nameof(containsMasks), ApiArgumentRequired.Optional },
+                { "mask_position", maskPosition, nameof(maskPosition), ApiArgumentRequired.Optional }
+            };
+
+            return await CallApiAsync<bool>(ApiMethod.CreateNewStickerSet, args)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<bool> AddStickerToSetAsync(int userId, string name, InputFile pngSticker, string emojis, 
+            MaskPosition maskPosition = null)
+        {
+            var args = new ApiArgs
+            {
+                { "user_id", userId, nameof(userId) },
+                { "name", name, nameof(name) },
+                { "png_sticker", pngSticker, nameof(pngSticker) },
+                { "emojis", emojis, nameof(emojis) },
+                { "mask_position", maskPosition, nameof(maskPosition), ApiArgumentRequired.Optional }
+            };
+
+            return await CallApiAsync<bool>(ApiMethod.AddStickerToSet, args)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<bool> SetStickerPositionInSetAsync(string sticker, int position)
+        {
+            var args = new ApiArgs
+            {
+                { "sticker", sticker, nameof(sticker) },
+                { "position", position, nameof(position) }
+            };
+
+            return await CallApiAsync<bool>(ApiMethod.SetStickerPositionInSet, args)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<bool> DeleteStickerFromSetAsync(string sticker)
+        {
+            var args = new ApiArgs
+            {
+                { "sticker", sticker, nameof(sticker) }
+            };
+
+            return await CallApiAsync<bool>(ApiMethod.DeleteStickerFromSet, args)
                 .ConfigureAwait(false);
         }
 

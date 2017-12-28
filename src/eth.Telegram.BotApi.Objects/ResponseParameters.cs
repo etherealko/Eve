@@ -20,7 +20,5 @@ namespace eth.Telegram.BotApi.Objects
         /// </summary>
         [JsonProperty("retry_after", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int RetryAfter { get; set; }
-
-
     }
 }

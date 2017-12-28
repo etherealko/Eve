@@ -92,6 +92,24 @@ namespace eth.Telegram.BotApi
         PinChatMessage,
 
         [EnumMember(Value = "unpinChatMessage")]
-        UnpinChatMessage
+        UnpinChatMessage,
+
+        [EnumMember(Value = "getStickerSet")]
+        GetStickerSet,
+
+        [EnumMember(Value = "uploadStickerFile")]
+        UploadStickerFile,
+
+        [EnumMember(Value = "createNewStickerSet")]
+        CreateNewStickerSet,
+
+        [EnumMember(Value = "addStickerToSet")]
+        AddStickerToSet,
+
+        [EnumMember(Value = "setStickerPositionInSet")]
+        SetStickerPositionInSet,
+
+        [EnumMember(Value = "deleteStickerFromSet")]
+        DeleteStickerFromSet
     }
 }
