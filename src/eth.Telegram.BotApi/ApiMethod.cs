@@ -110,6 +110,9 @@ namespace eth.Telegram.BotApi
         SetStickerPositionInSet,
 
         [EnumMember(Value = "deleteStickerFromSet")]
-        DeleteStickerFromSet
+        DeleteStickerFromSet,
+
+        [EnumMember(Value = "sendMediaGroup")]
+        SendMediaGroup
     }
 }

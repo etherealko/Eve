@@ -7,7 +7,7 @@ namespace eth.Telegram.BotApi.Objects
     /// <summary>
     /// Represents a link to a photo. By default, this photo will be sent by the user with optional caption. Alternatively, you can provide message_text to send it instead of photo.
     /// </summary>
-    public class InlineQueryResultPhoto : InlineQueryResultBase
+    public class InlineQueryResultPhoto : InlineQueryResult
     {
         /// <summary>
         /// A valid URL of the photo. Photo must be in jpeg format. Photo size must not exceed 5MB

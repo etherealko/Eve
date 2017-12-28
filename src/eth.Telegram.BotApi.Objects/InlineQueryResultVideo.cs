@@ -7,7 +7,7 @@ namespace eth.Telegram.BotApi.Objects
     /// <summary>
     /// Represents link to a page containing an embedded video player or a video file.
     /// </summary>
-    public class InlineQueryResultVideo : InlineQueryResultBase
+    public class InlineQueryResultVideo : InlineQueryResult
     {
         /// <summary>
         /// A valid URL for the embedded video player or video file

@@ -103,13 +103,20 @@ namespace eth.Telegram.BotApi
             bool? disableNotification = null);
         
         Task<bool> UnpinChatMessageAsync(ChatIdOrUsername chatId);
+
+        Task<List<Message>> SendMediaGroupAsync(ChatIdOrUsername chatId, List<InputMedia> media, 
+            bool? disableNotification = null, 
+            int? replyToMessageId = null);
         
+        #region stickers
+
         Task<StickerSet> GetStickerSetAsync(string name);
 
         Task<File> UploadStickerFileAsync(string userId, InputFile pngSticker);
 
         Task<bool> CreateNewStickerSetAsync(int userId, string name, string title, InputFile pngSticker, string emojis,
-            bool? containsMasks = null, MaskPosition maskPosition = null);
+            bool? containsMasks = null, 
+            MaskPosition maskPosition = null);
 
         Task<bool> AddStickerToSetAsync(int userId, string name, InputFile pngSticker, string emojis, 
             MaskPosition maskPosition = null);
@@ -117,6 +124,8 @@ namespace eth.Telegram.BotApi
         Task<bool> SetStickerPositionInSetAsync(string sticker, int position);
 
         Task<bool> DeleteStickerFromSetAsync(string sticker);
+
+        #endregion
 
         #region file download
 

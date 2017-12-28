@@ -8,7 +8,7 @@ namespace eth.Telegram.BotApi.Objects
     /// Represents a link to an animated GIF file. 
     /// By default, this animated GIF file will be sent by the user with optional caption. Alternatively, you can provide message_text to send it instead of the animation.
     /// </summary>
-    public class InlineQueryResultGif : InlineQueryResultBase
+    public class InlineQueryResultGif : InlineQueryResult
     {
         /// <summary>
         /// A valid URL for the GIF file.File size must not exceed 1MB

@@ -529,6 +529,20 @@ namespace eth.Telegram.BotApi
                 .ConfigureAwait(false);
         }
 
+        public async Task<List<Message>> SendMediaGroupAsync(ChatIdOrUsername chatId, List<InputMedia> media, bool? disableNotification = null, int? replyToMessageId = null)
+        {
+            var args = new ApiArgs
+            {
+                { "chat_id", chatId, nameof(chatId) },
+                { "media", chatId, nameof(chatId) },
+                { "disable_notification", disableNotification, nameof(disableNotification), ApiArgumentRequired.Optional },
+                { "reply_to_message_id", replyToMessageId, nameof(replyToMessageId), ApiArgumentRequired.Optional }
+            };
+
+            return await CallApiAsync<List<Message>>(ApiMethod.SendMediaGroup, args)
+                .ConfigureAwait(false);
+        }
+
         #region file download
 
         public async Task<Stream> GetFileStreamAsync(string filePath)

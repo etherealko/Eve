@@ -7,7 +7,7 @@ namespace eth.Telegram.BotApi.Objects
     /// <summary>
     /// Represents a link to an article or web page.
     /// </summary>
-    public class InlineQueryResultArticle : InlineQueryResultBase
+    public class InlineQueryResultArticle : InlineQueryResult
     {
         /// <summary>
         /// String Text of the message to be sent, 1-4096 characters

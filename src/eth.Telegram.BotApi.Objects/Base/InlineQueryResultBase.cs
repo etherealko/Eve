@@ -7,7 +7,7 @@ namespace eth.Telegram.BotApi.Objects.Base
     /// <summary>
     /// Inline query result base class
     /// </summary>
-    public abstract class InlineQueryResultBase
+    public abstract class InlineQueryResult
     {
         /// <summary>
         /// Type of the result
@@ -20,7 +20,7 @@ namespace eth.Telegram.BotApi.Objects.Base
         /// </summary>
         [JsonProperty("id", Required = Required.Always)]
         public string Id { get; set; }
-                
+        
         /// <summary>
         /// Optional. Inline keyboard attached to the message
         /// </summary>
