@@ -1,4 +1,5 @@
 ﻿using eth.Telegram.BotApi.Objects.Enums;
+using Newtonsoft.Json;
 
 namespace eth.Telegram.BotApi.Objects.Base
 {
@@ -12,6 +13,7 @@ namespace eth.Telegram.BotApi.Objects.Base
         /// <summary>
         /// Type of the result
         /// </summary>
+        [JsonProperty("type", Required = Required.Always)]
         public InputMediaType Type { get; set; }
     }
 }
