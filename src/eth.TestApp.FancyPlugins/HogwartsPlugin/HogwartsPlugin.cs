@@ -316,7 +316,7 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
                         {
                             var message = m.Result;
 
-                            _ctx.BotApi.PinChatMessage(message.Chat.Id, message.MessageId);
+                            _ctx.BotApi.PinChatMessageAsync(message.Chat.Id, message.MessageId);
                         });
                 }
                 else if (result == HogwartsQuidditchGame.SnitchCatchingResult.Failed)
