@@ -34,7 +34,7 @@ namespace eth.Telegram.BotApi.Objects
         /// <summary>
         /// Optional. Emoji associated with the sticker
         /// </summary>
-        [JsonProperty("file_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonProperty("emoji", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Emoji { get; set; }
 
         /// <summary>

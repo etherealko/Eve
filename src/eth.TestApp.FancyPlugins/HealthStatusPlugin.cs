@@ -52,6 +52,9 @@ namespace eth.TestApp.FancyPlugins
 
         private void SendHealthStatusMessage(string text, bool wait = false)
         {
+            if (HealthStatusChatId == 0)
+                return;
+
             var task = _ctx.BotApi.SendMessageAsync(HealthStatusChatId, $"{DateTime.Now:HH:mm:ss.fff}: {text}");
 
             if (wait)

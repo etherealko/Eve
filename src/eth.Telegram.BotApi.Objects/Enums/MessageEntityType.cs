@@ -37,6 +37,12 @@ namespace eth.Telegram.BotApi.Objects.Enums
         TextLink,
 
         [EnumMember(Value = "text_mention")]
-        TextMention
+        TextMention,
+
+        [EnumMember(Value = "phone_number")]
+        PhoneNumber,
+
+        [EnumMember(Value = "cashtag")]
+        Cashtag,
     }
 }
