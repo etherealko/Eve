@@ -13,7 +13,10 @@ namespace eth.MacTestApp
         {
             var builder = new DbContextOptionsBuilder<EveDb>();
             
+            // this connection string is used during the db deploy process only (commandline dotnet ef database update)
+
             builder.UseMySql(@"server=localhost;port=3306;database=eveDb;uid=root;password=password");
+            //builder.UseSqlServer(@"data source=(LocalDb)\MSSQLLocalDB;initial catalog=EveDb;integrated security=True;MultipleActiveResultSets=True");
 
             return new EveDb(builder.Options);
         }

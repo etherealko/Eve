@@ -15,7 +15,7 @@ namespace eth.TestApp
     {
         private static void Main(string[] args)
         {
-            var bot = new EveBot(options => options.UseSqlServer(@"data source=(LocalDb)\MSSQLLocalDB;initial catalog=EveDbStaging;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"));
+            var bot = new EveBot(options => options.UseSqlServer(@"data source=(LocalDb)\MSSQLLocalDB;initial catalog=EveDb;integrated security=True;MultipleActiveResultSets=True"));
 
             foreach (var space in bot.GetSpaceInitializers())            
                 switch (space.Key)
