@@ -28,15 +28,15 @@ namespace eth.TestApp
                         var replyWithExceptionPlugin = new ReplyWithExceptionPlugin();
 
                         // message handling expected, priority DESC
-                        space.Value.Plugins.Enqueue(new SimpleConsoleLogger());
-                        space.Value.Plugins.Enqueue(new HealthStatusPlugin());
+                        //space.Value.Plugins.Enqueue(new SimpleConsoleLogger());
+                        //space.Value.Plugins.Enqueue(new HealthStatusPlugin());
                         //space.Value.Plugins.Enqueue(uiSupportPlugin);
                         //space.Value.Plugins.Enqueue(new PluginOne());
-                        space.Value.Plugins.Enqueue(new PhotoTextPlugin());
-                        space.Value.Plugins.Enqueue(new LehaTrollerPlugin());
-                        space.Value.Plugins.Enqueue(new ChannelQuotePlugin());
-                        space.Value.Plugins.Enqueue(new FixAudioTagsPlugin());
-                        space.Value.Plugins.Enqueue(new RampPlugin());
+                        //space.Value.Plugins.Enqueue(new PhotoTextPlugin());
+                        //space.Value.Plugins.Enqueue(new LehaTrollerPlugin());
+                        //space.Value.Plugins.Enqueue(new ChannelQuotePlugin());
+                        //space.Value.Plugins.Enqueue(new FixAudioTagsPlugin());
+                        //space.Value.Plugins.Enqueue(new RampPlugin());
                         //space.Value.Plugins.Enqueue(new HogwartsPlugin());
 
                         // message handling NOT expected, lowest priority
