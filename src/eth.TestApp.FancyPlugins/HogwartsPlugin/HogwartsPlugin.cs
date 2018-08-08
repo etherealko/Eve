@@ -6,8 +6,8 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
 {
     public class HogwartsPlugin : IPlugin
     {
-        private bool AllowPrivateChat = true;
-        private bool RestrictOtherConf = false;
+        private bool AllowPrivateChat = false;
+        private bool RestrictOtherConf = true;
         private long ConfId = -1001013065325;
 
         private HogwartsService Service { get; set; }
@@ -38,7 +38,7 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
             }
 
             var chatId = msg.Chat.Id;
-            if (chatId == ConfId) //RestrictOtherConf && chatId == ConfId)
+            if (RestrictOtherConf && chatId != ConfId)
             {
                 return HandleResult.Ignored;
             }

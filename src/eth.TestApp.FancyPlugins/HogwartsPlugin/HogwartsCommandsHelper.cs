@@ -1,5 +1,5 @@
-﻿using eth.Telegram.BotApi.Objects;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
@@ -7,90 +7,37 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
 {
     public static class HogwartsCommandsHelper
     {
-        public static HogwartsCommand GetCommand(Message msg)
+        public static bool TryParseCommand(string text, out HogwartsCommand command)
         {
-            HogwartsCommand command;
-
-            var text = msg.Text;
-            command = IsUpdatePointsCommand(text);
-            if (command != null)
+            foreach (var parser in CommandParsers)
             {
-                return command;
+                command = parser(text);
+                if (command != null)
+                {
+                    return true;
+                }
             }
-
-            command = IsAssignHouseCommand(text);
-            if (command != null)
-            {
-                return command;
-            }
-
-            command = IsNewPartronusCommand(text);
-            if (command != null)
-            {
-                return command;
-            }
-
-            command = IsPatronusCommand(text);
-            if (command != null)
-            {
-                return command;
-            }
-
-            command = IsScoreCommand(text);
-            if (command != null)
-            {
-                return command;
-            }
-
-            command = IsMembersListCommand(text);
-            if (command != null)
-            {
-                return command;
-            }
-
-            command = IsSnitchCommand(text);
-            if (command != null)
-            {
-                return command;
-            }
-
-            command = IsPrihodCommand(text);
-            if (command != null)
-            {
-                return command;
-            }
-
-            command = IsSetAdminCommand(text, msg.From, msg.ReplyToMessage?.From);
-            if (command != null)
-            {
-                return command;
-            }
-
-            command = IsAddAdminCommand(text, msg.From, msg.ReplyToMessage?.From);
-            if (command != null)
-            {
-                return command;
-            }
-
-            command = IsChangeHouseCommand(text, msg.ReplyToMessage?.From);
-            if (command != null)
-            {
-                return command;
-            }
-
-            command = IsBludgerCommand(text, msg.ReplyToMessage?.From);
-            if (command != null)
-            {
-                return command;
-            }
-
-            command = IsDodgeCommand(text);
-            if (command != null)
-            {
-                return command;
-            }
-            return null;
+            command = null;
+            return false;
         }
+
+        #region Parse helpers
+
+        private static List<Func<string, HogwartsCommand>> CommandParsers = new List<Func<string, HogwartsCommand>>
+        {
+            IsUpdatePointsCommand,
+            IsAssignHouseCommand,
+            IsNewPartronusCommand,
+            IsPatronusCommand,
+            IsScoreCommand,
+            IsMembersListCommand,
+            IsSnitchCommand,
+            IsPrihodCommand,
+            IsAddAdminCommand,
+            IsChangeHouseCommand,
+            IsBludgerCommand,
+            IsDodgeCommand
+        };
 
         private static HogwartsCommand IsUpdatePointsCommand(string text)
         {
@@ -108,14 +55,20 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
                 return null;
             }
 
-            return new AddPointsCommand(true, false, HogwartsCommandType.AddPoints, points, house);
+            var cParams = new HogwartsCommand.CommandParams()
+            {
+                Points = points,
+                House = house,
+            };
+
+            return new HogwartsCommand(HogwartsCommand.CommandType.AddPoints, cParams);
         }
 
         public static HogwartsCommand IsAssignHouseCommand(string text)
         {
             if (text.StartsWith("надеть шляпу", StringComparison.InvariantCultureIgnoreCase))
             {
-                return new HogwartsCommand(false, false, HogwartsCommandType.AssignHouse);
+                return new HogwartsCommand(HogwartsCommand.CommandType.AssignHouse);
             }
             return null;
         }
@@ -124,7 +77,7 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
         {
             if (text.StartsWith("новый патронус", StringComparison.InvariantCultureIgnoreCase))
             {
-                return new HogwartsCommand(true, false, HogwartsCommandType.NewPartronus);
+                return new HogwartsCommand(HogwartsCommand.CommandType.NewPartronus);
             }
             return null;
         }
@@ -133,7 +86,7 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
         {
             if (text.StartsWith("экспекто патронум", StringComparison.InvariantCultureIgnoreCase))
             {
-                return new HogwartsCommand(true, false, HogwartsCommandType.Patronus);
+                return new HogwartsCommand(HogwartsCommand.CommandType.Patronus);
             }
             return null;
         }
@@ -142,7 +95,7 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
         {
             if (text.StartsWith("очки", StringComparison.InvariantCultureIgnoreCase))
             {
-                return new HogwartsCommand(false, false, HogwartsCommandType.Score);
+                return new HogwartsCommand(HogwartsCommand.CommandType.Score);
             }
             return null;
         }
@@ -151,7 +104,7 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
         {
             if (text.StartsWith("список", StringComparison.InvariantCultureIgnoreCase))
             {
-                return new HogwartsCommand(false, false, HogwartsCommandType.MembersList);
+                return new HogwartsCommand(HogwartsCommand.CommandType.MembersList);
             }
             return null;
         }
@@ -160,7 +113,7 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
         {
             if (text.StartsWith("поймать снитч", StringComparison.InvariantCultureIgnoreCase))
             {
-                return new HogwartsCommand(true, false, HogwartsCommandType.Snitch);
+                return new HogwartsCommand(HogwartsCommand.CommandType.Snitch);
             }
             return null;
         }
@@ -169,31 +122,16 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
         {
             if (text.StartsWith("поймать приход", StringComparison.InvariantCultureIgnoreCase))
             {
-                return new HogwartsCommand(true, false, HogwartsCommandType.Prihod);
+                return new HogwartsCommand(HogwartsCommand.CommandType.Prihod);
             }
             return null;
         }
 
-        private static AdminCommand IsSetAdminCommand(string text, User from, User replied)
-        {
-            if (text.StartsWith("set admin", StringComparison.InvariantCultureIgnoreCase))
-            {
-                if (text.Contains("-me"))
-                {
-                    return new AdminCommand(true, false, HogwartsCommandType.SetAdmin, from.Id);
-                }     
-            }
-            return null;
-        }
-
-        private static HogwartsCommand IsAddAdminCommand(string text, User from, User replied)
+        private static HogwartsCommand IsAddAdminCommand(string text)
         {
             if (text.StartsWith("add admin", StringComparison.InvariantCultureIgnoreCase))
             {
-                if (text.Contains("-this") && replied != null)
-                {
-                    return new AdminCommand(true, true, HogwartsCommandType.SetAdmin, replied.Id);
-                }
+                return new HogwartsCommand(HogwartsCommand.CommandType.AddAdmin);
             }
             return null;
         }
@@ -202,28 +140,29 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
         {
             if (text.StartsWith("reset score", StringComparison.InvariantCultureIgnoreCase))
             {
-                return new HogwartsCommand(true, true, HogwartsCommandType.ResetScore);
+                return new HogwartsCommand(HogwartsCommand.CommandType.ResetScore);
             }
             return null;
         }
 
-        private static HogwartsCommand IsChangeHouseCommand(string text, User replied)
+        private static HogwartsCommand IsChangeHouseCommand(string text)
         {
             if (text.StartsWith("change house", StringComparison.InvariantCultureIgnoreCase))
             {
-                if (text.Contains("-this") && replied != null)
+                var match = Regex.Match(text, @"-to \d+");
+                if (!match.Success)
                 {
-                    var match = Regex.Match(text, @"-to \d+");
-                    if (!match.Success)
-                    {
-                        return null;
-                    }
+                    return null;
+                }
 
-                    if (int.TryParse(match.Value.Replace("-to ", string.Empty), out int houseId) 
-                        && houseId >= 0 && houseId < Enum.GetNames(typeof(HogwartsHouse)).Length)
+                if (int.TryParse(match.Value.Replace("-to ", string.Empty), out int houseId)
+                    && houseId >= 0 && houseId < Enum.GetNames(typeof(HogwartsHouse)).Length)
+                {
+                    var cParams = new HogwartsCommand.CommandParams()
                     {
-                        return new ChangeHouseCommand(true, true, HogwartsCommandType.ChangeHouse, replied.Id, (HogwartsHouse)houseId);
-                    }
+                        House = (HogwartsHouse)houseId
+                    };
+                    return new HogwartsCommand(HogwartsCommand.CommandType.ChangeHouse, cParams);
                 }
             }
             return null;
@@ -238,11 +177,11 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
             return null;
         }
 
-        private static HogwartsCommand IsBludgerCommand(string text, User replied)
+        private static HogwartsCommand IsBludgerCommand(string text)
         {
-            if (text.StartsWith("запустить бладжер", StringComparison.InvariantCultureIgnoreCase))
+            if (text.StartsWith("бладжер", StringComparison.InvariantCultureIgnoreCase))
             {
-                return new BludgerCommand(true, false, HogwartsCommandType.Bludger, replied?.Id);
+                return new HogwartsCommand(HogwartsCommand.CommandType.Bludger);
             }
             return null;
         }
@@ -251,7 +190,7 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
         {
             if (text.StartsWith("увернуться", StringComparison.InvariantCultureIgnoreCase))
             {
-                return new HogwartsCommand(true, false, HogwartsCommandType.Dodge);
+                return new HogwartsCommand(HogwartsCommand.CommandType.Dodge);
             }
             return null;
         }
@@ -284,4 +223,6 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
             return false;
         }
     }
+
+    #endregion
 }

@@ -10,6 +10,67 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
 {
     public class HogwartsService
     {
+        private class MessageSender
+        {
+            public bool IsMember
+            {
+                get
+                {
+                    return Member != null;
+                }
+            }
+
+            public bool IsAdmin
+            {
+                get
+                {
+                    return IsMember && Member.IsAdmin;
+                }
+            }
+
+            public HogwartsMember Member { get; private set; }
+            public HogwartsMember RepliedToMember { get; private set; }
+            public User User { get; private set; }
+            public User RepliedTo { get; private set; }
+
+            public MessageSender(User user, Func<int, HogwartsMember> memberFinder, User repliedTo = null)
+            {
+                User = user;               
+                Member = memberFinder(user.Id);
+
+                RepliedTo = repliedTo;
+                if (RepliedTo != null)
+                {
+                    RepliedToMember = memberFinder(repliedTo.Id);
+                }
+            }
+        }
+
+
+        private Dictionary<HogwartsCommand.CommandType, Action<HogwartsCommand, MessageSender>> CommandActions
+        {
+            get
+            {
+                return new Dictionary<HogwartsCommand.CommandType, Action<HogwartsCommand, MessageSender>>()
+                {
+                    { HogwartsCommand.CommandType.AddPoints, DoAddPointsCommand },
+                    { HogwartsCommand.CommandType.AssignHouse, DoAssignHouseCommand },
+                    { HogwartsCommand.CommandType.AddAdmin, DoAddAdminCommand },
+                    { HogwartsCommand.CommandType.Bludger, DoBludgerCommand },
+                    { HogwartsCommand.CommandType.ChangeHouse, DoChangeHouseCommand },
+                    { HogwartsCommand.CommandType.Dodge, DoDodgeCommand },
+                    { HogwartsCommand.CommandType.MembersList, DoMembersListCommand },
+                    { HogwartsCommand.CommandType.NewPartronus, DoNewPatronusCommand },
+                    { HogwartsCommand.CommandType.Patronus, DoPatronusCommand },
+                    { HogwartsCommand.CommandType.Prihod, DoPrihodCommand },
+                    { HogwartsCommand.CommandType.ResetScore, DoResetScoreCommand },
+                    { HogwartsCommand.CommandType.Score, DoScoreCommand },
+                    { HogwartsCommand.CommandType.Snitch, DoSnitchCommand }
+                };
+            }
+        }
+
+
         private const string DBScoreKey = "TotalScore.";
         private const string DBMembersKey = "Members.";
         private const string DBConfigs = "Configs.";
@@ -119,145 +180,63 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
 
         public bool HandleMessage(Message msg)
         {
-            var command = HogwartsCommandsHelper.GetCommand(msg);
-            if (command == null)
+            if (HogwartsCommandsHelper.TryParseCommand(msg.Text, out HogwartsCommand command))
+            {
+                var sender = new MessageSender(msg.From, FindMemberById, msg.ReplyToMessage?.From);
+                ValidateCommandUsage(command, sender);
+                CommandActions.FirstOrDefault(c => c.Key == command.Type).Value?.Invoke(command, sender);
+                return true;
+            }
+            else
             {
                 return false;
             }
+        }
 
-            var member = FindMemberById(msg.From.Id);
-            var isMember = member != null;
-            if (command.RequireMembership && !isMember)
+        private bool ValidateCommandUsage(HogwartsCommand command, MessageSender sender)
+        {
+            if (command.RequireMembership() && !sender.IsMember)
             {
                 PendingResponse.Add(NotAMemberWarning);
-                return true;
+                return false;
             }
 
-            if (command.RequireAdminRights && !member.IsAdmin)
+            if (command.RequireAdminRights() && !sender.IsAdmin)
             {
                 PendingResponse.Add(NotAnAdminWarning);
-                return true;
+                return false;
             }
-
-            DoCommand(member, command, msg.From);
             return true;
         }
 
-#region Commands
-        private void DoCommand(HogwartsMember member, HogwartsCommand command, User user)
+        #region Commands
+        private void DoAddPointsCommand(HogwartsCommand command, MessageSender sender)
         {
-            switch (command.Type)
+            var memberHouse = GetMembersHouse(sender.Member);
+            if (command.Params.House != memberHouse)
             {
-                case HogwartsCommandType.AddPoints:
-                    if (Configs[EnableAddingPointsKey].Equals(true))
-                    {
-                        DoAddPointsCommand(command as AddPointsCommand);
-                    }
-                    break;
-
-                case HogwartsCommandType.AssignHouse:
-                    if (Configs[EnableNewMembersKey].Equals(true))
-                    {
-                        if (member != null)
-                        {
-                            DoAssignHouseCommand(member);
-                        }
-                        else
-                        {
-                            DoAssignHouseCommand(user);
-                        }
-                    }
-                    break;
-
-                case HogwartsCommandType.MembersList:
-                    DoMembersListCommand();
-                    break;
-
-                case HogwartsCommandType.NewPartronus:
-                    if (Configs[EnablePatronusRerollKey].Equals(true))
-                    {
-                        DoNewPatronusCommand(member);
-                    }
-                    break;
-
-                case HogwartsCommandType.Patronus:
-                    if (Configs[EnablePatronusKey].Equals(true))
-                    {
-                        DoPatronusCommand(member);
-                    }
-                    break;
-
-                case HogwartsCommandType.Score:
-                    DoScoreCommand();
-                    break;
-
-                case HogwartsCommandType.Snitch:
-                    if (Configs[EnableSnitchKey].Equals(true))
-                    {
-                        DoSnitchCommand(member);
-                    }
-                    break;
-
-                case HogwartsCommandType.Prihod:
-                    if (Configs[EnablePrihodKey].Equals(true))
-                    {
-                        DoPrihodCommand(member);
-                    }
-                    break;
-
-                case HogwartsCommandType.AddAdmin:
-                    DoAddAdminCommand(member);
-                    break;
-
-                case HogwartsCommandType.SetAdmin:
-                    DoAddAdminCommand(member);
-                    break;
-
-                case HogwartsCommandType.ResetScore:
-                    DoResetScoreCommand();
-                    break;
-
-                case HogwartsCommandType.ChangeHouse:
-                    DoChangeHouseCommand(command as ChangeHouseCommand);
-                    break;
-
-                case HogwartsCommandType.ChangeConfig:
-                    break;
-
-                case HogwartsCommandType.Bludger:
-                    DoBludgerCommand(command as BludgerCommand);
-                    break;
-
-                case HogwartsCommandType.Dodge:
-                    DoDodgeCommand();
-                    break;
+                AddPoints(command.Params.House, command.Params.Points);
             }
         }
 
-        private void DoAddPointsCommand(AddPointsCommand command)
+        private void DoAssignHouseCommand(HogwartsCommand command, MessageSender sender)
         {
-            if (command != null)
+            if (sender.IsMember)
             {
-                AddPoints(command.House, command.Points);
+                PendingResponse.Add(string.Format(AlreadyHasHouseFormat, GetMembersHouse(sender.Member)));
+            }
+            else
+            {
+                var newMember = CreateNewMember(sender.User);
+                var max = Enum.GetNames(typeof(HogwartsHouse)).Length;
+                var number = Rnd.Next(max);
+                var house = (HogwartsHouse)number;
+                AssignHouseToMember(newMember, house);
+                PendingResponse.Add(string.Format(AssignHouseFormat, house));
             }
         }
-
-        private void DoAssignHouseCommand(HogwartsMember member)
-        {
-            PendingResponse.Add(string.Format(AlreadyHasHouseFormat, GetMembersHouse(member)));
-        }
-
-        private void DoAssignHouseCommand(User user)
-        {
-            var newMember = CreateNewMember(user);
-            var max = Enum.GetNames(typeof(HogwartsHouse)).Length;
-            var number = Rnd.Next(max);
-            var house = (HogwartsHouse)number;
-            AssignHouseToMember(newMember, house);
-            PendingResponse.Add(string.Format(AssignHouseFormat, house));
-        }
-
-        private void DoMembersListCommand()
+        
+        private void DoMembersListCommand(HogwartsCommand command, MessageSender sender)
         {
             var sb = new StringBuilder();
             foreach (var kvp in Members)
@@ -272,26 +251,27 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
             PendingResponse.Add(sb.ToString());
         }
 
-        private void DoNewPatronusCommand(HogwartsMember member)
+        private void DoNewPatronusCommand(HogwartsCommand command, MessageSender sender)
         {
-            AssignPatronusToMember(member);
-            PendingResponse.Add(string.Format(AssignPatronusFormat, member.Patronus));
+            AssignPatronusToMember(sender.Member);
+            PendingResponse.Add(string.Format(AssignPatronusFormat, sender.Member.Patronus));
         }
 
-        private void DoPatronusCommand(HogwartsMember member)
+        private void DoPatronusCommand(HogwartsCommand command, MessageSender sender)
         {
-            if (member.Patronus != HogwartsPatronus.None)
+            var patronus = sender.Member.Patronus;
+            if (patronus != HogwartsPatronus.None)
             {
-                PendingResponse.Add(string.Format(CastPatronusFormat, member.Patronus));
+                PendingResponse.Add(string.Format(CastPatronusFormat, patronus));
             }
             else
             {
-                AssignPatronusToMember(member);
-                PendingResponse.Add(string.Format(AssignPatronusFormat, member.Patronus));
+                AssignPatronusToMember(sender.Member);
+                PendingResponse.Add(string.Format(AssignPatronusFormat, patronus));
             }
         }
 
-        private void DoScoreCommand()
+        private void DoScoreCommand(HogwartsCommand command, MessageSender sender)
         {
             var sb = new StringBuilder();
             foreach (var kvp in Score)
@@ -301,10 +281,11 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
             PendingResponse.Add(sb.ToString());
         }
 
-        private void DoSnitchCommand(HogwartsMember member)
+        private void DoSnitchCommand(HogwartsCommand command, MessageSender sender)
         {
             if (!CurrentGame.IsEnded)
             {
+                var member = sender.Member;
                 var result = CurrentGame.TryCatchSnitch(member);
                 switch (result)
                 {
@@ -327,10 +308,11 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
             }
         }
 
-        private void DoPrihodCommand(HogwartsMember member)
+        private void DoPrihodCommand(HogwartsCommand command, MessageSender sender)
         {
             if (!CurrentGame.IsEnded)
             {
+                var member = sender.Member;
                 var result = CurrentGame.TryCatchSnitch(member);
                 switch (result)
                 {
@@ -353,56 +335,46 @@ namespace eth.TestApp.FancyPlugins.HogwartsPlugin
             }
         }
 
-        private void DoAddAdminCommand(HogwartsMember member)
+        private void DoAddAdminCommand(HogwartsCommand command, MessageSender sender)
         {
-            member.IsAdmin = true;
+            sender.Member.IsAdmin = true;
             PendingResponse.Add("success");
             SaveMembers();
         }
 
-        private void DoResetScoreCommand()
+        private void DoResetScoreCommand(HogwartsCommand command, MessageSender sender)
         {
             Score = InitialScore;
             SaveScore();
         }
 
-        private void DoChangeHouseCommand(ChangeHouseCommand command)
+        private void DoChangeHouseCommand(HogwartsCommand command, MessageSender sender)
         {
-            if (command == null)
+            var memberToMove = sender.RepliedToMember;
+            if (memberToMove == null || command.Params?.House == null)
             {
+                //tak ne rabotaet koroche
                 return;
             }
 
-            HogwartsMember memberToMove = null;
-            foreach (var kvp in Members)
+            var currentHouse = GetMembersHouse(memberToMove);
+            if (currentHouse.HasValue)
             {
-                if (kvp.Value.Any(member => member.Id == command.Id))
-                {
-                    if (kvp.Key != command.House)
-                    {
-                        memberToMove = kvp.Value.Find(member => member.Id == command.Id);
-                        kvp.Value.Remove(memberToMove);
-                        break;
-                    }
-                };
+                Members[currentHouse.Value].Remove(memberToMove);
             }
-            Members[command.House].Add(memberToMove);
+
+            Members[command.Params.House].Add(memberToMove);
             SaveMembers();
         }
 
-        private void DoBludgerCommand(BludgerCommand command)
+        private void DoBludgerCommand(HogwartsCommand command, MessageSender sender)
         {
-            if (command == null)
-            {
-                return;
-            }
-            CurrentGame.
-
+            throw new NotImplementedException();
         }
 
-        private void DoDodgeCommand()
+        private void DoDodgeCommand(HogwartsCommand command, MessageSender sender)
         {
-
+            throw new NotImplementedException();
         }
 #endregion
 
