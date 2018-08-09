@@ -6,6 +6,7 @@ using System.Windows;
 using System.IO;
 using eth.TestApp.YaDurak;
 using eth.PluginSamples;
+using eth.Telegram.BotApi.Proxies;
 using Microsoft.EntityFrameworkCore;
 using eth.TestApp.FancyPlugins.HogwartsPlugin;
 
@@ -16,6 +17,8 @@ namespace eth.TestApp
         private static void Main(string[] args)
         {
             var bot = new EveBot(options => options.UseSqlServer(@"data source=(LocalDb)\MSSQLLocalDB;initial catalog=EveDb;integrated security=True;MultipleActiveResultSets=True"));
+
+            //bot.Proxy = new SocksProxy("da da ya", 1080, "user", "pass");
 
             foreach (var space in bot.GetSpaceInitializers())            
                 switch (space.Key)

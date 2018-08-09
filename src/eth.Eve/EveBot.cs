@@ -4,6 +4,7 @@ using System.Linq;
 using eth.Eve.Internal;
 using eth.Eve.Storage;
 using System.Collections.ObjectModel;
+using eth.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace eth.Eve
@@ -17,6 +18,8 @@ namespace eth.Eve
 
         private List<EveSpaceInitializer> _spaceInitializers;
         private List<EveBotSpace> _spaces;
+
+        public IHttpClientProxy Proxy { get; set; }
                 
         public EveBot(Action<DbContextOptionsBuilder<EveDb>> optionsBuilder)
         {
@@ -50,7 +53,7 @@ namespace eth.Eve
             {
                 _spaces = _spaceInitializers
                     .Where(i => i.IsEnabled)
-                    .Select(i => new EveBotSpace(i, GetDbContext))
+                    .Select(i => new EveBotSpace(i, GetDbContext, Proxy))
                     .ToList();
 
                 _spaceInitializers = null;

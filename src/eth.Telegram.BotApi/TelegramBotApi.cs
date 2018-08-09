@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
+using eth.Common;
 using eth.Common.JetBrains.Annotations;
 using eth.Telegram.BotApi.Internal;
 using eth.Telegram.BotApi.Objects;
@@ -16,18 +18,14 @@ namespace eth.Telegram.BotApi
     {
         private readonly HttpApiClient _api;
 
-        public TimeSpan HttpClientTimeout
-        {
-            get { return _api.Timeout; }
-            set { _api.Timeout = value; }
-        }
+        public TimeSpan HttpClientTimeout { get => _api.Timeout; set => _api.Timeout = value; }
 
         public object Owner { get; }
 
         public event RequestEventHandler Request;
         public event ResponseEventHandler Response;
 
-        public TelegramBotApi([NotNull] string token, object owner = null, string apiBase = "https://api.telegram.org/")
+        public TelegramBotApi([NotNull] string token, object owner = null, IHttpClientProxy proxy = null, string apiBase = "https://api.telegram.org/")
         {
             if (string.IsNullOrEmpty(token))
                 throw new ArgumentNullException(nameof(token));
@@ -36,7 +34,7 @@ namespace eth.Telegram.BotApi
 
             Owner = owner;
 
-            _api = new HttpApiClient(new Uri(apiBase), token);
+            _api = new HttpApiClient(new Uri(apiBase), token, proxy);
         }
 
         public async Task<List<Update>> GetUpdatesAsync(int offset, int limit, int timeoutSeconds)

@@ -9,6 +9,7 @@ using eth.Telegram.BotApi.Internal.Serialization;
 using NLog;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using eth.Common;
 
 namespace eth.Telegram.BotApi.Internal
 {
@@ -43,14 +44,14 @@ namespace eth.Telegram.BotApi.Internal
             #endregion
         }
 
-        public HttpApiClient(Uri baseUri, string token)
+        public HttpApiClient(Uri baseUri, string token, IHttpClientProxy proxy = null)
         {
             Debug.Assert(baseUri != null);
             Debug.Assert(!string.IsNullOrEmpty(token));
             
             _token = token;
 
-            _client = new HttpClient
+            _client = new HttpClient (proxy?.CreateMessageHandler() ?? new HttpClientHandler(), true)
             {
                 BaseAddress = baseUri,
                 Timeout = TimeSpan.FromSeconds(3)
