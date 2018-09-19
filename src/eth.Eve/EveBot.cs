@@ -23,7 +23,7 @@ namespace eth.Eve
             _dbContextOptionsBuilder = optionsBuilder;
             var db = GetDbContext();
 
-            var spaces = db.EveSpaces.ToList();
+            var spaces = db.EveSpaces.Where(s => s.IsActive).ToList();
 
             if (spaces.Count == 0)
                 throw new InvalidOperationException("there are no spaces, check your db");
