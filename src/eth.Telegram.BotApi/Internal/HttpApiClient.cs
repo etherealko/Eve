@@ -9,26 +9,26 @@ using eth.Telegram.BotApi.Internal.Serialization;
 using NLog;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using eth.Common;
 
 namespace eth.Telegram.BotApi.Internal
 {
-    internal partial class HttpApiClient : IDisposable
+    internal class HttpApiClient : IDisposable
     {
-        private readonly static JsonConverter[] Converters = new JsonConverter[]
-        {
-            new DefaultValueToNullStringEnumConverter(),
+        private static readonly JsonConverter[] Converters = {
+            new ApiStringEnumConverter(),
             new ChatIdOrUsernameConverter(),
             new InputFileConverter(),
             new ApiArgsConverter()
         };
 
-        private readonly static Logger Log = LogManager.GetCurrentClassLogger();
-        private readonly static Formatting LogJsonFormatting;
+        internal static readonly Logger Log = LogManager.GetCurrentClassLogger();
+        private static readonly Formatting LogJsonFormatting;
 
         private readonly string _token;
         private readonly HttpClient _client;
         
-        public TimeSpan Timeout { get { return _client.Timeout; } set { _client.Timeout = value; } }
+        public TimeSpan Timeout { get => _client.Timeout; set => _client.Timeout = value; }
         
         static HttpApiClient()
         {
@@ -44,14 +44,14 @@ namespace eth.Telegram.BotApi.Internal
             #endregion
         }
 
-        public HttpApiClient(Uri baseUri, string token)
+        public HttpApiClient(Uri baseUri, string token, IHttpClientProxy proxy = null)
         {
             Debug.Assert(baseUri != null);
             Debug.Assert(!string.IsNullOrEmpty(token));
             
             _token = token;
 
-            _client = new HttpClient
+            _client = new HttpClient (proxy?.CreateMessageHandler() ?? new HttpClientHandler(), true)
             {
                 BaseAddress = baseUri,
                 Timeout = TimeSpan.FromSeconds(3)

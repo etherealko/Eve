@@ -6,6 +6,7 @@ using System.Windows;
 using System.IO;
 using eth.TestApp.YaDurak;
 using eth.PluginSamples;
+using eth.Telegram.BotApi.Proxies;
 using Microsoft.EntityFrameworkCore;
 using eth.TestApp.FancyPlugins.HogwartsPlugin;
 
@@ -16,6 +17,8 @@ namespace eth.TestApp
         private static void Main(string[] args)
         {
             var bot = new EveBot(options => options.UseSqlServer(@"data source=(LocalDb)\MSSQLLocalDB;initial catalog=EveDb;integrated security=True;MultipleActiveResultSets=True"));
+
+            //bot.Proxy = new SocksProxy("da da ya", 1080, "user", "pass");
 
             foreach (var space in bot.GetSpaceInitializers())            
                 switch (space.Key)
@@ -28,15 +31,15 @@ namespace eth.TestApp
                         var replyWithExceptionPlugin = new ReplyWithExceptionPlugin();
 
                         // message handling expected, priority DESC
-                        space.Value.Plugins.Enqueue(new SimpleConsoleLogger());
-                        space.Value.Plugins.Enqueue(new HealthStatusPlugin());
+                        //space.Value.Plugins.Enqueue(new SimpleConsoleLogger());
+                        //space.Value.Plugins.Enqueue(new HealthStatusPlugin());
                         //space.Value.Plugins.Enqueue(uiSupportPlugin);
                         //space.Value.Plugins.Enqueue(new PluginOne());
-                        space.Value.Plugins.Enqueue(new PhotoTextPlugin());
-                        space.Value.Plugins.Enqueue(new LehaTrollerPlugin());
-                        space.Value.Plugins.Enqueue(new ChannelQuotePlugin());
-                        space.Value.Plugins.Enqueue(new FixAudioTagsPlugin());
-                        space.Value.Plugins.Enqueue(new RampPlugin());
+                        //space.Value.Plugins.Enqueue(new PhotoTextPlugin());
+                        //space.Value.Plugins.Enqueue(new LehaTrollerPlugin());
+                        //space.Value.Plugins.Enqueue(new ChannelQuotePlugin());
+                        //space.Value.Plugins.Enqueue(new FixAudioTagsPlugin());
+                        //space.Value.Plugins.Enqueue(new RampPlugin());
                         //space.Value.Plugins.Enqueue(new HogwartsPlugin());
 
                         // message handling NOT expected, lowest priority

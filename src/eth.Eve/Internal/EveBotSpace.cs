@@ -11,6 +11,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using eth.Common;
 
 namespace eth.Eve.Internal
 {
@@ -38,7 +39,7 @@ namespace eth.Eve.Internal
         public long SpaceId { get; }
         public TaskFactory TaskFactory { get; }
 
-        public EveBotSpace(EveSpaceInitializer initializer, Func<EveDb> getDbContext)
+        public EveBotSpace(EveSpaceInitializer initializer, Func<EveDb> getDbContext, IHttpClientProxy proxy = null)
         {
             SpaceId = initializer.EveSpace.Id;
 
@@ -53,13 +54,13 @@ namespace eth.Eve.Internal
                 TaskContinuationOptions.None, 
                 TaskScheduler.Default);
 
-            _outgoingApi = new TelegramBotApi(initializer.EveSpace.BotApiAccessToken, null) { HttpClientTimeout = TimeSpan.FromSeconds(30) };
+            _outgoingApi = new TelegramBotApi(initializer.EveSpace.BotApiAccessToken, proxy: proxy) { HttpClientTimeout = TimeSpan.FromSeconds(30) };
             _updater = new BotUpdatePoller(_outgoingApi);
             _mainThread = new Thread(UpdateProc);
             
             _pluginContexts = initializer.Plugins.Select(p =>
             {
-                var api = new TelegramBotApi(initializer.EveSpace.BotApiAccessToken, p) { HttpClientTimeout = TimeSpan.FromSeconds(10) };
+                var api = new TelegramBotApi(initializer.EveSpace.BotApiAccessToken, p, proxy) { HttpClientTimeout = TimeSpan.FromSeconds(10) };
 
                 api.Request += (o, e) =>
                 {

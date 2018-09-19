@@ -6,7 +6,7 @@ namespace eth.Telegram.BotApi.Internal.Serialization
 {
     internal class ApiArgsConverter : JsonConverter
     {
-        public override bool CanRead { get { return false; } }
+        public override bool CanRead => false;
 
         public override bool CanConvert(Type objectType)
         {
@@ -23,7 +23,10 @@ namespace eth.Telegram.BotApi.Internal.Serialization
             var apiArgs = (ApiArgs)value;
 
             if (apiArgs == null)
+            {
                 writer.WriteToken(JsonToken.Null);
+                return;
+            }
 
             var jObject = new JObject();
 

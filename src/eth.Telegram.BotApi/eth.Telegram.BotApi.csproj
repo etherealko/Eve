@@ -5,7 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NLog" Version="4.5.0-beta07" /> 
+    <PackageReference Include="NLog" Version="4.5.8" />
+    <PackageReference Include="SocksSharp" Version="1.1.1">
+      <IncludeAssets></IncludeAssets>
+    </PackageReference> 
   </ItemGroup>
 
   <ItemGroup>
