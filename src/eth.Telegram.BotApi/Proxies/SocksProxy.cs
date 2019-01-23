@@ -18,7 +18,7 @@ namespace eth.Telegram.BotApi.Proxies
 
             _settings.SetHost(host)
                      .SetPort(port)
-                     .SetCredential(user, password);
+                     .SetCredential(user, password).SetReadWriteTimeout(60000);
         }
 
         public HttpMessageHandler CreateMessageHandler()

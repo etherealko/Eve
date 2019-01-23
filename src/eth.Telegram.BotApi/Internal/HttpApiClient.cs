@@ -192,7 +192,7 @@ namespace eth.Telegram.BotApi.Internal
             if (string.IsNullOrWhiteSpace(filePath))
                 throw new ArgumentNullException(nameof(filePath));
 
-            var response = await _client.GetAsync($"/file/bot{_token}/{filePath}", HttpCompletionOption.ResponseHeadersRead)
+            var response = await _client.GetAsync($"/file/bot{_token}/{filePath}", HttpCompletionOption.ResponseContentRead)
                 .ConfigureAwait(false);
 
             //check response headers and shit

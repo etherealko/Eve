@@ -5,15 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NLog" Version="4.5.8" />
-    <PackageReference Include="SocksSharp" Version="1.1.1">
-      <IncludeAssets></IncludeAssets>
-    </PackageReference> 
+    <PackageReference Include="NLog" Version="4.5.8" /> 
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\eth.Common\eth.Common.csproj" />
     <ProjectReference Include="..\eth.Telegram.BotApi.Objects\eth.Telegram.BotApi.Objects.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SocksSharp">
+      <HintPath>..\external\SocksSharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

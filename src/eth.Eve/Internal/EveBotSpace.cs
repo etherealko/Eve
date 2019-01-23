@@ -141,7 +141,7 @@ namespace eth.Eve.Internal
                     retryCount = 0;
                     lastPolled = DateTime.Now;
                 }
-                catch (TaskCanceledException)
+                catch (OperationCanceledException)
                 {
                     continue;
                 }
